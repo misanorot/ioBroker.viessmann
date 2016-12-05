@@ -10,7 +10,7 @@ in Objekten zu speichern.
 Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen in der Vito.xml konfiguriert sein!) 
 ![Logo](admin/img/Viessmann_command.png)
 
-
+*die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
 
@@ -18,6 +18,7 @@ Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen i
 * (misanorot) initial release
 
 ### License
+
 The MIT License (MIT)
 
 Copyright (c) 2016 misanorot<audi16v@gmx.de>
