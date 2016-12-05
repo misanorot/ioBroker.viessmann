@@ -8,7 +8,7 @@ in Objekten zu speichern.
 ### Abfragewerte
 
 Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen in der Vito.xml konfiguriert sein!) 
-![Befehle](admin/img/viessmann_commands.png)
+![Logo](admin/img/viessmann_commands.png)
 
 
 ### Changelog
