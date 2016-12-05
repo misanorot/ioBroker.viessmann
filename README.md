@@ -13,6 +13,8 @@ Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen i
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.0.2
+* (misanorot) create State JSON_table for show in VIS
 
 #### 0.0.1
 * (misanorot) initial release

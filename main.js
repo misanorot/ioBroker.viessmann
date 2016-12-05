@@ -85,19 +85,25 @@ function setAllObjects(callback) {
         if (_states) {
             for (var j = 0; j < _states.length; j++) {
                 var befehl = _states[j].common.name;
-                if (!befehl) {
-                    adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
-                    continue;
-                }
-                id = befehl.replace(/[.\s]+/g, '_');
-                var pos = configToAdd.indexOf(befehl);
-                if (pos != -1) {
-                    configToAdd.splice(pos, 1);           
-                } 
+				var ignor = /jsontable/;
+				if(ignor.test(befehl)) {
+					
+				}
 				else {
-                    configToDelete.push(befehl);
-                }
-            }
+					if (befehl < 1) {
+						adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
+						continue;
+					}
+					id = befehl.replace(/[.\s]+/g, '_');
+					var pos = configToAdd.indexOf(befehl);
+					if (pos != -1) {
+						configToAdd.splice(pos, 1);           
+					} 
+					else {
+						configToDelete.push(befehl);
+					}
+				}
+			}
         }
 
         if (configToAdd.length) {
@@ -127,13 +133,21 @@ function pollingget(ip, port, interval) {
 	adapter.getStatesOf(function (err, _states) {
 		
 		var cmds = "";
+		var json = [];
+		var countdown = (interval*60000)-15000;
 		
 		if(err) {
 			adapter.log.error(err);
 		}
 		else {
 			for(var find in _states) {
-				cmds = cmds + _states[find].common.name+ "\r\n";
+				var ignor = /jsontable/;
+				if(ignor.test(_states[find].common.name)) {
+					
+				}
+				else {
+					cmds = cmds + _states[find].common.name+ "\r\n";
+				}
 			}
 		
 		cmds = cmds + "quit\r\n";
@@ -142,10 +156,11 @@ function pollingget(ip, port, interval) {
 		var antwort = [];
 		var client = new net.Socket();
     
-			client.setTimeout(50000);
+			client.setTimeout(countdown);
         
 			client.connect(port, ip, function() {
 				adapter.log.debug('Mit Viessmann Anlage verbunden');
+				adapter.log.debug('Sendebefehle: ' + cmds);
 				client.write(cmds);
 			});
 
@@ -175,13 +190,22 @@ function pollingget(ip, port, interval) {
 			client.on('close', function() {
 				adapter.log.debug('Verbindung mit Viessmann Anlage beendet');
 				client.destroy(); // kill client after server's response
-				adapter.log.debug('Anzahl gesendeter Befehle: ' + _states.length + ' / Anzahl empfangender Daten: ' + antwort.length);
+				adapter.log.debug('Anzahl gesendeter Befehle: ' + (_states.length - 1) + ' / Anzahl empfangender Daten: ' + antwort.length);
 				
-				if(_states.length == antwort.length) {
+				if((_states.length - 1) == antwort.length) {
 					for(var i in antwort) {
 						var str = String(antwort[i]);
 						adapter.setState(_states[i].common.name, str);
+						if(isNaN(str)) {
+							json.push({"Datenpunkt": _states[i].common.desc, "Wert": str});
+						}
+						else {
+							var wandel = parseFloat(str);
+							json.push({"Datenpunkt": _states[i].common.desc, "Wert": wandel});
+						}						
 					}
+				adapter.setState("jsontable", JSON.stringify(json));
+				adapter.log.debug("JSON.Table: " + JSON.stringify(json));
 				}
 			});
 
@@ -206,6 +230,15 @@ function main() {
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 
+	adapter.setObjectNotExists("jsontable", {
+        type: 'state',
+        common: {
+            name: "jsontable",
+            desc: "Zur Anzeige in VIS"           
+        },
+        native: {}
+    });	
+	
 	setAllObjects(function() {
 		var _ip = adapter.config.ip;
 		var _port = adapter.config.port;
@@ -219,7 +252,7 @@ function main() {
 		}
 		else {
 			setInterval(function() {
-				pollingget(_ip, _port);
+				pollingget(_ip, _port, _interval);
 			}, 60000 * _interval);
 		}
 	});

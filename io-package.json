@@ -1,12 +1,12 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.0.1",
+        "version": "0.0.2",
 	    "news": {
-			"0.0.1": {
-			  "en": "initial adapter",
-			  "de": "Initiale Version",
-			  "ru": "Первоначальный адаптер"
+			"0.0.2": {
+			  "en": "create State JSON_table for show in VIS",
+			  "de": "erzeugen des States JSON_table zur Anzeige in VIS",
+			  "ru": "???"
 			}
 		},
         "title":                    "viessmann adapter",
