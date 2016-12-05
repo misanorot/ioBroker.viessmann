@@ -1,0 +1,184 @@
+<html>
+
+<link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../lib/css/jqGrid/ui.jqgrid-4.5.4.css"/>
+<link rel="stylesheet" type="text/css" href="../../lib/css/jquery.multiselect-1.13.css"/>
+<script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+<script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+<script type="text/javascript" src="../../lib/js/jqGrid/jquery.jqGrid-4.5.4.min.js"></script>
+<script type="text/javascript" src="../../lib/js/jqGrid/grid.locale-all.js"></script>
+
+<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+<script type="text/javascript" src="../../js/translate.js"></script>
+<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+<style>
+    
+	.head_tab {
+        /*overflow: hidden;*/
+        position: relative;
+        height: calc(100% - 60px);
+        width: calc(100% - 30px);
+    }
+	.back_image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        opacity: 0.3;
+    }
+	.level {
+		z-index: 3;
+	}
+</style>
+<!-- you have to define 2 functions in the global scope: -->
+<script type="text/javascript">
+    var getvalues = [];
+	var setvalues = [];
+	
+    systemDictionary = {
+        "General": 				{"en": "General settings", "de": "Allgemeine Einstellungen", "ru": "????"},
+        "Gets":         		{"en": "get values",         "de": "Abfragewerte",         "ru": "????"},
+        "Sets":        			{"en": "set values",  "de": "Setzwerte",  "ru": "????"},
+		"adapter settings":     {"en": "Viessmann Adapter settings",  "de": "Viessmann Adapter Einstellungen",  "ru": "????"},
+		"connection":        	{"en": "connection settings",  "de": "Verbindungseinstellungen",  "ru": "????"},
+		"ip":        			{"en": "ip:",  "de": "IP:",  "ru": "????"},
+		"port":        			{"en": "port",  "de": "Port:",  "ru": "????"},
+		"connection settings":  {"en": "query time:",  "de": "Abfragezeit:",  "ru": "????"},
+        "Interval[min]:":         {"en": "query interval[min]",     "de": "Abfrageintervall[min]",         "ru": "Интервал опроса[мс]:"},
+		"ip desc":        		{"en": "ip address on it vcontrold runs",  "de": "IP Adresse auf der VCONTROLD läuft:",  "ru": "????"},
+		"port desc":        	{"en": "port to use vcontrold extern (standard: 3002)",  "de": "Port Adresse auf der man VCONTROLD erreicht (Standart: 3002):",  "ru": "????"},
+		"main desc":        	{"en": "",  "de": "Der Adapter setzt eine funktionierende VCONTROLD Installation vorraus!",  "ru": "????"},
+		"get desc":        		{"en": "get commands they use in vito.xml config",  "de": "get Kommandos die man in seiner vito.xml konfiguriert hat",  "ru": "????"},
+		"set desc":        		{"en": "set commands they use in vito.xml config",  "de": "set Kommandos die man in seiner vito.xml konfiguriert hat",  "ru": "????"},
+		"interval desc":        {"en": "ip:",  "de": "Gibt an in welchem Interval die Werte von der Steuerung abgefagt werden!",  "ru": "????"}
+    };
+	
+	$(document).ready(function () {
+        
+        $("#adapter-container").tabs({
+            activate: function (event, ui) {
+                switch(ui.newPanel.selector) {
+                    case '#tab_g':
+                        activePage = 0;
+                        break;
+                    case '#tab_get':
+                        activePage = 1;
+                        break;
+                    case '#tab_set':
+                        activePage = 2;
+                        break;
+                    default:
+                        activePage = 0;
+                        break;
+                }
+                if (typeof localStorage != 'undefined') {
+                    localStorage['s7page'] = activePage.toString();
+                }
+            }
+        });
+    });
+	
+    function setValue(id, value, onChange) {
+        // example: select elements with id=key and class=value and insert value
+        if ($('#' + id + '.value').attr('type') == 'checkbox') {
+            $('#' + id + '.value').prop('checked', value).change(function() {
+                onChange();
+            });
+        } else {
+            $('#' + id + '.value').val(value).change(function() {
+                onChange();
+            }).keyup(function() {
+                // Chack that only numbers entered
+                if ($(this).hasClass('number')) {
+                    var val = $(this).val();
+                    if (val) {
+                        var newVal = '';
+                        for (var i = 0; i < val.length; i++) {
+                            if (val[i] >= '0' && val[i] <= '9') {
+                                newVal += val[i];
+                            }
+                        }
+                        if (val != newVal) $(this).val(newVal);
+                    }
+                }
+                onChange();
+            });
+        }
+    }
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        if (!settings) return;
+        getvalues = settings.getvalues || [];
+		setvalues = settings.setvalues || [];
+        for (var key in settings) {
+            setValue(key, settings[key], onChange);
+        }
+        editTable('getvalues', ['befehl', 'beschreibung', 'einheit'], getvalues, 350);
+		editTable('setvalues', ['befehl', 'beschreibung', 'einheit'], setvalues, 350);
+        onChange(false);
+    }
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+    function save(callback) {
+        // example: select elements with class=value and build settings object
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+            if ($this.attr('type') == 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
+            }
+        });
+        // Get edited table
+        obj.getvalues = getTableResult('getvalues', ['befehl', 'beschreibung', 'einheit']);
+		obj.setvalues = getTableResult('setvalues', ['befehl', 'beschreibung', 'einheit']);
+        callback(obj);
+    }
+</script>
+
+<!-- you have to put your config page in a div with id adapter-container -->
+<div id="adapter-container">
+	<ul>
+        <li><a href="#tab_g" class="translate">General</a></li>
+        <li><a href="#tab_get" class="translate">Gets</a></li>
+        <li><a href="#tab_set" class="translate">Sets</a></li>
+    </ul>
+    <div id="tab_g" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
+	<img src="img/Viessmann_back.png" class="back_image">
+    <div class="level" style="text-align: center; border: 2px solid grey">
+	<p style="color:red; font-weight: bolder;" class="translate">main desc</p>
+	<table align="center"><tr>
+        <td style="padding-top: 20px;padding-left: auto"><h3 class="translate">adapter settings</h3></td>
+    </tr></table>
+	<h4 class="translate">connection</h4>
+	<table  align="center">
+        <tr><td class="translate">ip</td><td><input class="value" id="ip" type="input" size="15"/></td></tr>
+    </table >
+    <p class="translate">ip desc</p>
+	<table align="center">
+        <tr><td class="translate">port</td><td><input class="value number" id="port" type="input" size="4"/></td></tr>
+    </table>
+    <p class="translate">port desc</p>
+	<h4 class="translate">connection settings</h4>
+    <table align="center">
+        <tr><td class="translate">Interval[min]:</td><td><input class="value number" id="interval" type="input" size="3"/></td></tr>
+    </table>
+    <p class="translate">interval desc</p>
+    </div>
+	</div>
+    <div id="tab_get" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">        
+		<table id="getvalues"></table><div id="pager-getvalues"></div>
+		<p class="translate">get desc</p>
+    </div>
+    <div id="tab_set" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
+   		<table id="setvalues"></table><div id="pager-setvalues"></div>
+		<p class="translate">set desc</p>
+		<h1>!!!UNDER CONSTRUCTION!!!</h1>
+    </div>
+</div>
+</html>

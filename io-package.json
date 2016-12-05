@@ -1,0 +1,41 @@
+{
+    "common": {
+        "name":                     "viessmann",
+        "version": "0.0.1",
+	    "news": {
+			"0.0.1": {
+			  "en": "initial adapter",
+			  "de": "Initiale Version",
+			  "ru": "Первоначальный адаптер"
+			}
+		},
+        "title":                    "viessmann adapter",
+        "desc":                     {
+				 "en": "Communication with Viessmann controllers over Vcontrold",
+				 "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
+				 "ru": "???"
+		},
+        "platform":                 "Javascript/Node.js",
+        "mode":                     "daemon",
+        "schedule":                 "3 * * * *",
+        "icon":                     "viessmann.png",
+        "enabled":                  false,
+		"extIcon":                  "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
+		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
+        "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
+		"loglevel":                 "info",
+        "type":                     "common adapters"
+        
+    },
+    "native": {
+		"getvalues":	[],
+		"setvalues": 	[],
+		"ip":			"xxx.xxx.x.x",
+        "port": 		3002,
+		"interval": 	3
+		
+    },
+    "objects": [
+
+    ]
+}
