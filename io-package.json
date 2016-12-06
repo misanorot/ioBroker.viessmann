@@ -6,25 +6,23 @@
 			"0.0.2": {
 			  "en": "create State JSON_table for show in VIS",
 			  "de": "erzeugen des States JSON_table zur Anzeige in VIS",
-			  "ru": "???"
+			  "ru": "Создаётся JSON таблица для vis"
 			}
 		},
         "title":                    "viessmann adapter",
         "desc":                     {
 				 "en": "Communication with Viessmann controllers over Vcontrold",
 				 "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
-				 "ru": "???"
+				 "ru": "Коммуникация с блоком управления Viessmann через Vcontrold"
 		},
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
-        "schedule":                 "3 * * * *",
         "icon":                     "viessmann.png",
-        "enabled":                  false,
 		"extIcon":                  "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
 		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
         "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
-        "type":                     "common adapters"
+        "type":                     "hardware"
         
     },
     "native": {
