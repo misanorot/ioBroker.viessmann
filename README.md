@@ -1,6 +1,12 @@
 ![Logo](admin/viessmann.png)
 # ioBroker.viessmann
 =================
+
+[![NPM version](http://img.shields.io/npm/v/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
+
+[![NPM](https://nodei.co/npm/iobroker.viessmann.png?downloads=true)](https://nodei.co/npm/iobroker.viessmann/)
+
 Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung 
 die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, 
 in Objekten zu speichern.  
@@ -23,7 +29,7 @@ Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen i
 
 The MIT License (MIT)
 
-Copyright (c) 2016 misanorot<audi16v@gmx.de>
+Copyright (c) 2016 misanorot <audi16v@gmx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
