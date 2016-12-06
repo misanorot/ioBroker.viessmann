@@ -56,8 +56,8 @@ adapter.on('ready', function () {
 });
 
 
-function addState(name, beschreibung, einheit, callback) {
-    adapter.setObjectNotExists(name, {
+function addState(pfad, name, beschreibung, einheit, callback) {
+    adapter.setObjectNotExists(pfad + name, {
         type: 'state',
         common: {
             name: name,
@@ -76,6 +76,8 @@ function setAllObjects(callback) {
         var configToAdd    = [];
         var k;
         var id;
+		var pfad = "get.";
+		
         if (adapter.config.getvalues) {
             for (k = 0; k < adapter.config.getvalues.length; k++) {
                 configToAdd.push(adapter.config.getvalues[k].befehl);
@@ -84,13 +86,16 @@ function setAllObjects(callback) {
 
         if (_states) {
             for (var j = 0; j < _states.length; j++) {
+				
                 var befehl = _states[j].common.name;
 				var ignor = /jsontable/;
+				var clean = _states[j]._id;
+				
 				if(ignor.test(befehl)) {
-					
+					continue;
 				}
 				else {
-					if (befehl < 1) {
+					if (befehl.length < 1) {
 						adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
 						continue;
 					}
@@ -100,7 +105,7 @@ function setAllObjects(callback) {
 						configToAdd.splice(pos, 1);           
 					} 
 					else {
-						configToDelete.push(befehl);
+						configToDelete.push(clean);
 					}
 				}
 			}
@@ -111,16 +116,17 @@ function setAllObjects(callback) {
             for (var r = 0; r < adapter.config.getvalues.length; r++) {
                 if (configToAdd.indexOf(adapter.config.getvalues[r].befehl) != -1) {
                     count++;
-                    addState(adapter.config.getvalues[r].befehl, adapter.config.getvalues[r].beschreibung, adapter.config.getvalues[r].einheit, function () {
+                    addState(pfad, adapter.config.getvalues[r].befehl, adapter.config.getvalues[r].beschreibung, adapter.config.getvalues[r].einheit, function () {
                         if (!--count && callback) callback();
                     });
                 }
             }
         }
         if (configToDelete.length) {
-            for (var e = 0; e < configToDelete.length; e++) {
-                id = configToDelete[e].replace(/[.\s]+/g, '_');
-                adapter.deleteState(id);
+            for (var e = 0; e < configToDelete.length; e++) {				
+                //id = configToDelete[e].replace(/[.\s]+/g, '_');
+				adapter.log.debug("Zu löschende Objekte: " + configToDelete[e]);
+                adapter.delObject(configToDelete[e]);
             }
         }
         if (!count && callback) callback();
@@ -140,14 +146,8 @@ function pollingget(ip, port, interval) {
 			adapter.log.error(err);
 		}
 		else {
-			for(var find in _states) {
-				var ignor = /jsontable/;
-				if(ignor.test(_states[find].common.name)) {
-					
-				}
-				else {
-					cmds = cmds + _states[find].common.name+ "\r\n";
-				}
+			for(var find in adapter.config.getvalues) {
+				cmds = cmds + adapter.config.getvalues[find].befehl + "\r\n";
 			}
 		
 		cmds = cmds + "quit\r\n";
@@ -190,12 +190,12 @@ function pollingget(ip, port, interval) {
 			client.on('close', function() {
 				adapter.log.debug('Verbindung mit Viessmann Anlage beendet');
 				client.destroy(); // kill client after server's response
-				adapter.log.debug('Anzahl gesendeter Befehle: ' + (_states.length - 1) + ' / Anzahl empfangender Daten: ' + antwort.length);
+				adapter.log.debug('Anzahl gesendeter Befehle: ' + adapter.config.getvalues.length + ' / Anzahl empfangender Daten: ' + antwort.length);
 				
-				if((_states.length - 1) == antwort.length) {
+				if((adapter.config.getvalues.length) == antwort.length) {
 					for(var i in antwort) {
 						var str = String(antwort[i]);
-						adapter.setState(_states[i].common.name, str);
+						adapter.setState("get." + adapter.config.getvalues[i].befehl, str);
 						if(isNaN(str)) {
 							json.push({"Datenpunkt": _states[i].common.desc, "Wert": str});
 						}
@@ -230,9 +230,11 @@ function main() {
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 
-	adapter.setObjectNotExists("jsontable", {
+	adapter.setObject("jsontable", {
         type: 'state',
         common: {
+			type: "state",
+			role: "indicator",
             name: "jsontable",
             desc: "Zur Anzeige in VIS"           
         },
