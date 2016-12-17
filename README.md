@@ -9,7 +9,9 @@
 
 Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung 
 die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, 
-in Objekten zu speichern.  
+in Objekten zu speichern. 
+
+Um seine VITO.XML in einzulesen, muss man diese in eine JSON Datei umwandeln z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I)!  
 
 
 
