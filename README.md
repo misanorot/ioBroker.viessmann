@@ -11,13 +11,13 @@ Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung
 die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, 
 in Objekten zu speichern.  
 
-### Abfragewerte
 
-Hier kann man seine gewünschten get Befehle eintragen. (Diese müssen müssen in der Vito.xml konfiguriert sein!) 
-![Logo](admin/img/Viessmann_command.png)
 
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
+
+#### 0.1.0
+* (misanorot) revised and updated the complete adapter
 
 #### 0.0.2
 * (misanorot) create State JSON_table for show in VIS

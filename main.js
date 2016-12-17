@@ -11,6 +11,11 @@
 // you have to require the utils module and call adapter function
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var net = require('net');
+//Hilfsobjekt zum abfragen der Werte
+var toPoll = {};
+//Zähler für Hilfsobjekt
+var step = -1;
+var client = new net.Socket();
 
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
@@ -20,6 +25,7 @@ var adapter = utils.adapter('viessmann');
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
     try {
+		client.destroy(); // kill client after server's response
         adapter.log.info('cleaned everything up...');
         callback();
     } catch (e) {
@@ -55,15 +61,19 @@ adapter.on('ready', function () {
     main();
 });
 
+function Poll() {
+        this.name = '';
+        this.description = '';
+        this.polling = '';
+		this.lastpoll = '';
+    }
 
-function addState(pfad, name, beschreibung, einheit, callback) {
+function addState(pfad, name, beschreibung, callback) {
     adapter.setObjectNotExists(pfad + name, {
         type: 'state',
         common: {
             name: name,
-            desc: beschreibung,
-			unit: einheit
-           
+            desc: beschreibung,           
         },
         native: {}
     }, callback);	
@@ -74,49 +84,53 @@ function setAllObjects(callback) {
         
 		var configToDelete = [];
         var configToAdd    = [];
-        var k;
         var id;
-		var pfad = "get.";
+		var pfadget = "get.";
+		var pfadset = "set.";
 		
-        if (adapter.config.getvalues) {
-            for (k = 0; k < adapter.config.getvalues.length; k++) {
-                configToAdd.push(adapter.config.getvalues[k].befehl);
+        if (adapter.config.datapoints) {
+            for (var k in  adapter.config.datapoints.gets) {
+                configToAdd.push(adapter.config.datapoints.gets[k].name);
             }
+			for (var l in adapter.config.datapoints.sets) {
+				configToAdd.push(adapter.config.datapoints.sets[l].name);
+			}
         }
 
         if (_states) {
             for (var j = 0; j < _states.length; j++) {
-				
-                var befehl = _states[j].common.name;
-				var ignor = /jsontable/;
+				var name = _states[j].common.name;
 				var clean = _states[j]._id;
-				
-				if(ignor.test(befehl)) {
-					continue;
-				}
-				else {
-					if (befehl.length < 1) {
+			
+					if (name.length < 1) {
 						adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
 						continue;
 					}
-					id = befehl.replace(/[.\s]+/g, '_');
-					var pos = configToAdd.indexOf(befehl);
+					id = name.replace(/[.\s]+/g, '_');
+					var pos = configToAdd.indexOf(name);
 					if (pos != -1) {
 						configToAdd.splice(pos, 1);           
 					} 
 					else {
 						configToDelete.push(clean);
-					}
-				}
+					}				
 			}
         }
 
         if (configToAdd.length) {
             var count = 0;
-            for (var r = 0; r < adapter.config.getvalues.length; r++) {
-                if (configToAdd.indexOf(adapter.config.getvalues[r].befehl) != -1) {
+            for (var r in adapter.config.datapoints.gets) {
+                if (configToAdd.indexOf(adapter.config.datapoints.gets[r].name) != -1) {
                     count++;
-                    addState(pfad, adapter.config.getvalues[r].befehl, adapter.config.getvalues[r].beschreibung, adapter.config.getvalues[r].einheit, function () {
+                    addState(pfadget, adapter.config.datapoints.gets[r].name, adapter.config.datapoints.gets[r].description, function () {
+                        if (!--count && callback) callback();
+                    });
+                }
+            }
+			for (var o in adapter.config.datapoints.sets) {
+                if (configToAdd.indexOf(adapter.config.datapoints.sets[o].name) != -1) {
+                    count++;
+                    addState(pfadset, adapter.config.datapoints.sets[o].name, adapter.config.datapoints.sets[o].description, function () {
                         if (!--count && callback) callback();
                     });
                 }
@@ -124,141 +138,115 @@ function setAllObjects(callback) {
         }
         if (configToDelete.length) {
             for (var e = 0; e < configToDelete.length; e++) {				
-                //id = configToDelete[e].replace(/[.\s]+/g, '_');
-				adapter.log.debug("Zu löschende Objekte: " + configToDelete[e]);
+                adapter.log.debug("Zu löschende Objekte: " + configToDelete[e]);
                 adapter.delObject(configToDelete[e]);
             }
         }
         if (!count && callback) callback();
     });
 }
-
-
-function pollingget(ip, port, interval) {
 	
-	adapter.getStatesOf(function (err, _states) {
-		
-		var cmds = "";
-		var json = [];
-		var countdown = (interval*60000)-15000;
-		
-		if(err) {
-			adapter.log.error(err);
-		}
-		else {
-			for(var find in adapter.config.getvalues) {
-				cmds = cmds + adapter.config.getvalues[find].befehl + "\r\n";
-			}
-		
-		cmds = cmds + "quit\r\n";
+function stepPolling() {
     
-		var z = 0;
-		var antwort = [];
-		var client = new net.Socket();
+    step = -1;   
+    var actualMinWaitTime = 1000000;
+    var time = Date.now();
+
+    for(var i in toPoll) {
+        if(typeof(toPoll[i].lastPoll) == 'undefined') {
+            toPoll[i].lastPoll = 0;
+        }
+        
+        var nextRun = toPoll[i].lastPoll + (toPoll[i].polling * 1000)
+        var nextDiff = nextRun - time;
+
+        if(time < nextRun) {
+            actualMinWaitTime = nextDiff;
+            continue;
+        }
+        
+        if(nextDiff < actualMinWaitTime) {
+            actualMinWaitTime = nextDiff;
+            step = i;
+        }
+    }
     
-			client.setTimeout(countdown);
-        
-			client.connect(port, ip, function() {
-				adapter.log.debug('Mit Viessmann Anlage verbunden');
-				adapter.log.debug('Sendebefehle: ' + cmds);
-				client.write(cmds);
-			});
+    if(step === -1) {
+		adapter.log.debug("Wait for next Run");
+        setTimeout(function () {
+			
+            stepPolling();
+        }, actualMinWaitTime);
 
-			client.on('data', function(data) {
-				var str = String(data);
-				var ignorvctrld = /^vctrld/;
-				var stoperr = /^vctrld>ERR/;
-				var commanderr = /^vctrld>ERR: command unknown/;
-	    
-				adapter.log.debug(data);
-		
-				if(stoperr.test(str)) {
-					adapter.log.warn('Fehler bei der Übertragung'); 
-				}
-				if(commanderr.test(str)) {
-					adapter.log.warn('Sendebefehle überprüfen'); 
-				}
-				if(ignorvctrld.test(str)) {
-					//Ignoriert die erste Antwort
-				}
-				else {
-					antwort[z] = data;
-					z++;
-				}
-			});
-
-			client.on('close', function() {
-				adapter.log.debug('Verbindung mit Viessmann Anlage beendet');
-				client.destroy(); // kill client after server's response
-				adapter.log.debug('Anzahl gesendeter Befehle: ' + adapter.config.getvalues.length + ' / Anzahl empfangender Daten: ' + antwort.length);
-				
-				if((adapter.config.getvalues.length) == antwort.length) {
-					for(var i in antwort) {
-						var str = String(antwort[i]);
-						adapter.setState("get." + adapter.config.getvalues[i].befehl, str);
-						if(isNaN(str)) {
-							json.push({"Datenpunkt": _states[i].common.desc, "Wert": str});
-						}
-						else {
-							var wandel = parseFloat(str);
-							json.push({"Datenpunkt": _states[i].common.desc, "Wert": wandel});
-						}						
-					}
-				adapter.setState("jsontable", JSON.stringify(json));
-				adapter.log.debug("JSON.Table: " + JSON.stringify(json));
-				}
-			});
-
-			client.on('error', function() {
-				adapter.log.warn('STÖRUNG Verbindung Heizung');
-				client.destroy(); // kill client after server's response
-			});
-        
-			client.on('timeout', function() {
-				adapter.log.warn('Zeitüberschreitung Verbindung Heizung');
-				client.destroy(); // kill client after server's response
-			});
-		}
-	});
+    } else {
+	adapter.log.debug("Next poll: "+toPoll[step].name);
+	toPoll[step].lastPoll = Date.now();
+        client.write(toPoll[step].name + '\n');
+    }
 }
-	
-	
 
+function commands() {
+	
+		for (var q in adapter.config.datapoints.gets) {	
+			if(adapter.config.datapoints.gets[q].polling > -1) {
+				adapter.log.debug("commandos for polling: " + adapter.config.datapoints.gets[q].name);
+				var dp = new Poll();
+					dp.name = adapter.config.datapoints.gets[q].name;
+					dp.description = adapter.config.datapoints.gets[q].description;
+					dp.polling = adapter.config.datapoints.gets[q].polling;
+					dp.lastpoll = 0;
+					toPoll[q] = dp;
+				continue;
+			}
+		}
+}
 
 function main() {
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
-
-	adapter.setObject("jsontable", {
-        type: 'state',
-        common: {
-			type: "state",
-			role: "indicator",
-            name: "jsontable",
-            desc: "Zur Anzeige in VIS"           
-        },
-        native: {}
-    });	
-	
-	setAllObjects(function() {
-		var _ip = adapter.config.ip;
-		var _port = adapter.config.port;
-		var _interval = parseInt(adapter.config.interval, 10);
+	toPoll = {};
+	var ip = adapter.config.ip;
+	var port = adapter.config.port;
 		
-		if(_interval<1) {
-			_interval = 1;
-		}
-		if(isNaN(_interval)) {
-			adapter.log.error('Bitte Abfragezeit überfrüfen');
-		}
-		else {
-			setInterval(function() {
-				pollingget(_ip, _port, _interval);
-			}, 60000 * _interval);
-		}
+    commands();
+	setAllObjects(function() {
 	});
- 
+	
+	client.setTimeout(600000);
+        
+	client.connect(port, ip, function() {
+		adapter.log.debug('Connect with Viessmann sytem!');
+		client.write('dummy\n');		
+		stepPolling();
+	});
+	client.on('close', function() {
+		adapter.log.debug('Disable connection with Viessmann system!');
+		client.destroy(); // kill client after server's response
+	});
+	client.on('data', function(data) {
+		data = String(data);
+		if(data == 'vctrld>') return;
+		 if(step == -1 || (""+data).substring(0,3) == 'ERR') return;
+		 
+		 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
+		 if (err) adapter.log.error(err);
+		 stepPolling();
+		 });
+		 
+    
+	});
+	client.on('error', function() {
+		adapter.log.warn('Malfunction connection');
+		client.destroy(); // kill client after server's response
+	});
+    client.on('timeout', function() {
+		adapter.log.warn('Timeout error connection!');
+		client.destroy(); // kill client after server's response
+	});
+	
+	
+	
     // in this viessmann all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('*');
 

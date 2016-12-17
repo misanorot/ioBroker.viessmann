@@ -28,16 +28,82 @@
         height: 100%;
         width: 100%;
         z-index: 0;
-        opacity: 0.3;
+        opacity: 0.2;
     }
 	.level {
 		z-index: 3;
 	}
+	.button {
+    background-color: white;
+    color: black;
+	border-radius: 12px;
+    border: 2px solid #4CAF50; /* Green */
+}
+	.button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+	
+Try it Yourself »
+
 </style>
+
+<!-- you have to put your config page in a div with id adapter-container -->
+<div id="adapter-container">
+	<ul>
+        <li><a href="#tab_g"   class="translate">General</a></li>
+        <li><a href="#tab_get" class="translate">Gets</a></li>
+        <li><a href="#tab_set" class="translate">Sets</a></li>
+    </ul>
+    <div id="tab_g" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
+	<img src="img/Viessmann_back.png" class="back_image">
+    <div class="level" style="text-align: center; border: 2px solid grey">
+	<p style="color:red; font-weight: bolder;" class="translate">main desc</p>
+	<table align="center"><tr>
+        <td style="padding-top: 20px;padding-left: auto"><h3 class="translate">adapter settings</h3></td>
+    </tr></table>
+	<div id="info"></div>
+	<button id="button_import" class="button" style="margin-top: 5px; width: 120px; height: 30px; right: 20">Import JSON</button>
+    <p>Import Vito.xml als JSON</p>
+	<h4 class="translate">connection</h4>
+	<table  align="center">
+        <tr><td class="translate">ip</td><td><input class="value" id="ip" type="input" size="15"/></td></tr>
+    </table >
+    <p class="translate">ip desc</p>
+	<table align="center">
+        <tr><td class="translate">port</td><td><input class="value number" id="port" type="input" size="4"/></td></tr>
+    </table>
+    <p class="translate">port desc</p>
+    </div>
+	</div>
+    <div id="tab_get" style="display: flex;  align-items: left; flex-direction: column;overflow: auto" class="head_tab">        
+		<h1 style="margin-top: 25px;">Get Abfragewerte aus der <span style="color: green">"VITO.XML"</span>:</h1>
+		<div><table id="commands_get" style="font-size: 14px"></table></div>
+		
+    </div>
+    <div id="tab_set" style="display: flex;  align-items: left; flex-direction: column;overflow: auto" class="head_tab">
+		<h2 style="color: red">To set "SET-COMMANDS"--> UNDER CONSTRUCTION!!!</h2>
+		<h1 style="margin-top: 25px;">Set Abfragewerte aus der <span style="color: green">"VITO.XML"</span>:</h1>
+		<div><table id="commands_set" style="font-size: 14px"></table></div>
+    </div>
+	<div id="import-dlg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;display: none; z-index: 100">
+        <textarea id="import_textarea" style="width: 100%; height: calc(100% - 40px)"></textarea>
+        <button id="import_button_ok"    style="position: absolute; bottom: 10px; right: 120px;" class="translateB">Import</button>
+        <button id="import_button_cancel" style="position: absolute; bottom: 10px; right: 10px;" class="translateB">Close</button>
+    </div>
+</div>
+
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
-    var getvalues = [];
-	var setvalues = [];
+
+ var datapoints = {};
+
+    function Dpoint() {
+        this.name = '';
+        this.description = '';
+        this.polling = '';
+    }
+    
 	
     systemDictionary = {
         "General": 				{"en": "General settings", "de": "Allgemeine Einstellungen", "ru": "Основные настройки"},
@@ -47,19 +113,18 @@
 		"connection":        	{"en": "Connection settings",  "de": "Verbindungseinstellungen",  "ru": "Настройки соединения"},
 		"ip":        			{"en": "IP:",  "de": "IP:",  "ru": "IP:"},
 		"port":        			{"en": "Port",  "de": "Port:",  "ru": "Порт:"},
-		"connection settings":  {"en": "Query time:",  "de": "Abfragezeit:",  "ru": "Время опроса"},
-        "Interval[min]:":         {"en": "Query interval[min]",     "de": "Abfrageintervall[min]",         "ru": "Интервал опроса[мин]:"},
 		"ip desc":        		{"en": "IP address on it vcontrold runs",  "de": "IP Adresse auf der VCONTROLD läuft:",  "ru": "IP адрес, где запущен VCONTROLD"},
 		"port desc":        	{"en": "Port to use vcontrold extern (standard: 3002)",  "de": "Port Adresse auf der man VCONTROLD erreicht (Standart: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
-		"main desc":        	{"en": "The adapter requies the running and configured VCONTROLD",  "de": "Der Adapter setzt eine funktionierende VCONTROLD Installation vorraus!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD"},
-		"get desc":        		{"en": "get commands they use in vito.xml config",  "de": "get Kommandos die man in seiner vito.xml konfiguriert hat",  "ru": "Опрашиваемые значения, как в файле vito.xml"},
-		"set desc":        		{"en": "set commands they use in vito.xml config",  "de": "set Kommandos die man in seiner vito.xml konfiguriert hat",  "ru": "Записываемые значения, как в файле vito.xml"},
-		"interval desc":        {"en": "Defines the poll interval of GET values.",  "de": "Gibt an in welchem Interval die Werte von der Steuerung abgefagt werden!",  "ru": "Задаёт с каким интервалом будут опрашиваться значения"}
-    };
+		"main desc":        	{"en": "The adapter requies the running and configured VCONTROLD",  "de": "Der Adapter setzt eine funktionierende VCONTROLD Installation vorraus!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD"}
+	};
 
 	
     function setValue(id, value, onChange) {
         // example: select elements with id=key and class=value and insert value
+		$('.getSelect').change(function (e) {  
+        datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
+			onChange();
+	});
         if ($('#' + id + '.value').attr('type') == 'checkbox') {
             $('#' + id + '.value').prop('checked', value).change(function() {
                 onChange();
@@ -88,13 +153,12 @@
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
         if (!settings) return;
-        getvalues = settings.getvalues || [];
-		setvalues = settings.setvalues || [];
+        datapoints = settings.datapoints || {};
+		write();
         for (var key in settings) {
             setValue(key, settings[key], onChange);
         }
-        editTable('getvalues', ['befehl', 'beschreibung', 'einheit'], getvalues, 350);
-		editTable('setvalues', ['befehl', 'beschreibung', 'einheit'], setvalues, 350);
+        
         onChange(false);
 		
 		$("#adapter-container").tabs({
@@ -135,51 +199,133 @@
                 obj[$this.attr('id')] = $this.val();
             }
         });
-        // Get edited table
-        obj.getvalues = getTableResult('getvalues', ['befehl', 'beschreibung', 'einheit']);
-		obj.setvalues = getTableResult('setvalues', ['befehl', 'beschreibung', 'einheit']);
+        obj.datapoints = datapoints;
         callback(obj);
     }
+	
+	$('#button_import').click(function () {
+                    $('#import-dlg').show();
+                    $('#import_textarea').val('').focus();
+                    //$('#import-dlg').data('table', $(this).data('table'));
+                });
+
+        $('#import_button_ok').button({
+            icons: {primary: 'ui-icon-check'},
+            text: _('Import')
+        }).click(function () {
+            getImport();
+            $('#import-dlg').hide();
+            
+        });
+        $('#import_button_cancel').button({
+            icons: {primary: 'ui-icon-close'},
+            text: _('Close')
+        }).click(function () {
+            $('#import-dlg').hide();
+        });
+		
+
+		
+	//*******************************************************
+	function getImport() {
+	datapoints['gets'] = {};
+	datapoints['sets'] = {};
+	
+	var json = $('#import_textarea').val();
+    try {
+        var commands = JSON.parse(json);
+    }
+    catch (e) {
+        $('#info').html("Einlesen FEHLGESCHLAGEN!!!" + e).css({ "background-color": "red", "color": "black" });
+    }
+    if (typeof commands === "object") {
+	
+		for (var z in commands.vito.commands.command) {
+
+        var name = '-name';
+        var desc = 'description';
+        var poll = -1;
+        var c = (commands.vito.commands.command[z][name]);
+        var d = (commands.vito.commands.command[z][desc]);
+		if (c.substring(0, 3) === 'get') {
+		var dp = new Dpoint();
+            dp.name = c;
+            dp.description = d;
+            dp.polling = poll;
+            datapoints.gets[c] = dp;
+			continue;
+		}
+        if(c.substring(0, 3) === 'set') {
+        var dps = new Dpoint();
+            dps.name = c;
+            dps.description = d;
+			dps.polling = "nicht möglich";
+            datapoints.sets[c] = dps;
+			continue;
+            }
+   }
+   $('#info').html("Einlesen OKAY!!!").css({ "background-color": "green", "color": "black" });
+	write();
+    }
+    else {
+        $('#info').html("Einlesen FEHLGESCHLAGEN!!!").css({ "background-color": "red", "color": "black" });
+    }
+	
+	
+	}
+	
+	function getPollSelect(name, act) {
+    var str = '<select id="' + name + '" class="getSelect">' +
+        '<option ' + (act == -1 ? 'selected="selected"' : '') + 'value="-1">------</option>' +
+        //'<option ' + (act == 0 ? 'selected="selected"' : '') + 'value="0">moeglichst Oft</option>' +
+        '<option ' + (act == 10 ? 'selected="selected"' : '') + 'value="10">Alle 10 Sekunden</option>' +
+        '<option ' + (act == 30 ? 'selected="selected"' : '') + 'value="30">Alle 30 Sekunden</option>' +
+        '<option ' + (act == 60 ? 'selected="selected"' : '') + 'value="60">Jede Minute</option>' +
+        '<option ' + (act == 120 ? 'selected="selected"' : '') + 'value="120">Alle 2 Minuten</option>' +
+        '<option ' + (act == 300 ? 'selected="selected"' : '') + 'value="300">Alle 5 Minuten</option>' +
+        '<option ' + (act == 600 ? 'selected="selected"' : '') + 'value="600">Alle 10 Minuten</option>' +
+        '<option ' + (act == 900 ? 'selected="selected"' : '') + 'value="900">Alle 15 Minuten</option>' +
+        '<option ' + (act == 1800 ? 'selected="selected"' : '') + 'value="1800">Alle 30 Minuten</option>' +
+        '<option ' + (act == 2700 ? 'selected="selected"' : '') + 'value="2700">Alle 45 Minuten</option>' +
+        '<option ' + (act == 3600 ? 'selected="selected"' : '') + 'value="3600">Jede Stunde</option>' +
+        '<option ' + (act == 7200 ? 'selected="selected"' : '') + 'value="7200">Alle 2 Stunden</option>' +
+        '<option ' + (act == 21600 ? 'selected="selected"' : '') + 'value="21600">Alle 6 Stunden</option>' +
+        '<option ' + (act == 43200 ? 'selected="selected"' : '') + 'value="43200">Alle 12 Stunden</option>' +
+        '<option ' + (act == 86400 ? 'selected="selected"' : '') + 'value="86400">Alle 24 Stunden</option>' +
+        '</select>';
+    return str;
+}
+
+
+	
+function write() {
+console.log(datapoints);
+    $('#commands_get').empty();
+    $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
+	$('#commands_set').empty();
+    $('#commands_set').append('<tr><th>Name</th><th>Bechreibung</th>');
+    for (var x in datapoints.gets) {
+        var name = datapoints.gets[x].name;
+        var desc = datapoints.gets[x].description;
+        var poll = datapoints.gets[x].polling;
+
+        var tr = $('<tr>');
+        var tds = $('<td>' + name + '</td><td>' + desc + '</td><td>' + getPollSelect(name, poll) + '</td>');
+        tr.append(tds);
+        $('#commands_get').append(tr);
+	}
+	for (var y in datapoints.sets) {
+        var name_s = datapoints.sets[y].name;
+        var desc_s = datapoints.sets[y].description;
+       
+        var tr_s = $('<tr>');
+        var tds_s = $('<td>' + name_s + '</td><td>' + desc_s + '</td>');
+        tr_s.append(tds_s);
+        $('#commands_set').append(tr_s);
+	}
+}	
+
 </script>
 
-<!-- you have to put your config page in a div with id adapter-container -->
-<div id="adapter-container">
-	<ul>
-        <li><a href="#tab_g"   class="translate">General</a></li>
-        <li><a href="#tab_get" class="translate">Gets</a></li>
-        <li><a href="#tab_set" class="translate">Sets</a></li>
-    </ul>
-    <div id="tab_g" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
-	<img src="img/Viessmann_back.png" class="back_image">
-    <div class="level" style="text-align: center; border: 2px solid grey">
-	<p style="color:red; font-weight: bolder;" class="translate">main desc</p>
-	<table align="center"><tr>
-        <td style="padding-top: 20px;padding-left: auto"><h3 class="translate">adapter settings</h3></td>
-    </tr></table>
-	<h4 class="translate">connection</h4>
-	<table  align="center">
-        <tr><td class="translate">ip</td><td><input class="value" id="ip" type="input" size="15"/></td></tr>
-    </table >
-    <p class="translate">ip desc</p>
-	<table align="center">
-        <tr><td class="translate">port</td><td><input class="value number" id="port" type="input" size="4"/></td></tr>
-    </table>
-    <p class="translate">port desc</p>
-	<h4 class="translate">connection settings</h4>
-    <table align="center">
-        <tr><td class="translate">Interval[min]:</td><td><input class="value number" id="interval" type="input" size="3"/></td></tr>
-    </table>
-    <p class="translate">interval desc</p>
-    </div>
-	</div>
-    <div id="tab_get" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">        
-		<table id="getvalues"></table><div id="pager-getvalues"></div>
-		<p class="translate">get desc</p>
-    </div>
-    <div id="tab_set" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
-   		<table id="setvalues"></table><div id="pager-setvalues"></div>
-		<p class="translate">set desc</p>
-		<h1>!!!UNDER CONSTRUCTION!!!</h1>
-    </div>
-</div>
+
 </html>
