@@ -161,8 +161,10 @@ function stepPolling() {
         var nextDiff = nextRun - time;
 
         if(time < nextRun) {
-            actualMinWaitTime = nextDiff;
-            continue;
+			if(actualMinWaitTime > nextDiff) {
+				actualMinWaitTime = nextDiff;
+			}
+             continue;
         }
         
         if(nextDiff < actualMinWaitTime) {
@@ -172,7 +174,7 @@ function stepPolling() {
     }
     
     if(step === -1) {
-		adapter.log.debug("Wait for next Run");
+		adapter.log.debug("Wait for next Run: " + actualMinWaitTime + " in ms");
         setTimeout(function () {
 			
             stepPolling();
