@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.1.0",
+        "version": "0.1.1",
 	    "news": {
 			"0.0.2": {
 			  "en": "create State JSON_table for show in VIS",

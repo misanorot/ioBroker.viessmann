@@ -154,7 +154,7 @@ function stepPolling() {
 
     for(var i in toPoll) {
         if(typeof(toPoll[i].lastPoll) == 'undefined') {
-            toPoll[i].lastPoll = 0;
+            toPoll[i].lastPoll = time;
         }
         
         var nextRun = toPoll[i].lastPoll + (toPoll[i].polling * 1000)
@@ -175,8 +175,7 @@ function stepPolling() {
     
     if(step === -1) {
 		adapter.log.debug("Wait for next Run: " + actualMinWaitTime + " in ms");
-        setTimeout(function () {
-			
+        setTimeout(function () {			
             stepPolling();
         }, actualMinWaitTime);
 
@@ -245,6 +244,7 @@ function main() {
     client.on('timeout', function() {
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response
+		main();
 	});
 	
 	
