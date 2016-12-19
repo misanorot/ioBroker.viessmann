@@ -18,6 +18,10 @@ Um seine VITO.XML in einzulesen, muss man diese in eine JSON Datei umwandeln z.B
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.1.2
+* (misanorot) implement set commands 
+*				add info.connection state
+
 #### 0.1.1
 * (misanorot) reconnection after timeout error
 *				fix issue with first run

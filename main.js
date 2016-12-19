@@ -15,6 +15,8 @@ var net = require('net');
 var toPoll = {};
 //Zähler für Hilfsobjekt
 var step = -1;
+//Hilfsarray zum setzen von Werten
+var setcommands = [];
 var client = new net.Socket();
 
 // you have to call the adapter function and pass a options object
@@ -40,6 +42,11 @@ adapter.on('objectChange', function (id, obj) {
 });
 
 // is called if a subscribed state changes
+adapter.on('stateChange', function (id, state) {
+    // Warning, state can be null if it was deleted
+	setcommands.push(String(id.substring(16, id.length) + ' ' + state.val));
+	
+});
 
 
 // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
@@ -58,6 +65,14 @@ adapter.on('message', function (obj) {
 // is called when databases are connected and adapter received configuration.
 // start here!
 adapter.on('ready', function () {
+	adapter.setObjectNotExists('info.connection', {
+        type: 'state',
+        common: {
+            name: 'connection',
+            desc: 'Info über Verbindung zur Viessmann Steuerung',           
+        },
+        native: {}
+    });
     main();
 });
 
@@ -100,6 +115,9 @@ function setAllObjects(callback) {
         if (_states) {
             for (var j = 0; j < _states.length; j++) {
 				var name = _states[j].common.name;
+				if(name === 'connection') {
+					continue;
+				}
 				var clean = _states[j]._id;
 			
 					if (name.length < 1) {
@@ -151,6 +169,13 @@ function stepPolling() {
     step = -1;   
     var actualMinWaitTime = 1000000;
     var time = Date.now();
+	
+	if(setcommands.length > 0) {
+		var cmd = setcommands.shift();
+		adapter.log.debug('Set command: ' + cmd);
+		client.write(cmd + '\n');
+		return;
+	}
 
     for(var i in toPoll) {
         if(typeof(toPoll[i].lastPoll) == 'undefined') {
@@ -207,6 +232,8 @@ function main() {
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 	toPoll = {};
+	setcommands = [];
+	
 	var ip = adapter.config.ip;
 	var port = adapter.config.port;
 		
@@ -217,19 +244,41 @@ function main() {
 	client.setTimeout(600000);
         
 	client.connect(port, ip, function() {
+		adapter.setState("info.connection", true, true, function (err) {
+		 if (err) adapter.log.error(err);
+		});
 		adapter.log.debug('Connect with Viessmann sytem!');
 		client.write('dummy\n');		
 		stepPolling();
 	});
 	client.on('close', function() {
+		adapter.setState("info.connection", false, true, function (err) {
+		 if (err) adapter.log.error(err);
+		 });
 		adapter.log.debug('Disable connection with Viessmann system!');
 		client.destroy(); // kill client after server's response
 	});
 	client.on('data', function(data) {
 		data = String(data);
-		if(data == 'vctrld>') return;
-		 if(step == -1 || (""+data).substring(0,3) == 'ERR') return;
-		 
+		var ok = /OK/;
+		var fail = /ERR/;
+		
+		if(ok.test(data)) {
+			adapter.log.debug('Send command okay!');
+			stepPolling();
+			return;
+		}
+		if(fail.test(data)) {
+			stepPolling();
+			return;
+		}
+		if(data == 'vctrld>') {
+			return;
+		} 
+		 if(step == -1) {
+			 return;
+		 } 
+		 //adapter.log.debug(data);
 		 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
 		 if (err) adapter.log.error(err);
 		 stepPolling();
@@ -250,6 +299,6 @@ function main() {
 	
 	
     // in this viessmann all states changes inside the adapters namespace are subscribed
-    adapter.subscribeStates('*');
+    adapter.subscribeStates('set.*');
 
 }
