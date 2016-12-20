@@ -269,6 +269,7 @@ function main() {
 			return;
 		}
 		if(fail.test(data)) {
+			adapter.log.warn('Vctrld sen ERROR: ' + data);
 			stepPolling();
 			return;
 		}
