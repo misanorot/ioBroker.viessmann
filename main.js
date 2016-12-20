@@ -294,7 +294,7 @@ function main() {
     client.on('timeout', function() {
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response
-		main();
+		setTimeout(main, 10000);
 	});
 	
 	
