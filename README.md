@@ -14,7 +14,7 @@ in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vi
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON Format umwandeln. Dies ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!  
 
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen. 
-![Logo](admin/img/viessmann_settings.png)
+![Logo](admin/img/Viessmann_settings.png)
 
 
 
