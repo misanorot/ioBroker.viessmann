@@ -9,9 +9,12 @@
 
 Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung 
 die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, 
-in Objekten zu speichern. 
+in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
-Um seine VITO.XML in einzulesen, muss man diese in eine JSON Datei umwandeln z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I)!  
+Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON Format umwandeln. Dies ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!  
+
+Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen. 
+![Logo](admin/img/viessmann_settings.png)
 
 
 
@@ -20,11 +23,11 @@ Um seine VITO.XML in einzulesen, muss man diese in eine JSON Datei umwandeln z.B
 
 #### 0.1.2
 * (misanorot) implement set commands 
-*				add info.connection state
+* (misanorot) add info.connection state
 
 #### 0.1.1
 * (misanorot) reconnection after timeout error
-*				fix issue with first run
+* (misanorot) fix issue with first run
 
 #### 0.1.0
 * (misanorot) revised and updated the complete adapter

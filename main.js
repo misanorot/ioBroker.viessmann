@@ -269,7 +269,7 @@ function main() {
 			return;
 		}
 		if(fail.test(data)) {
-			adapter.log.warn('Vctrld sen ERROR: ' + data);
+			adapter.log.warn('Vctrld send ERROR: ' + data);
 			stepPolling();
 			return;
 		}
