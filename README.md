@@ -16,10 +16,16 @@ Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON F
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen. 
 ![Logo](admin/img/Viessmann_settings.png)
 
-
+*Bitte erst die JSON einlesen und dann die Netzwerkeinstellungen im Adapter ändern.*  
 
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
+
+#### 0.1.4
+* (misanorot) substring "vctrold>" 
+
+#### 0.1.3
+* (misanorot) change grammar issues 
 
 #### 0.1.2
 * (misanorot) implement set commands 

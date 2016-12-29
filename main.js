@@ -199,7 +199,7 @@ function stepPolling() {
     }
     
     if(step === -1) {
-		adapter.log.debug("Wait for next Run: " + actualMinWaitTime + " in ms");
+		adapter.log.debug("Wait for next run: " + actualMinWaitTime + " in ms");
         setTimeout(function () {			
             stepPolling();
         }, actualMinWaitTime);
@@ -215,7 +215,7 @@ function commands() {
 	
 		for (var q in adapter.config.datapoints.gets) {	
 			if(adapter.config.datapoints.gets[q].polling > -1) {
-				adapter.log.debug("commandos for polling: " + adapter.config.datapoints.gets[q].name);
+				adapter.log.debug("Commands for polling: " + adapter.config.datapoints.gets[q].name);
 				var dp = new Poll();
 					dp.name = adapter.config.datapoints.gets[q].name;
 					dp.description = adapter.config.datapoints.gets[q].description;
@@ -262,6 +262,7 @@ function main() {
 		data = String(data);
 		var ok = /OK/;
 		var fail = /ERR/;
+		var vctrld = /vctrld>/;
 		
 		if(ok.test(data)) {
 			adapter.log.debug('Send command okay!');
@@ -276,6 +277,9 @@ function main() {
 		if(data == 'vctrld>') {
 			return;
 		} 
+		if(vctrld.test(data)) {
+			data = data.substring(data.length - 7, data.length)
+		}
 		 if(step == -1) {
 			 return;
 		 } 
