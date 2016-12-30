@@ -278,7 +278,7 @@ function main() {
 			return;
 		} 
 		if(vctrld.test(data)) {
-			data = data.substring(data.length - 7, data.length)
+			data = data.substring(0, data.length - 7)
 		}
 		 if(step == -1) {
 			 return;
