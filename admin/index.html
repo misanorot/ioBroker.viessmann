@@ -58,23 +58,24 @@ Try it Yourself »
     <div id="tab_g" style="display: flex;  align-items: center; flex-direction: column;overflow: auto" class="head_tab">
 	<img src="img/Viessmann_back.png" class="back_image">
     <div class="level" style="text-align: center; border: 2px solid grey">
-	<p style="color:red; font-weight: bolder;" class="translate">main desc</p>
 	<table align="center"><tr>
-        <td style="padding-top: 20px;padding-left: auto"><h3 class="translate">adapter settings</h3></td>
+        <td style="padding-top: 20px;padding-left: auto"><h2 class="translate">adapter settings</h2></td>
     </tr></table>
-	<div id="info"></div>
-	<button id="button_import" class="button" style="margin-top: 5px; width: 120px; height: 30px; right: 20">Import JSON</button>
-    <div style="margin-top: 5px"><a  href="http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I" target="_blank">Umwandlung Vito.xml als JSON</a></div>
-	<h4 class="translate">connection</h4>
+	<p style="margin-top: 5px; color:red; font-weight: bolder;" class="translate">main desc</p>
+	<div style="margin-top: 1px"><a  href="http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I" target="_blank">Umwandlung vito.xml in JSON-Werte</a></div>
+	<button id="button_import" class="button" style="margin-top: 10px; width: 120px; height: 30px; right: 20">Import JSON</button>
+    <div id="info"></div>
+	<p id="xmlconfig"></p>
+	<h3 class="translate">connection</h3>
+	<p style="color:grey" class="translate">ip desc</p>
 	<table  align="center">
         <tr><td class="translate">ip</td><td><input class="value" id="ip" type="input" size="15"/></td></tr>
     </table >
-    <p class="translate">ip desc</p>
-	<table align="center">
+	 <p style="color:grey" class="translate">port desc</p>
+ 	<table align="center">
         <tr><td class="translate">port</td><td><input class="value number" id="port" type="input" size="4"/></td></tr>
     </table>
-    <p class="translate">port desc</p>
-    </div>
+     </div>
 	</div>
     <div id="tab_get" style="display: flex;  align-items: left; flex-direction: column;overflow: auto" class="head_tab">        
 		<h1 style="margin-top: 25px;">Abfragewerte aus der <span style="color: green">"VITO.XML"</span>:</h1>
@@ -101,6 +102,7 @@ Try it Yourself »
         this.name = '';
         this.description = '';
         this.polling = '';
+		this.command = '';
     }
     
 	
@@ -109,12 +111,12 @@ Try it Yourself »
         "Gets":         		{"en": "Get values",         "de": "Abfragewerte",         "ru": "Опрашиваемые значения"},
         "Sets":        			{"en": "Set values",  "de": "Setzwerte",  "ru": "Устанавливаемые значения"},
 		"adapter settings":     {"en": "Viessmann Adapter settings",  "de": "Viessmann Adapter-Einstellungen",  "ru": "Настройки драйвера Viessmann"},
-		"connection":        	{"en": "Connection settings",  "de": "Verbindungs-Einstellungen",  "ru": "Настройки соединения"},
+		"connection":        	{"en": "Connection settings",  "de": "Verbindungseinstellungen",  "ru": "Настройки соединения"},
 		"ip":        			{"en": "IP:",  "de": "IP:",  "ru": "IP:"},
 		"port":        			{"en": "Port",  "de": "Port:",  "ru": "Порт:"},
 		"ip desc":        		{"en": "IP address on it vcontrold runs",  "de": "IP-Adresse, auf der VCONTROLD läuft:",  "ru": "IP адрес, где запущен VCONTROLD"},
-		"port desc":        	{"en": "Port to use vcontrold extern (standard: 3002)",  "de": "Port-Adresse, auf der man VCONTROLD erreicht (Standard: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
-		"main desc":        	{"en": "The adapter requies the running and configured VCONTROLD",  "de": "Der Adapter setzt eine funktionierende VCONTROLD-Installation voraus!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD"}
+		"port desc":        	{"en": "Port to use vcontrold extern (standard: 3002)",  "de": "Port-Adresse, über die VCONTROLD erreichbar ist (Standard: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
+		"main desc":        	{"en": "The adapter requies the running and configured VCONTROLD",  "de": "ACHTUNG: Eine funktionierende VCONTROLD-Installation wird vorausgesetzt!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD"}
 	};
 
 	
@@ -229,6 +231,7 @@ Try it Yourself »
 	function getImport() {
 	datapoints['gets'] = {};
 	datapoints['sets'] = {};
+	datapoints['system'] = {};
 	
 	var json = $('#import_textarea').val();
     try {
@@ -239,38 +242,38 @@ Try it Yourself »
     }
     if (typeof commands === "object") {
 	
+		datapoints.system = commands.vito.devices.device[0];	
 		for (var z in commands.vito.commands.command) {
-
-        var name = '-name';
-        var desc = 'description';
-        var poll = -1;
-        var c = (commands.vito.commands.command[z][name]);
-        var d = (commands.vito.commands.command[z][desc]);
-		if (c.substring(0, 3) === 'get') {
-		var dp = new Dpoint();
-            dp.name = c;
-            dp.description = d;
-            dp.polling = poll;
-            datapoints.gets[c] = dp;
-			continue;
-		}
-        if(c.substring(0, 3) === 'set') {
-        var dps = new Dpoint();
-            dps.name = c;
-            dps.description = d;
-			dps.polling = "nicht möglich";
-            datapoints.sets[c] = dps;
-			continue;
+			var name = '-name';
+			var desc = 'description';
+			var poll = -1;
+			var c = (commands.vito.commands.command[z][name]);
+			var d = (commands.vito.commands.command[z][desc]);
+			if (c.substring(0, 3) === 'get') {
+				var dp = new Dpoint();
+				dp.name = c.substring(3, c.length);
+				dp.description = d;
+				dp.polling = poll;
+				dp.command = c;
+				datapoints.gets[c.substring(3, c.length)] = dp;
+				continue;
+			}
+			if(c.substring(0, 3) === 'set') {
+				var dps = new Dpoint();
+				dps.name = c.substring(3, c.length);
+				dps.description = d;
+				dps.polling = "nicht möglich";
+				dps.command = c;
+				datapoints.sets[c.substring(3, c.length)] = dps;
+				continue;
             }
-   }
-   $('#info').html("Einlesen OKAY!!!").css({ "background-color": "green", "color": "black" });
-	write();
+		}
+		$('#info').html("Einlesen OKAY!!!").css({ "background-color": "green", "color": "black" });
+			write();
     }
     else {
         $('#info').html("Einlesen FEHLGESCHLAGEN!!!").css({ "background-color": "red", "color": "black" });
     }
-	
-	
 	}
 	
 	function getPollSelect(name, act) {
@@ -298,7 +301,10 @@ Try it Yourself »
 
 	
 function write() {
-console.log(datapoints);
+//console.log(datapoints);
+try {
+	$('#xmlconfig').empty();
+	$('#xmlconfig').append('ID der Anlage: ' + datapoints.system["-ID"] + '<br>' + 'Name der Anlage: ' + datapoints.system["-name"] + '<br>' + 'Verwendetes Protokoll: ' + datapoints.system["-protocol"]);
     $('#commands_get').empty();
     $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
 	$('#commands_set').empty();
@@ -322,6 +328,16 @@ console.log(datapoints);
         tr_s.append(tds_s);
         $('#commands_set').append(tr_s);
 	}
+}
+catch (e) {
+$('#xmlconfig').empty();
+	$('#xmlconfig').append('ID der Anlage: <br>Name der Anlage: <br>Verwendetes Protokoll: ');
+    $('#commands_get').empty();
+    $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
+	$('#commands_set').empty();
+    $('#commands_set').append('<tr><th>Name</th><th>Bechreibung</th>');
+}
+	
 }	
 
 </script>

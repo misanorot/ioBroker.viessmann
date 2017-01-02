@@ -44,7 +44,7 @@ adapter.on('objectChange', function (id, obj) {
 // is called if a subscribed state changes
 adapter.on('stateChange', function (id, state) {
     // Warning, state can be null if it was deleted
-	setcommands.push(String(id.substring(16, id.length) + ' ' + state.val));
+	setcommands.push(String("set" + id.substring(16, id.length) + ' ' + state.val));
 	
 });
 
@@ -77,7 +77,8 @@ adapter.on('ready', function () {
 });
 
 function Poll() {
-        this.name = '';
+		this.name = '';
+        this.command = '';
         this.description = '';
         this.polling = '';
 		this.lastpoll = '';
@@ -205,9 +206,9 @@ function stepPolling() {
         }, actualMinWaitTime);
 
     } else {
-	adapter.log.debug("Next poll: "+toPoll[step].name);
+	adapter.log.debug("Next poll: "+toPoll[step].command);
 	toPoll[step].lastPoll = Date.now();
-        client.write(toPoll[step].name + '\n');
+        client.write(toPoll[step].command + '\n');
     }
 }
 
@@ -215,9 +216,10 @@ function commands() {
 	
 		for (var q in adapter.config.datapoints.gets) {	
 			if(adapter.config.datapoints.gets[q].polling > -1) {
-				adapter.log.debug("Commands for polling: " + adapter.config.datapoints.gets[q].name);
+				adapter.log.debug("Commands for polling: " + adapter.config.datapoints.gets[q].command);
 				var dp = new Poll();
 					dp.name = adapter.config.datapoints.gets[q].name;
+					dp.command = adapter.config.datapoints.gets[q].command;
 					dp.description = adapter.config.datapoints.gets[q].description;
 					dp.polling = adapter.config.datapoints.gets[q].polling;
 					dp.lastpoll = 0;
