@@ -51,7 +51,7 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 
 The MIT License (MIT)
 
-Copyright (c) 2016 misanorot <audi16v@gmx.de>
+Copyright (c) 2017 misanorot <audi16v@gmx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
