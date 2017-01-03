@@ -21,6 +21,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.2.1
+* (misanorot) check import vito.xml
+
 #### 0.2.0
 * (misanorot) eliminate "get&set" in states 
 

@@ -240,7 +240,7 @@ Try it Yourself »
     catch (e) {
         $('#info').html("Einlesen FEHLGESCHLAGEN!!!" + e).css({ "background-color": "red", "color": "black" });
     }
-    if (typeof commands === "object") {
+    if (typeof commands.vito.commands.command === "object" && typeof commands.vito.devices.device["-ID"] != "undefined") {
 	
 		datapoints.system = commands.vito.devices.device;	
 		for (var z in commands.vito.commands.command) {
@@ -301,10 +301,10 @@ Try it Yourself »
 
 	
 function write() {
-//console.log(datapoints);
+
 try {
 	$('#xmlconfig').empty();
-	$('#xmlconfig').append('ID der Anlage: ' + datapoints.system["-ID"] + '<br>' + 'Name der Anlage: ' + datapoints.system["-name"] + '<br>' + 'Verwendetes Protokoll: ' + datapoints.system["-protocol"]);
+	$('#xmlconfig').append('ID der Anlage: <b>' + datapoints.system["-ID"] + '</b><br>' + 'Name der Anlage: <b>' + datapoints.system["-name"] + '</b><br>' + 'Verwendetes Protokoll: <b>' + datapoints.system["-protocol"] + '</b>');
     $('#commands_get').empty();
     $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
 	$('#commands_set').empty();
