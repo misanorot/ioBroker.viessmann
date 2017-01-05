@@ -286,10 +286,19 @@ function main() {
 			 return;
 		 } 
 		 //adapter.log.debug(data);
+		 try {
+		 data = data.replace(/\r|\n/g, "")
 		 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
 		 if (err) adapter.log.error(err);
 		 stepPolling();
 		 });
+		 }
+		 catch(e) {
+			 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
+		 if (err) adapter.log.error(err);
+		 stepPolling();
+		 });
+		 }
 		 
     
 	});

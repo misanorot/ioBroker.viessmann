@@ -21,6 +21,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.2.2
+* (misanorot) delete line break in state values
+
 #### 0.2.1
 * (misanorot) check import vito.xml
 

@@ -1,7 +1,7 @@
 /*
     ioBroker.viessmann Widget-Set
 
-    version: "0.2.1"
+    version: "0.2.2"
 
     Copyright 10.2015-2016 misanorot<audi16v@gmx.de>
 
@@ -30,7 +30,7 @@ $.extend(true, systemDictionary, {
 
 // this code can be placed directly in viessmann.html
 vis.binds.viessmann = {
-    version: "0.2.1",
+    version: "0.2.2",
     showVersion: function () {
         if (vis.binds.viessmann.version) {
             console.log('Version viessmann: ' + vis.binds.viessmann.version);
