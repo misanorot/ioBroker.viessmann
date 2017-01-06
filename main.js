@@ -243,7 +243,7 @@ function main() {
 	setAllObjects(function() {
 	});
 	
-	client.setTimeout(600000);
+	client.setTimeout(60000);
         
 	client.connect(port, ip, function() {
 		adapter.setState("info.connection", true, true, function (err) {
@@ -269,38 +269,35 @@ function main() {
 		if(ok.test(data)) {
 			adapter.log.debug('Send command okay!');
 			stepPolling();
-			return;
 		}
-		if(fail.test(data)) {
+		else if(fail.test(data)) {
 			adapter.log.warn('Vctrld send ERROR: ' + data);
 			stepPolling();
-			return;
 		}
-		if(data == 'vctrld>') {
+		else if(data == 'vctrld>') {
 			return;
 		} 
-		if(vctrld.test(data)) {
-			data = data.substring(0, data.length - 7)
-		}
-		 if(step == -1) {
+		else if(step == -1) {
 			 return;
 		 } 
-		 //adapter.log.debug(data);
-		 try {
-		 data = data.replace(/\r|\n/g, "")
-		 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
-		 if (err) adapter.log.error(err);
-		 stepPolling();
-		 });
-		 }
-		 catch(e) {
-			 adapter.setState("get." + toPoll[step].name, data, true, function (err) {
-		 if (err) adapter.log.error(err);
-		 stepPolling();
-		 });
-		 }
-		 
-    
+		else {
+			if(vctrld.test(data)) {
+				data = data.substring(0, data.length - 7)
+			}
+			try {
+				data = data.replace(/\n$/, "")
+				adapter.setState("get." + toPoll[step].name, data, true, function (err) {
+				if (err) adapter.log.error(err);
+				stepPolling();
+				});
+			}
+			catch(e) {
+				adapter.setState("get." + toPoll[step].name, data, true, function (err) {
+				if (err) adapter.log.error(err);
+				stepPolling();
+				});
+			}
+		}    
 	});
 	client.on('error', function() {
 		adapter.log.warn('Malfunction connection');

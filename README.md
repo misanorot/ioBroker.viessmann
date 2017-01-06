@@ -21,6 +21,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.2.3
+* (misanorot) add links in admin settings
+
 #### 0.2.2
 * (misanorot) delete line break in state values
 
