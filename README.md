@@ -12,6 +12,7 @@ die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuni
 in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON Format umwandeln. Dies ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!  
+Vorsicht!: Bei jedem neuen einlesen der JSON Daten, werden die Einstellungen gelöscht.
 
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen. 
 ![Logo](admin/img/Viessmann_settings.png)
