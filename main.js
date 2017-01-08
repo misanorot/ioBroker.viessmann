@@ -157,7 +157,7 @@ function setAllObjects(callback) {
         }
         if (configToDelete.length) {
             for (var e = 0; e < configToDelete.length; e++) {				
-                adapter.log.debug("Zu löschende Objekte: " + configToDelete[e]);
+                adapter.log.debug("States to delete: " + configToDelete[e]);
                 adapter.delObject(configToDelete[e]);
             }
         }
@@ -238,12 +238,20 @@ function main() {
 	
 	var ip = adapter.config.ip;
 	var port = adapter.config.port;
-		
+	var time_out = 60000;	
+	
     commands();
+	
+	for (var i in adapter.config.datapoints.gets) {	
+			if(adapter.config.datapoints.gets[i].polling * 1000 > time_out) {
+			time_out = adapter.config.datapoints.gets[i].polling * 1000 + 60000;
+			}
+	}
+	
 	setAllObjects(function() {
 	});
 	
-	client.setTimeout(60000);
+	client.setTimeout(time_out);
         
 	client.connect(port, ip, function() {
 		adapter.setState("info.connection", true, true, function (err) {

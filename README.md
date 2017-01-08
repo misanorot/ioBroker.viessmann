@@ -22,6 +22,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.2.4
+* (misanorot) fix issue with connection timeout
+
 #### 0.2.3
 * (misanorot) add links in admin settings
 
