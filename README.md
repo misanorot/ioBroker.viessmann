@@ -22,6 +22,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.2.5
+* (Sineos) format values
+
 #### 0.2.4
 * (misanorot) fix issue with connection timeout
 

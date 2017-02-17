@@ -1,6 +1,6 @@
 {
   "name": "iobroker.viessmann",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "ioBroker viessmann Adapter",
   "author": {
     "name": "misanorot",
@@ -39,7 +39,7 @@
   },
   "readme": "![Logo](admin/viessmann.png)\n# ioBroker.viessmann\n=================\n\n[![NPM version](http://img.shields.io/npm/v/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)\n[![Downloads](https://img.shields.io/npm/dm/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)\n\n[![NPM](https://nodei.co/npm/iobroker.viessmann.png?downloads=true)](https://nodei.co/npm/iobroker.viessmann/)\n\nMit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung \ndie mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, \nin Objekten zu speichern. \n\nUm seine VITO.XML in einzulesen, muss man diese in eine JSON Datei umwandeln z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I)!  \n\n\n\n*die benutzten Bilder stammen von www.viessmann.com.*\n### Changelog\n\n#### 0.1.0\n* (misanorot) revised and updated the complete adapter\n\n#### 0.0.2\n* (misanorot) create State JSON_table for show in VIS\n\n#### 0.0.1\n* (misanorot) initial release\n\n### License\n\nThe MIT License (MIT)\n\nCopyright (c) 2016 misanorot <audi16v@gmx.de>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in\nall copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN\nTHE SOFTWARE.\n",
   "readmeFilename": "README.md",
-  "_id": "iobroker.viessmann@0.1.3",
+  "_id": "iobroker.viessmann@0.2.4",
   "_shasum": "d08014499b5a87be88e846ed14f8b6a9a427f651",
   "_resolved": "https://github.com/misanorot/iobroker.viessmann/tarball/master",
   "_from": "https://github.com/misanorot/iobroker.viessmann/tarball/master"
