@@ -225,6 +225,32 @@ function commands() {
 	}
 }
 
+function split_unit(v) {
+	// test if string starts with non digits, then just pass it
+	if  (typeof v === 'string' && v !== "" && (/^\D.*$/.test(v))){
+		return { 'value':v, 'unit':"" }
+	}
+	// else split value and unit
+	else if (typeof v === 'string' && v !== ""){
+		var split = v.match(/^([-.\d]+(?:\.\d+)?)(.*)$/);
+		return {'value':split[1].trim(),  'unit':split[2].trim()};
+	}
+	// catch the rest
+	else {
+		return { 'value':v, 'unit':"" }
+	}
+}
+
+function roundNumber(num, scale) {
+	var number = Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale);
+	if (num - number > 0) {
+		return (number + Math.floor(2 * Math.round((num - number) * Math.pow(10, (scale + 1))) / 10) / Math.pow(10, scale));
+	} 
+	else {
+		return number;
+  }
+}
+
 function main() {
 	// set connection status to false
 	adapter.setState('info.connection', false, true);
@@ -246,6 +272,7 @@ function main() {
 		}
 	}
 	
+	
 	setAllObjects(function() {
 	});
 	
@@ -266,6 +293,8 @@ function main() {
 		adapter.log.debug('Disable connection with Viessmann system!');
 		client.destroy(); // kill client after server's response
 	});
+	
+	
 	client.on('data', function(data) {
 		data = String(data);
 		var ok = /OK/;
@@ -287,7 +316,9 @@ function main() {
 				data = data.substring(0, data.length - 7);
 			}
 			try {
-				data = data.replace(/\n$/, '')
+				data = data.replace(/\n$/, '');
+				data = split_unit(data).value;
+				data = roundNumber(parseFloat(data), 2);
 				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
 					if (err) adapter.log.error(err);
 					stepPolling();
@@ -301,7 +332,7 @@ function main() {
 		}    
 	});
 	client.on('error', function() {
-		adapter.setState('info.connection", false, true);
+		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection');
 		client.destroy(); // kill client after server's response
 	});
