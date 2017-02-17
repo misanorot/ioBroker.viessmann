@@ -318,7 +318,7 @@ function main() {
 			try {
 				data = data.replace(/\n$/, '');
 				data = split_unit(data).value;
-				data = roundNumber(parseFloat(data), 2);
+				if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}				
 				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
 					if (err) adapter.log.error(err);
 					stepPolling();
