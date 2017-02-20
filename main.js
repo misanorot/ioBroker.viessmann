@@ -172,7 +172,7 @@ function stepPolling() {
 	if (setcommands.length > 0) {
 		var cmd = setcommands.shift();
 		adapter.log.debug('Set command: ' + cmd);
-		client.write(cmd + '\n');
+		client.write(cmd + '\\n');
 		return;
 	}
 
@@ -206,7 +206,7 @@ function stepPolling() {
     } else {
 		adapter.log.debug('Next poll: ' + toPoll[step].command);
 		toPoll[step].lastPoll = Date.now();
-        client.write(toPoll[step].command + '\n');
+        client.write(toPoll[step].command + '\\n');
     }
 }
 
@@ -283,7 +283,7 @@ function main() {
 		 	if (err) adapter.log.error(err);
 		});
 		adapter.log.debug('Connect with Viessmann sytem!');
-		client.write('dummy\n');		
+		client.write('dummy\\n');
 		stepPolling();
 	});
 	client.on('close', function() {
@@ -316,7 +316,7 @@ function main() {
 				data = data.substring(0, data.length - 7);
 			}
 			try {
-				data = data.replace(/\n$/, '');
+				data = data.replace(/\\n$/, '');
 				data = split_unit(data).value;
 				if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}				
 				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
