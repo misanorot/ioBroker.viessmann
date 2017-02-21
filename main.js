@@ -283,7 +283,6 @@ function main() {
 		 	if (err) adapter.log.error(err);
 		});
 		adapter.log.debug('Connect with Viessmann sytem!');
-		client.write('dummy\n');		
 		stepPolling();
 	});
 	client.on('close', function() {
