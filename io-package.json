@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.2.5",
+        "version": "0.2.6",
 	    "news": {
 			"0.0.2": {
 			  "en": "create State JSON_table for show in VIS",
@@ -28,7 +28,8 @@
     "native": {
 		"datapoints":	{},
 		"ip":			"xxx.xxx.x.x",
-    "port": 		3002				
+		"port": 		3002,
+		"answer":		false
     },
     "objects": []
 }

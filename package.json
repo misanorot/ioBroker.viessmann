@@ -1,6 +1,6 @@
 {
   "name": "iobroker.viessmann",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "ioBroker viessmann Adapter",
   "author": {
     "name": "misanorot",
@@ -25,7 +25,7 @@
     "url": "git+https://github.com/misanorot/ioBroker.viessmann.git"
   },
   "dependencies": {
-    "net-socket": "^1.1.0"
+    
   },
   "devDependencies": {
     "grunt": "^0.4.5",

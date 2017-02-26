@@ -62,7 +62,7 @@ Try it Yourself »
         <td style="padding-top: 20px;padding-left: auto"><h2 class="translate">adapter settings</h2></td>
     </tr></table>
 	<div ><a style="margin-top: 2px; color:red; font-weight: bolder;" href="http://openv.wikispaces.com/" target="_blank" class="translate">main desc</a></div>
-	<div style="margin-top: 10px"><a  href="http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I" target="_blank">Umwandlung vito.xml in JSON-Werte</a></div>
+	<div style="margin-top: 10px"><a  href="http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I" target="_blank" class="translate">transform</a></div>
 	<button id="button_import" class="button" style="margin-top: 10px; width: 120px; height: 30px; right: 20">Import JSON</button>
     <div id="info"></div>
 	<p id="xmlconfig"></p>
@@ -75,15 +75,18 @@ Try it Yourself »
  	<table align="center">
         <tr><td class="translate">port</td><td><input class="value number" id="port" type="input" size="4"/></td></tr>
     </table>
+	<table style="margin-top: 6px" align="center">
+        <tr><td class="translate">answer</td><td><input class="value" type="checkbox" id="answer"/></td></tr>
+    </table>
      </div>
 	</div>
     <div id="tab_get" style="display: flex;  align-items: left; flex-direction: column;overflow: auto" class="head_tab">        
-		<h1 style="margin-top: 25px;">Abfragewerte aus der <span style="color: green">"VITO.XML"</span>:</h1>
+		<h1 style="margin-top: 25px;" class="translate">getvito</h1>
 		<div><table id="commands_get" style="font-size: 14px"></table></div>
 		
     </div>
     <div id="tab_set" style="display: flex;  align-items: left; flex-direction: column;overflow: auto" class="head_tab">
-		<h1 style="margin-top: 25px;">Setzwerte aus der <span style="color: green">"VITO.XML"</span>:</h1>
+		<h1 style="margin-top: 25px;" class="translate">setvito</h1>
 		<div><table id="commands_set" style="font-size: 14px"></table></div>
     </div>
 	<div id="import-dlg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;display: none; z-index: 100">
@@ -107,17 +110,21 @@ Try it Yourself »
     
 	
     systemDictionary = {
-        "General": 				{"en": "General settings", "de": "Allgemeine Einstellungen", "ru": "Основные настройки"},
-        "Gets":         		{"en": "Get values",         "de": "Abfragewerte",         "ru": "Опрашиваемые значения"},
-        "Sets":        			{"en": "Set values",  "de": "Setzwerte",  "ru": "Устанавливаемые значения"},
+        "General":              {"en": "Global settings", "de": "Allgemeine Einstellungen", "ru": "Основные настройки"},
+        "Gets":                 {"en": "Get data points", "de": "Abfragedatenpunkte", "ru": "Опрашиваемые значения"},
+        "Sets":                 {"en": "Set data points",  "de": "Setzdatenpunkte",  "ru": "Устанавливаемые значения"},
 		"adapter settings":     {"en": "Viessmann Adapter settings",  "de": "Viessmann Adapter-Einstellungen",  "ru": "Настройки драйвера Viessmann"},
-		"connection":        	{"en": "Connection settings",  "de": "Verbindungseinstellungen",  "ru": "Настройки соединения"},
-		"ip":        			{"en": "IP:",  "de": "IP:",  "ru": "IP:"},
-		"port":        			{"en": "Port",  "de": "Port:",  "ru": "Порт:"},
-		"ip desc":        		{"en": "IP address on it vcontrold runs",  "de": "IP-Adresse, auf der VCONTROLD läuft:",  "ru": "IP адрес, где запущен VCONTROLD"},
-		"port desc":        	{"en": "Port to use vcontrold extern (standard: 3002)",  "de": "Port-Adresse, über die VCONTROLD erreichbar ist (Standard: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
-		"main desc":        	{"en": "The adapter requies the running and configured VCONTROLD",  "de": "ACHTUNG: Eine funktionierende VCONTROLD-Installation wird vorausgesetzt!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD"}
-	};
+		"connection":           {"en": "Connection settings",  "de": "Verbindungseinstellungen",  "ru": "Настройки соединения"},
+		"ip":                   {"en": "IP:",  "de": "IP:",  "ru": "IP:"},
+		"getvito":              {"en": "Get data points from VITO.XML",  "de": "Abfragedatenpunkte aus der VITO.XML:",  "ru": ""},
+		"setvito":              {"en": "Set data points from VITO.XML",  "de": "Setzdatenpunkte aus der VITO.XML:",  "ru": ""},
+		"transform":            {"en": "Transformation of VITO.XML into JSON values",  "de": "Umwandlung VITO.XML in JSON-Werte:",  "ru": ""},
+		"answer":               {"en": "Truncate data point values",  "de": "Datenpunktwerte kürzen",  "ru": ""},
+		"port":                 {"en": "Port",  "de": "Port:",  "ru": "Порт:"},
+		"ip desc":              {"en": "IP address on which VCONTROLD runs",  "de": "IP-Adresse, auf der VCONTROLD läuft:",  "ru": "IP адрес, где запущен VCONTROLD"},
+		"port desc":            {"en": "Port address over which VCONTROLD is externally reachable (default: 3002)",  "de": "Port-Adresse, über die VCONTROLD erreichbar ist (Standard: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
+		"main desc":            {"en": "Caution: adapter requires a running and configured VCONTROLD installation!",  "de": "ACHTUNG: Es wird eine funktionierende VCONTROLD-Installation vorausgesetzt!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD!"}
+   };
 
 	
     function setValue(id, value, onChange) {
@@ -125,7 +132,7 @@ Try it Yourself »
 		$('.getSelect').change(function (e) {  
         datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
 			onChange();
-	});
+		});	
         if ($('#' + id + '.value').attr('type') == 'checkbox') {
             $('#' + id + '.value').prop('checked', value).change(function() {
                 onChange();
@@ -277,45 +284,142 @@ Try it Yourself »
 	}
 	
 	function getPollSelect(name, act) {
-    var str = '<select id="' + name + '" class="getSelect">' +
+		var opt10 = '';
+		var opt30 = '';
+		var opt60 = '';
+		var opt120 = '';
+		var opt300 = '';
+		var opt600 = '';
+		var opt900 = '';
+		var opt1800 = '';
+		var opt2700 = '';
+		var opt3600 = '';
+		var opt7200 = '';
+		var opt21600 = '';
+		var opt43200 = '';
+		var opt86400 = '';
+		
+	
+	if(systemLang == 'de'){
+		var opt10 = 'Alle 10 Sekunden';
+		var opt30 = 'Alle 30 Sekunden';
+		var opt60 = 'Jede Minute';
+		var opt120 = 'Alle 2 Minuten';
+		var opt300 = 'Alle 5 Minuten';
+		var opt600 = 'Alle 10 Minuten';
+		var opt900 = 'Alle 15 Minuten';
+		var opt1800 = 'Alle 30 Minuten';
+		var opt2700 = 'Alle 45 Minuten';
+		var opt3600 = 'Jede Stunde';
+		var opt7200 = 'Alle 2 Stunden';
+		var opt21600 = 'Alle 6 Stunden';
+		var opt43200 = 'Alle 12 Stunden';
+		var opt86400 = 'Alle 24 Stunden';
+	}
+	if(systemLang == 'en'){
+		var opt10 = 'Every 10 seconds';
+		var opt30 = 'Every 30 seconds';
+		var opt60 = 'Each minute';
+		var opt120 = 'Each 2 minutes';
+		var opt300 = 'Each 5 minutes';
+		var opt600 = 'Each 10 minutes';
+		var opt900 = 'Each 15 minutes';
+		var opt1800 = 'Each 30 minutes';
+		var opt2700 = 'Each 45 minutes';
+		var opt3600 = 'Jede Stunde';
+		var opt7200 = 'Each hour';
+		var opt21600 = 'Every 6 hours';
+		var opt43200 = 'Every 12 hours';
+		var opt86400 = 'Every 24 hours';
+	}
+	if(systemLang == 'ru'){
+		var opt10 = '???';
+		var opt30 = '???';
+		var opt60 = '???';
+		var opt120 = '???';
+		var opt300 = '???';
+		var opt600 = '???';
+		var opt900 = '???';
+		var opt1800 = '???';
+		var opt2700 = '???';
+		var opt3600 = '???';
+		var opt7200 = '???';
+		var opt21600 = '???';
+		var opt43200 = '???';
+		var opt86400 = '???';
+	}
+	
+    var sel = '<select id="' + name + '" class="getSelect">' +
         '<option ' + (act == -1 ? 'selected="selected"' : '') + 'value="-1">------</option>' +
         //'<option ' + (act == 0 ? 'selected="selected"' : '') + 'value="0">moeglichst Oft</option>' +
-        '<option ' + (act == 10 ? 'selected="selected"' : '') + 'value="10">Alle 10 Sekunden</option>' +
-        '<option ' + (act == 30 ? 'selected="selected"' : '') + 'value="30">Alle 30 Sekunden</option>' +
-        '<option ' + (act == 60 ? 'selected="selected"' : '') + 'value="60">Jede Minute</option>' +
-        '<option ' + (act == 120 ? 'selected="selected"' : '') + 'value="120">Alle 2 Minuten</option>' +
-        '<option ' + (act == 300 ? 'selected="selected"' : '') + 'value="300">Alle 5 Minuten</option>' +
-        '<option ' + (act == 600 ? 'selected="selected"' : '') + 'value="600">Alle 10 Minuten</option>' +
-        '<option ' + (act == 900 ? 'selected="selected"' : '') + 'value="900">Alle 15 Minuten</option>' +
-        '<option ' + (act == 1800 ? 'selected="selected"' : '') + 'value="1800">Alle 30 Minuten</option>' +
-        '<option ' + (act == 2700 ? 'selected="selected"' : '') + 'value="2700">Alle 45 Minuten</option>' +
-        '<option ' + (act == 3600 ? 'selected="selected"' : '') + 'value="3600">Jede Stunde</option>' +
-        '<option ' + (act == 7200 ? 'selected="selected"' : '') + 'value="7200">Alle 2 Stunden</option>' +
-        '<option ' + (act == 21600 ? 'selected="selected"' : '') + 'value="21600">Alle 6 Stunden</option>' +
-        '<option ' + (act == 43200 ? 'selected="selected"' : '') + 'value="43200">Alle 12 Stunden</option>' +
-        '<option ' + (act == 86400 ? 'selected="selected"' : '') + 'value="86400">Alle 24 Stunden</option>' +
+        '<option ' + (act == 10 ? 'selected="selected"' : '') + 'value="10">' + opt10 + '</option>' +
+        '<option ' + (act == 30 ? 'selected="selected"' : '') + 'value="30">' + opt30 + '</option>' +
+        '<option ' + (act == 60 ? 'selected="selected"' : '') + 'value="60">' + opt60 + '</option>' +
+        '<option ' + (act == 120 ? 'selected="selected"' : '') + 'value="120">' + opt120 + '</option>' +
+        '<option ' + (act == 300 ? 'selected="selected"' : '') + 'value="300">' + opt300 + '</option>' +
+        '<option ' + (act == 600 ? 'selected="selected"' : '') + 'value="600">' + opt600 + '</option>' +
+        '<option ' + (act == 900 ? 'selected="selected"' : '') + 'value="900">' + opt900 + '</option>' +
+        '<option ' + (act == 1800 ? 'selected="selected"' : '') + 'value="1800">' + opt1800 + '</option>' +
+        '<option ' + (act == 2700 ? 'selected="selected"' : '') + 'value="2700">' + opt2700 + '</option>' +
+        '<option ' + (act == 3600 ? 'selected="selected"' : '') + 'value="3600">' + opt3600 + '</option>' +
+        '<option ' + (act == 7200 ? 'selected="selected"' : '') + 'value="7200">' + opt7200 + '</option>' +
+        '<option ' + (act == 21600 ? 'selected="selected"' : '') + 'value="21600">' + opt21600 + '</option>' +
+        '<option ' + (act == 43200 ? 'selected="selected"' : '') + 'value="43200">' + opt43200 + '</option>' +
+        '<option ' + (act == 86400 ? 'selected="selected"' : '') + 'value="86400">' + opt86400 + '</option>' +
         '</select>';
-    return str;
+    return sel;
 }
 
 
 	
 function write() {
+console.log(systemLang);
+var id = '';
+var idname = '';
+var protocol = '';
+var desc = '';
+var name = '';
+var polling = '';
+
+if(systemLang == 'de') {
+	id = 'ID der Anlage: ';
+	idname = 'Name der Anlage: ';
+	protocol = 'Verwendetes Protokoll: ';
+	name = 'Name';
+	desc = 'Bechreibung';
+	polling = 'Abfrageintervall';
+}
+if(systemLang == 'en') {
+	id = 'Plant id: ';
+	idname = 'Plant name: ';
+	protocol = 'Used protocol: ';
+	name = 'Name';
+	desc = 'Description';
+	polling = 'Polling interval';
+}
+if(systemLang == 'ru') {
+	id = '???: ';
+	idname = '???: ';
+	protocol = '???: ';
+	name = '???';
+	desc = '???';
+	polling = '???';
+}
 
 try {
 	$('#xmlconfig').empty();
-	$('#xmlconfig').append('ID der Anlage: <b>' + datapoints.system["-ID"] + '</b><br>' + 'Name der Anlage: <b>' + datapoints.system["-name"] + '</b><br>' + 'Verwendetes Protokoll: <b>' + datapoints.system["-protocol"] + '</b>');
+	$('#xmlconfig').append(id + '<b>' + datapoints.system["-ID"] + '</b><br>' + idname + '<b>' + datapoints.system["-name"] + '</b><br>' + protocol + '<b>' + datapoints.system["-protocol"] + '</b>');
     $('#commands_get').empty();
-    $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
+    $('#commands_get').append('<tr><th>' + name + '</th><th>' + desc + '</th><th>' + polling + '</th>');
 	$('#commands_set').empty();
-    $('#commands_set').append('<tr><th>Name</th><th>Bechreibung</th>');
+    $('#commands_set').append('<tr><th>' + name + '</th><th>' + desc + '</th>');
     for (var x in datapoints.gets) {
-        var name = datapoints.gets[x].name;
-        var desc = datapoints.gets[x].description;
-        var poll = datapoints.gets[x].polling;
+        var name_g = datapoints.gets[x].name;
+        var desc_g = datapoints.gets[x].description;
+        var poll_g = datapoints.gets[x].polling;
 
         var tr = $('<tr>');
-        var tds = $('<td>' + name + '</td><td>' + desc + '</td><td>' + getPollSelect(name, poll) + '</td>');
+        var tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
         tr.append(tds);
         $('#commands_get').append(tr);
 	}
@@ -333,9 +437,9 @@ catch (e) {
 $('#xmlconfig').empty();
 	$('#xmlconfig').append('ID der Anlage: <br>Name der Anlage: <br>Verwendetes Protokoll: ');
     $('#commands_get').empty();
-    $('#commands_get').append('<tr><th>Name</th><th>Bechreibung</th><th>Abfrageintervall</th>');
+    $('#commands_get').append('<tr><th>' + name + '</th><th>' + desc + '</th><th>' + polling + '</th>');
 	$('#commands_set').empty();
-    $('#commands_set').append('<tr><th>Name</th><th>Bechreibung</th>');
+    $('#commands_set').append('<tr><th>' + name + '</th><th>' + desc + '</th>');
 }
 	
 }	

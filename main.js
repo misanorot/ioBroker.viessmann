@@ -262,6 +262,7 @@ function main() {
 	
 	var ip = adapter.config.ip;
 	var port = adapter.config.port;
+	var answer = adapter.config.answer;
 	var time_out = 60000;	
 	
     commands();
@@ -283,7 +284,7 @@ function main() {
 		 	if (err) adapter.log.error(err);
 		});
 		adapter.log.debug('Connect with Viessmann sytem!');
-		client.write('dummy\n');		
+		//client.write('dummy\n');		
 		stepPolling();
 	});
 	client.on('close', function() {
@@ -317,12 +318,20 @@ function main() {
 			}
 			try {
 				data = data.replace(/\n$/, '');
-				data = split_unit(data).value;
-				if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}				
-				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
+				if(answer){
+					data = split_unit(data).value;
+					if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}				
+					adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
 					if (err) adapter.log.error(err);
 					stepPolling();
-				});
+					});
+				}
+				else{
+					adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
+					if (err) adapter.log.error(err);
+					stepPolling();
+					});
+				}
 			} catch(e) {
 				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
 					if (err) adapter.log.error(err);
