@@ -256,7 +256,7 @@ Try it Yourself »
 			var poll = -1;
 			var c = (commands.vito.commands.command[z][name]);
 			var d = (commands.vito.commands.command[z][desc]);
-			if (c.substring(0, 3) === 'get') {
+			if (c.substring(0, 3) === 'get' && c.length > 3) {
 				var dp = new Dpoint();
 				dp.name = c.substring(3, c.length);
 				dp.description = d;
@@ -265,7 +265,7 @@ Try it Yourself »
 				datapoints.gets[c.substring(3, c.length)] = dp;
 				continue;
 			}
-			if(c.substring(0, 3) === 'set') {
+			if(c.substring(0, 3) === 'set' && c.length > 3) {
 				var dps = new Dpoint();
 				dps.name = c.substring(3, c.length);
 				dps.description = d;
