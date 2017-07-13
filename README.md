@@ -7,14 +7,15 @@
 
 [![NPM](https://nodei.co/npm/iobroker.viessmann.png?downloads=true)](https://nodei.co/npm/iobroker.viessmann/)
 
-Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung 
-die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert, 
+Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung
+die mit dem Programm [Vcontrold](https://openv.wikispaces.com/vcontrold) kommuniziert,
 in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
+![Logo](admin/img/Viessmann_adapter.png)
 
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON Format umwandeln. Dies ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!  
 Vorsicht!: Bei jedem neuen einlesen der JSON Daten, werden die Einstellungen gelöscht.
 
-Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen. 
+Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen.
 ![Logo](admin/img/Viessmann_settings.png)
 
 *Bitte erst die JSON einlesen und dann die Netzwerkeinstellungen im Adapter ändern.*  
@@ -24,44 +25,6 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 
 #### 0.2.6
 * (misanorot) add option to use format values
-
-#### 0.2.5
-* (Sineos) format values
-
-#### 0.2.4
-* (misanorot) fix issue with connection timeout
-
-#### 0.2.3
-* (misanorot) add links in admin settings
-
-#### 0.2.2
-* (misanorot) delete line break in state values
-
-#### 0.2.1
-* (misanorot) check import vito.xml
-
-#### 0.2.0
-* (misanorot) eliminate "get&set" in states 
-
-#### 0.1.4
-* (misanorot) substring "vctrold>" 
-
-#### 0.1.3
-* (misanorot) change grammar issues 
-
-#### 0.1.2
-* (misanorot) implement set commands 
-* (misanorot) add info.connection state
-
-#### 0.1.1
-* (misanorot) reconnection after timeout error
-* (misanorot) fix issue with first run
-
-#### 0.1.0
-* (misanorot) revised and updated the complete adapter
-
-#### 0.0.2
-* (misanorot) create State JSON_table for show in VIS
 
 #### 0.0.1
 * (misanorot) initial release

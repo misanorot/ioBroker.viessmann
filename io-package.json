@@ -4,6 +4,10 @@
         "version": "0.2.6",
 	    "news": {
 			"0.2.6": {
+			  "en": "add option to use format values",
+			  "de": "Option zur Formatierung von Werten hinzugefügt"
+			},
+      "0.0.1": {
 			  "en": "initial Version",
 			  "de": "Start Version"
 			}
