@@ -3,10 +3,9 @@
         "name":                     "viessmann",
         "version": "0.2.6",
 	    "news": {
-			"0.0.2": {
-			  "en": "create State JSON_table for show in VIS",
-			  "de": "erzeugen des States JSON_table zur Anzeige in VIS",
-			  "ru": "Создаётся JSON таблица для vis"
+			"0.2.6": {
+			  "en": "initial Version",
+			  "de": "Start Version"
 			}
 		},
         "title":                    "viessmann adapter",
@@ -23,7 +22,7 @@
         "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
         "type":                     "hardware"
-        
+
     },
     "native": {
 		"datapoints":	{},
