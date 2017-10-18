@@ -25,7 +25,7 @@
 		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
         "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
-        "type":                     "hardware"
+        "type":                     "climate-control"
 
     },
     "native": {
