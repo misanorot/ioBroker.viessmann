@@ -18,6 +18,9 @@
 				 "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
 				 "ru": "Коммуникация с блоком управления Viessmann через Vcontrold"
 		},
+    "authors": [
+            "misanorot <audi16v@gmx.de>"
+        ],
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
         "icon":                     "viessmann.png",
