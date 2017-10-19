@@ -15,6 +15,29 @@ in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vi
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in ein JSON Format umwandeln. Dies ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
 Den umgewandelten Inhalt der Datei, dann mittels, z.B.mit STRG+C, in das Importfenster importieren.
 
+Die Struktur der vito.xml muss in der folgenden Form aufgebaugt sein:
+
+		```<vito>
+			<devices>
+				<device ID="2094" name="V200KW1" protocol="KW2"/>
+			</devices>
+			<commands>
+				<command name='getOelverbrauch' protocmd='getaddr' >
+					<addr>7574</addr>
+					<len>4</len>
+					<description></description>
+				</command>
+				<command name='getTempAbgas' protocmd='getaddr'>
+					<addr>0808</addr>
+					<len>2</len>
+					<unit>UT</unit>
+					<error>05 05</error>
+					<description>Abgastemeratur in Grad C</description>	
+				</command>
+			</commands> 
+		</vito>```
+
+
 Vorsicht!: Bei jedem neuen einlesen der JSON Daten, werden ggf. die "alten" Einstellungen gelöscht.
 
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen.
