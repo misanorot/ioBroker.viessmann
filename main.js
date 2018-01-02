@@ -22,7 +22,7 @@ var client = new net.Socket();
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.viessmann.0
-var adapter = utils.adapter('viessmann');
+var adapter = utils.Adapter('viessmann');
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
