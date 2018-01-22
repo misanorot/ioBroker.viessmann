@@ -49,7 +49,7 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ### Changelog
 
 #### 0.3.0 (22.01.2018)
-* (misanorot) add option to use format values
+* (misanorot) ready for admin V3
 
 #### 0.2.6
 * (misanorot) add option to use format values
