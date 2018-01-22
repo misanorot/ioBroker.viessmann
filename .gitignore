@@ -1,8 +1,6 @@
-node_modules
+.git
 .idea
-tmp
-/.vs
+node_modules
+nbproject
 admin/i18n/flat.txt
 admin/i18n/*/flat.txt
-iob_npm.done
-package-lock.json
