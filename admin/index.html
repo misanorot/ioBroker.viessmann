@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 <script type="text/javascript" src="../../js/translate.js"></script>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript" src="words.js"></script>
 
 <style>
     
@@ -107,24 +108,6 @@ Try it Yourself »
         this.polling = '';
 		this.command = '';
     }
-    
-	
-    systemDictionary = {
-        "General":              {"en": "Global settings", "de": "Allgemeine Einstellungen", "ru": "Основные настройки"},
-        "Gets":                 {"en": "Get data points", "de": "Abfragedatenpunkte", "ru": "Опрашиваемые значения"},
-        "Sets":                 {"en": "Set data points",  "de": "Setzdatenpunkte",  "ru": "Устанавливаемые значения"},
-		"adapter settings":     {"en": "Viessmann Adapter settings",  "de": "Viessmann Adapter-Einstellungen",  "ru": "Настройки драйвера Viessmann"},
-		"connection":           {"en": "Connection settings",  "de": "Verbindungseinstellungen",  "ru": "Настройки соединения"},
-		"ip":                   {"en": "IP:",  "de": "IP:",  "ru": "IP:"},
-		"getvito":              {"en": "Get data points from VITO.XML",  "de": "Abfragedatenpunkte aus der VITO.XML:",  "ru": "Получить данные из файла VITO.XML"},
-		"setvito":              {"en": "Set data points from VITO.XML",  "de": "Setzdatenpunkte aus der VITO.XML:",  "ru": "Прописать данные из VITO.XML"},
-		"transform":            {"en": "Transformation of VITO.XML into JSON values",  "de": "Umwandlung VITO.XML in JSON-Werte:",  "ru": "Сконвертировать данные из VITO.XML в JSON"},
-		"answer":               {"en": "Truncate data point values",  "de": "Datenpunktwerte kürzen",  "ru": "Обрезать имена данных"},
-		"port":                 {"en": "Port",  "de": "Port:",  "ru": "Порт:"},
-		"ip desc":              {"en": "IP address on which VCONTROLD runs",  "de": "IP-Adresse, auf der VCONTROLD läuft:",  "ru": "IP адрес, где запущен VCONTROLD"},
-		"port desc":            {"en": "Port address over which VCONTROLD is externally reachable (default: 3002)",  "de": "Port-Adresse, über die VCONTROLD erreichbar ist (Standard: 3002):",  "ru": "Порт VCONTROLD (3002 по умполчанию)"},
-		"main desc":            {"en": "Caution: adapter requires a running and configured VCONTROLD installation!",  "de": "ACHTUNG: Es wird eine funktionierende VCONTROLD-Installation vorausgesetzt!",  "ru": "Для работы драйвера необходим запущеный и настроенный VCONTROLD!"}
-   };
 
 	
     function setValue(id, value, onChange) {

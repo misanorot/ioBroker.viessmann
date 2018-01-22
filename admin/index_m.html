@@ -1,0 +1,368 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+<script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+<script type="text/javascript" src="../../js/translate.js"></script>
+<script type="text/javascript" src="../../lib/js/materialize.js"></script>
+<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script type="text/javascript" src="words.js"></script>
+
+<!-- you have to define 2 functions in the global scope: -->
+<script type="text/javascript">
+
+ var datapoints = {};
+
+    function Dpoint() {
+        this.name = '';
+        this.description = '';
+        this.polling = '';
+		this.command = '';
+    }
+
+
+    function setValue(id, value, onChange) {
+        // example: select elements with id=key and class=value and insert value
+		$('.getSelect').change(function (e) {
+        datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
+			onChange();
+		});
+        if ($('#' + id + '.value').attr('type') == 'checkbox') {
+            $('#' + id + '.value').prop('checked', value).change(function() {
+                onChange();
+            });
+        } else {
+            $('#' + id + '.value').val(value).change(function() {
+                onChange();
+            }).keyup(function() {
+                // Chack that only numbers entered
+                if ($(this).hasClass('number')) {
+                    var val = $(this).val();
+                    if (val) {
+                        var newVal = '';
+                        for (var i = 0; i < val.length; i++) {
+                            if (val[i] >= '0' && val[i] <= '9') {
+                                newVal += val[i];
+                            }
+                        }
+                        if (val != newVal) $(this).val(newVal);
+                    }
+                }
+                onChange();
+            });
+        }
+    }
+    // the function loadSettings has to exist ...
+    function load(settings, onChange) {
+        if (!settings) return;
+        datapoints = settings.datapoints || {};
+		write();
+        for (var key in settings) {
+            setValue(key, settings[key], onChange);
+        }
+		onChange(false);
+		$('#button_import').click(function () {
+                    getImport();
+					$('#import_textarea').val('');
+					$('#import_textarea').trigger('autoresize');
+                });
+		
+    }
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+    function save(callback) {
+        // example: select elements with class=value and build settings object
+        var obj = {};
+        $('.value').each(function () {
+            var $this = $(this);
+            if ($this.attr('type') == 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
+            }
+        });
+        obj.datapoints = datapoints;
+        callback(obj);
+    }
+
+
+
+
+	//*******************************************************
+	function getImport() {
+	datapoints['gets'] = {};
+	datapoints['sets'] = {};
+	datapoints['system'] = {};
+
+	var json = $('#import_textarea').val();
+    try {
+        var commands = JSON.parse(json);
+    }
+    catch (e) {
+        $('#info').html(_('read err') + e).css({ "background-color": "red", "color": "black" });
+    }
+    if (typeof commands.vito.commands.command === "object" && typeof commands.vito.devices.device["-ID"] != "undefined") {
+
+		datapoints.system = commands.vito.devices.device;
+		for (var z in commands.vito.commands.command) {
+			var name = '-name';
+			var desc = 'description';
+			var poll = -1;
+			var c = (commands.vito.commands.command[z][name]);
+			var d = (commands.vito.commands.command[z][desc]);
+			if (c.substring(0, 3) === 'get' && c.length > 3) {
+				var dp = new Dpoint();
+				dp.name = c.substring(3, c.length);
+				dp.description = d;
+				dp.polling = poll;
+				dp.command = c;
+				datapoints.gets[c.substring(3, c.length)] = dp;
+				continue;
+			}
+			if(c.substring(0, 3) === 'set' && c.length > 3) {
+				var dps = new Dpoint();
+				dps.name = c.substring(3, c.length);
+				dps.description = d;
+				dps.polling = "nicht möglich";
+				dps.command = c;
+				datapoints.sets[c.substring(3, c.length)] = dps;
+				continue;
+            }
+		}
+		$('#info').html(_('read ok')).css({ "background-color": "green", "color": "black" });
+		write();
+		$('#import_textarea').val('');
+    }
+    else {
+        $('#info').html(_('read err')).css({ "background-color": "red", "color": "black" });
+    }
+	}
+
+	function getPollSelect(name, act) {
+
+    var sel = '<select id="' + name + '" class="getSelect">' +
+        '<option ' + (act == -1 ? 'selected="selected"' : '') + 'value="-1">------</option>' +
+        '<option ' + (act == 10 ? 'selected="selected"' : '') + 'value="10">' + _('opt10') + '</option>' +
+        '<option ' + (act == 30 ? 'selected="selected"' : '') + 'value="30">' + _('opt30') + '</option>' +
+        '<option ' + (act == 60 ? 'selected="selected"' : '') + 'value="60">' + _('opt60') + '</option>' +
+        '<option ' + (act == 120 ? 'selected="selected"' : '') + 'value="120">' + _('opt120') + '</option>' +
+        '<option ' + (act == 300 ? 'selected="selected"' : '') + 'value="300">' + _('opt300') + '</option>' +
+        '<option ' + (act == 600 ? 'selected="selected"' : '') + 'value="600">' + _('opt600') + '</option>' +
+        '<option ' + (act == 900 ? 'selected="selected"' : '') + 'value="900">' + _('opt900') + '</option>' +
+        '<option ' + (act == 1800 ? 'selected="selected"' : '') + 'value="1800">' + _('opt1800') + '</option>' +
+        '<option ' + (act == 2700 ? 'selected="selected"' : '') + 'value="2700">' + _('opt2700') + '</option>' +
+        '<option ' + (act == 3600 ? 'selected="selected"' : '') + 'value="3600">' + _('opt3600') + '</option>' +
+        '<option ' + (act == 7200 ? 'selected="selected"' : '') + 'value="7200">' + _('opt7200') + '</option>' +
+        '<option ' + (act == 21600 ? 'selected="selected"' : '') + 'value="21600">' + _('opt21600') + '</option>' +
+        '<option ' + (act == 43200 ? 'selected="selected"' : '') + 'value="43200">' + _('opt43200') + '</option>' +
+        '<option ' + (act == 86400 ? 'selected="selected"' : '') + 'value="86400">' + _('opt86400') + '</option>' +
+        '</select>';
+    return sel;
+}
+
+
+
+function write() {
+
+	try {
+		$('#plant_id').empty();
+		$('#typ').empty();
+		$('#protocol').empty();
+		$('#commands_get').empty();
+		$('#commands_set').empty();
+		$('#plant_id').append(datapoints.system["-ID"]);
+		$('#typ').append(datapoints.system["-name"]);
+		$('#protocol').append(datapoints.system["-protocol"]);
+		for (var x in datapoints.gets) {
+			var name_g = datapoints.gets[x].name;
+			var desc_g = datapoints.gets[x].description;
+			var poll_g = datapoints.gets[x].polling;
+
+			var tr = $('<tr>');
+			var tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
+			tr.append(tds);
+			$('#commands_get').append(tr);
+			$('#'+name_g).select();
+		}
+
+		for (var y in datapoints.sets) {
+			var name_s = datapoints.sets[y].name;
+			var desc_s = datapoints.sets[y].description;
+
+		   var tr_s = $('<tr>');
+			var tds_s = $('<td>' + name_s + '</td><td>' + desc_s + '</td>');
+			tr_s.append(tds_s);
+			$('#commands_set').append(tr_s);
+		}
+	}
+	catch (e) {
+		$('#plant_id').append('-----');
+		$('#typ').append('-----');
+		$('#protocol').append('-----');
+		$('#commands_get').empty();
+		$('#commands_set').empty();
+	}
+
+}
+
+</script>
+<style>
+.back_image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 0;
+        opacity: 0.2;
+    }
+</style>
+</head>
+<body>
+
+
+<!-- you have to put your config page in a div with id adapter-container -->
+<div class="m adapter-container">
+
+    <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#tab_g" class="translate">Gerneral</a></li>
+        <li class="tab col s3"><a href="#tab_get" class="translate">Gets</a></li>
+        <li class="tab col s3"><a href="#tab_set" class="translate">Sets</a></li>
+		<li class="tab col s3"><a href="#tab_import" class="translate">Import</a></li>
+      </ul>
+    </div>
+
+	<div id="tab_g" class="col s12 page">
+		<img src="img/Viessmann_back.png" class="back_image">
+			<div class="center-align">
+				<div class="row">
+					<div class="col s12">
+						<h5 style="font-weight: bolder"; class="translate">adapter settings</h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col s12">
+							<a style="color:red; font-weight: bolder;" href="http://openv.wikispaces.com/" target="_blank" class="translate">main desc</a>
+					</div>
+				</div>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s3 offset-s3">
+								<input type="text" class="value">
+								<label for="ip" class="translate">ip desc</label>
+							</div>
+							<div class="input-field col s3">
+								<input id="port" type="text" class="value">
+								<label for="port" class="translate">port desc</label>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="col s12">
+						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
+					</div>
+				</div>
+					<div class="col s2 offset-s4">
+						<div class="right">
+							<p class="translate">plant_id</p>
+						</div>
+					</div>
+					<div class="col s2">
+						<div class="left">
+							<p><b id="plant_id"></b></p>
+						</div>
+					</div>
+					<div class="col s2 offset-s4">
+						<div class="right">
+							<p class="translate">typ</p>
+						</div>
+					</div>
+					<div class="col s2">
+						<div class="left">
+							<p><b id="typ"></b></p>
+						</div>
+					</div>
+					<div class="col s2 offset-s4">
+						<div class="right">
+							<p class="translate">protocol</p>
+						</div>
+					</div>
+					<div class="col s2">
+						<div class="left">
+							<p><b id="protocol"></b></p>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="tab_get" class="col s12 page" >
+		<div class="row">
+			<div class="col s12">
+					<div><h5 class="translate">getvito</h5></div>
+			</div>
+		</div>
+		<table class="bordered">
+              <thead>
+                  <tr>
+                      <th class="translate">name</th>
+                      <th class="translate">desc</th>
+					  <th class="translate">polling</th>
+                  </tr>
+              </thead>
+              <tbody id="commands_get"></tbody>
+          </table>
+	</div>
+
+    <div id="tab_set" class="col s12 page">
+		<div class="row">
+			<div class="col s12">
+					<div><h5 class="translate">setvito</h5></div>
+			</div>
+		</div>
+		<table class="bordered">
+              <thead>
+                  <tr>
+                      <th class="translate">name</th>
+                      <th class="translate">desc</th>
+                  </tr>
+              </thead>
+              <tbody id="commands_set"></tbody>
+          </table>
+	</div>
+
+	<div id="tab_import" class="col s12 page">
+		<div class="center-align">
+			<div class="row">
+				<div class="col s12">
+					<h5 id="info"></h5>
+						<a  href="http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I" target="_blank" class="translate">transform</a>
+					</div>
+				</div>
+					<div class="row">
+						<div class="col s12">
+						<button id="button_import" class="btn waves-effect waves-light" type="submit" name="action">Import JSON</button>
+						</div>
+					</div>
+			<div class="row">
+				<form class="col s12">
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea id="import_textarea" class="materialize-textarea" ></textarea>
+							<label for="import_textarea" class="translate">textarea</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+  </div>
+
+</body>
+</html>

@@ -1,22 +1,54 @@
 {
     "common": {
+		"materialize": true,
         "name":                     "viessmann",
-        "version": "0.2.6",
+        "version": "0.3.0",
 	    "news": {
+			"0.3.0": {
+				"en": "ready for admin V3",
+				"de": "Bereit für Admin V3",
+				"ru": "готово для администратора V3",
+				"pt": "pronto para admin V3",
+				"nl": "klaar voor beheerder V3",
+				"fr": "prêt pour l'administration V3",
+				"it": "pronto per l'amministratore V3",
+				"es": "listo para el administrador V3",
+				"pl": "gotowy dla administratora V3"
+				},
 			"0.2.6": {
-			  "en": "add option to use format values",
-			  "de": "Option zur Formatierung von Werten hinzugefügt"
-			},
-      "0.0.1": {
-			  "en": "initial Version",
-			  "de": "Start Version"
-			}
+				"en": "added option to use format values",
+				"de": "Option zur Formatierung von Werten hinzugefügt",
+				"ru": "добавлена ​​опция использования значений формата",
+				"pt": "opção adicionada para usar os valores de formato",
+				"nl": "toegevoegde optie om formaatwaarden te gebruiken",
+				"fr": "option ajoutée pour utiliser les valeurs de format",
+				"it": "opzione aggiunta per utilizzare i valori di formato",
+				"es": "opción agregada para usar valores de formato",
+				"pl": "dodano opcję korzystania z wartości formatu"
+				},
+			"0.0.1": {
+				"en": "initial Version",
+				"de": "erste Version",
+				"ru": "Первоначальная версия",
+				"pt": "versão inicial",
+				"nl": "eerste versie",
+				"fr": "version initiale",
+				"it": "versione iniziale",
+				"es": "versión inicial",
+				"pl": "początkowa wersja"
+				}
 		},
         "title":                    "viessmann adapter",
         "desc":                     {
-				 "en": "Communication with Viessmann controllers over Vcontrold",
-				 "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
-				 "ru": "Коммуникация с блоком управления Viessmann через Vcontrold"
+			"en": "Communication with Viessmann controllers over Vcontrold",
+			"de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
+			"ru": "Связь с контроллерами Viessmann над Vcontrold",
+			"pt": "Comunicação com controladores Viessmann sobre o Vcontrold",
+			"nl": "Communicatie met Viessmann-controllers via Vcontrold",
+			"fr": "Communication avec les contrôleurs Viessmann via Vcontrold",
+			"it": "Comunicazione con i controller Viessmann su Vcontrold",
+			"es": "Comunicación con los controladores Viessmann sobre Vcontrold",
+			"pl": "Komunikacja z kontrolerami Viessmann nad Vcontrold"
 		},
     "authors": [
             "misanorot <audi16v@gmx.de>"
@@ -33,8 +65,8 @@
     },
     "native": {
 		"datapoints":	{},
-		"ip":			"xxx.xxx.x.x",
-		"port": 		3002,
+		"ip":			"",
+		"port": 		"",
 		"answer":		false
     },
     "objects": []

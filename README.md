@@ -48,6 +48,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 *die benutzten Bilder stammen von www.viessmann.com.*
 ### Changelog
 
+#### 0.3.0 (22.01.2018)
+* (misanorot) add option to use format values
+
 #### 0.2.6
 * (misanorot) add option to use format values
 
@@ -58,7 +61,7 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 
 The MIT License (MIT)
 
-Copyright (c) 2017 misanorot <audi16v@gmx.de>
+Copyright (c) 2017-2018 misanorot <audi16v@gmx.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
