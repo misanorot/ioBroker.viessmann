@@ -68,7 +68,7 @@ adapter.on('ready', function () {
         type: 'state',
         common: {
             name: 'connection',
-            desc: 'Info über Verbindung zur Viessmann Steuerung',           
+            desc: 'Info über Verbindung zur Viessmann Steuerung',
         },
         native: {}
     });
@@ -88,21 +88,21 @@ function addState(pfad, name, beschreibung, callback) {
         type: 'state',
         common: {
             name: name,
-            desc: beschreibung,           
+            desc: beschreibung,
         },
         native: {}
-    }, callback);	
+    }, callback);
 }
 
 function setAllObjects(callback) {
 	adapter.getStatesOf(function (err, _states) {
-        
+
 		var configToDelete = [];
         var configToAdd    = [];
         var id;
 		var pfadget = 'get.';
 		var pfadset = 'set.';
-		
+
         if (adapter.config.datapoints) {
             for (var k in  adapter.config.datapoints.gets) {
                 configToAdd.push(adapter.config.datapoints.gets[k].name);
@@ -119,7 +119,7 @@ function setAllObjects(callback) {
 					continue;
 				}
 				var clean = _states[j]._id;
-			
+
 				if (name.length < 1) {
 					adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
 					continue;
@@ -127,10 +127,10 @@ function setAllObjects(callback) {
 				id = name.replace(/[.\s]+/g, '_');
 				var pos = configToAdd.indexOf(name);
 				if (pos !== -1) {
-					configToAdd.splice(pos, 1);           
+					configToAdd.splice(pos, 1);
 				} else {
 					configToDelete.push(clean);
-				}				
+				}
 			}
         }
 
@@ -154,7 +154,7 @@ function setAllObjects(callback) {
             }
         }
         if (configToDelete.length) {
-            for (var e = 0; e < configToDelete.length; e++) {				
+            for (var e = 0; e < configToDelete.length; e++) {
                 adapter.log.debug('States to delete: ' + configToDelete[e]);
                 adapter.delObject(configToDelete[e]);
             }
@@ -162,13 +162,13 @@ function setAllObjects(callback) {
         if (!count && callback) callback();
     });
 }
-	
+
 function stepPolling() {
-    
-    step = -1;   
+
+    step = -1;
     var actualMinWaitTime = 1000000;
     var time = Date.now();
-	
+
 	if (setcommands.length > 0) {
 		var cmd = setcommands.shift();
 		adapter.log.debug('Set command: ' + cmd);
@@ -180,7 +180,7 @@ function stepPolling() {
         if (typeof toPoll[i].lastPoll === 'undefined') {
             toPoll[i].lastPoll = time;
         }
-        
+
         var nextRun = toPoll[i].lastPoll + (toPoll[i].polling * 1000);
         var nextDiff = nextRun - time;
 
@@ -190,16 +190,16 @@ function stepPolling() {
 			}
              continue;
         }
-        
+
         if(nextDiff < actualMinWaitTime) {
             actualMinWaitTime = nextDiff;
             step = i;
         }
     }
-    
+
     if (step === -1) {
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
-        setTimeout(function () {			
+        setTimeout(function () {
             stepPolling();
         }, actualMinWaitTime);
 
@@ -211,7 +211,7 @@ function stepPolling() {
 }
 
 function commands() {
-	for (var q in adapter.config.datapoints.gets) {	
+	for (var q in adapter.config.datapoints.gets) {
 		if (adapter.config.datapoints.gets[q].polling > -1) {
 			adapter.log.debug('Commands for polling: ' + adapter.config.datapoints.gets[q].command);
 			var dp = new Poll();
@@ -245,7 +245,7 @@ function roundNumber(num, scale) {
 	var number = Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale);
 	if (num - number > 0) {
 		return (number + Math.floor(2 * Math.round((num - number) * Math.pow(10, (scale + 1))) / 10) / Math.pow(10, scale));
-	} 
+	}
 	else {
 		return number;
   }
@@ -254,37 +254,37 @@ function roundNumber(num, scale) {
 function main() {
 	// set connection status to false
 	adapter.setState('info.connection', false, true);
-	
+
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 	toPoll = {};
 	setcommands = [];
-	
+
 	var ip = adapter.config.ip;
 	var port = adapter.config.port;
 	var answer = adapter.config.answer;
-	var time_out = 60000;	
-	
+	var time_out = 60000;
+
     commands();
-	
-	for (var i in adapter.config.datapoints.gets) {	
+
+	for (var i in adapter.config.datapoints.gets) {
 		if (adapter.config.datapoints.gets[i].polling * 1000 > time_out) {
 			time_out = adapter.config.datapoints.gets[i].polling * 1000 + 60000;
 		}
 	}
-	
-	
+
+
 	setAllObjects(function() {
 	});
-	
+
 	client.setTimeout(time_out);
-        
+
 	client.connect(port, ip, function() {
 		adapter.setState('info.connection', true, true, function (err) {
 		 	if (err) adapter.log.error(err);
 		});
 		adapter.log.debug('Connect with Viessmann sytem!');
-		//client.write('dummy\n');		
+		//client.write('dummy\n');
 		stepPolling();
 	});
 	client.on('close', function() {
@@ -294,14 +294,14 @@ function main() {
 		adapter.log.debug('Disable connection with Viessmann system!');
 		client.destroy(); // kill client after server's response
 	});
-	
-	
+
+
 	client.on('data', function(data) {
 		data = String(data);
 		var ok = /OK/;
 		var fail = /ERR/;
 		var vctrld = /vctrld>/;
-		
+
 		if (ok.test(data)) {
 			adapter.log.debug('Send command okay!');
 			stepPolling();
@@ -320,7 +320,7 @@ function main() {
 				data = data.replace(/\n$/, '');
 				if(answer){
 					data = split_unit(data).value;
-					if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}				
+					if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}
 					adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
 					if (err) adapter.log.error(err);
 					stepPolling();
@@ -338,11 +338,11 @@ function main() {
 					stepPolling();
 				});
 			}
-		}    
+		}
 	});
-	client.on('error', function() {
+	client.on('error', function(e) {
 		adapter.setState('info.connection', false, true);
-		adapter.log.warn('Malfunction connection');
+		adapter.log.warn('Malfunction connection--> ' + e);
 		client.destroy(); // kill client after server's response
 	});
     client.on('timeout', function() {
@@ -351,9 +351,9 @@ function main() {
 		client.destroy(); // kill client after server's response
 		setTimeout(main, 10000);
 	});
-	
-	
-	
+
+
+
     // in this viessmann all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('set.*');
 
