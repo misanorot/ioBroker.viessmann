@@ -261,7 +261,7 @@ function main() {
 	setcommands = [];
 
 	var ip = adapter.config.ip;
-	var port = adapter.config.port;
+	var port = adapter.config.port || 3002;
 	var answer = adapter.config.answer;
 	var time_out = 60000;
 
