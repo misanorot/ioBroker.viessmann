@@ -1,9 +1,19 @@
 {
     "common": {
-		"materialize": true,
         "name":                     "viessmann",
-        "version": "0.3.0",
+        "version": "0.4.0",
 	    "news": {
+        "0.4.0": {
+          "en": "parse vito.xml file",
+          "de": "analysiere die Datei vito.xml",
+          "ru": "Файл parse vito.xml",
+          "pt": "Parse vito.xml arquivo",
+          "nl": "ontleed het bestand vito.xml",
+          "fr": "fichier parse vito.xml",
+          "it": "parse vito.xml file",
+          "es": "archivo parse vito.xml",
+          "pl": "przeanalizuj plik vito.xml"
+  				},
 			"0.3.0": {
 				"en": "ready for admin V3",
 				"de": "Bereit für Admin V3",
@@ -53,6 +63,7 @@
     "authors": [
             "misanorot <audi16v@gmx.de>"
         ],
+        "materialize": true,
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
         "icon":                     "viessmann.png",
@@ -60,7 +71,8 @@
 		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
         "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
-        "type":                     "climate-control"
+        "type":                     "climate-control",
+      "enabled": true
 
     },
     "native": {

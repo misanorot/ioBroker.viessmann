@@ -11,18 +11,26 @@
 // you have to require the utils module and call adapter function
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var net = require('net');
+var xml2js = require('xml2js');
+var fs = fs = require('fs');
 //Hilfsobjekt zum abfragen der Werte
+var datapoints = {};
 var toPoll = {};
 //Zähler für Hilfsobjekt
 var step = -1;
 //Hilfsarray zum setzen von Werten
 var setcommands = [];
-var client = new net.Socket();
-
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.viessmann.0
 var adapter = utils.Adapter('viessmann');
+
+var client = new net.Socket();
+var parser = new xml2js.Parser();
+
+
+
+
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', function (callback) {
@@ -72,8 +80,83 @@ adapter.on('ready', function () {
         },
         native: {}
     });
-    main();
+    if(!adapter.config.datapoints.gets)readxml();
+    else main();
 });
+
+function readxml(){
+  //Read files
+  fs.readFile(__dirname + '/vito.xml', 'utf8', function (err, data) {
+    if(err){
+      adapter.log.warn('cannot read vito.xml ' + err);
+      adapter.setState('info.connection', false, true);
+    }
+    else{
+      parser.parseString(data, function (err, result) {
+        if(err){
+          adapter.log.warn('cannot parse vito.xml ' + err);
+          adapter.setState('info.connection', false, true);
+        }
+        else{
+          try{
+              var temp = JSON.stringify(result);
+              temp = JSON.parse(temp)
+              adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
+              main();
+            }
+            catch(e){
+              adapter.log.warn('check vito.xml structure ' + e);
+              adapter.setState('info.connection', false, true);
+            }
+        }
+      });
+    }
+  });
+}
+
+function getImport(json) {
+datapoints['gets'] = {};
+datapoints['sets'] = {};
+datapoints['system'] = {};
+  if (typeof json.vito.commands[0].command === "object") {
+
+    datapoints.system["-ID"] = json.vito.devices[0].device[0].$.ID;
+    datapoints.system["-name"] = json.vito.devices[0].device[0].$.name;
+    datapoints.system["-protocol"] = json.vito.devices[0].device[0].$.protocol;
+
+    for (var z in json.vito.commands[0].command) {
+      var poll = -1;
+      var c = (json.vito.commands[0].command[z].$.name);
+      var d = (json.vito.commands[0].command[z].description[0]);
+      if (c.substring(0, 3) === 'get' && c.length > 3) {
+        var dp = new Dpoint();
+        dp.name = c.substring(3, c.length);
+        dp.description = d;
+        dp.polling = poll;
+        dp.command = c;
+        datapoints.gets[c.substring(3, c.length)] = dp;
+        continue;
+      }
+      if(c.substring(0, 3) === 'set' && c.length > 3) {
+        var dps = new Dpoint();
+        dps.name = c.substring(3, c.length);
+        dps.description = d;
+        dps.polling = "nicht möglich";
+        dps.command = c;
+        datapoints.sets[c.substring(3, c.length)] = dps;
+        continue;
+            }
+    }
+    return datapoints;
+}
+}
+
+function Dpoint() {
+    this.name = '';
+    this.description = '';
+    this.polling = '';
+this.command = '';
+}
 
 function Poll() {
 		this.name = '';
