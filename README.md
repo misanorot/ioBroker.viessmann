@@ -12,6 +12,7 @@ die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommunizier
 in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 ![Logo](admin/img/Viessmann_adapter.png)
 
+## Neu: 	
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in das Adapter Verzeichnis zu kopieren *(../iobroker/node_modules/iobroker.viessmann)*. Nach dem Starten der Instanz, wird diese dann automatisch eingelesen. Des Weiteren ist es möglich diese als JSON einzulesen. Das umwandeln ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
 Den umgewandelten Inhalt der Datei, dann mittels, z.B.mit STRG+C, in das Importfenster importieren.
 
