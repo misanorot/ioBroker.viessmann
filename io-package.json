@@ -1,18 +1,29 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.4.0",
+        "version": "0.5.0",
 	    "news": {
-        "0.4.0": {
-          "en": "parse vito.xml file",
-          "de": "analysiere die Datei vito.xml",
-          "ru": "Файл parse vito.xml",
-          "pt": "Parse vito.xml arquivo",
-          "nl": "ontleed het bestand vito.xml",
-          "fr": "fichier parse vito.xml",
-          "it": "parse vito.xml file",
-          "es": "archivo parse vito.xml",
-          "pl": "przeanalizuj plik vito.xml"
+		"0.5.0": {
+			"en": "option to create only states if you use. option to restart the connection after to many errors",
+			"de": "Option, um nur Zustände zu erstellen, die Sie verwenden. Option, um die Verbindung nach vielen Fehlern neu zu starten",
+			"ru": "возможность создания только состояний, если вы используете. возможность перезапуска соединения после многих ошибок",
+			"pt": "opção para criar apenas estados, se você usar. opção para reiniciar a conexão após muitos erros",
+			"nl": "optie om alleen staten te maken als u gebruikt. optie om de verbinding opnieuw te starten na vele fouten",
+			"fr": "option pour créer uniquement des états si vous utilisez. option pour redémarrer la connexion après de nombreuses erreurs",
+			"it": "opzione per creare solo stati se si utilizza. opzione per riavviare la connessione dopo molti errori",
+			"es": "opción para crear solo estados si usa. opción para reiniciar la conexión después de muchos errores",
+			"pl": "opcja tworzenia tylko stanów, jeśli używasz. opcja ponownego uruchomienia połączenia po wielu błędach"
+  			},
+			"0.4.0": {
+				"en": "parse vito.xml file",
+				"de": "analysiere die Datei vito.xml",
+				"ru": "Файл parse vito.xml",
+				"pt": "Parse vito.xml arquivo",
+				"nl": "ontleed het bestand vito.xml",
+				"fr": "fichier parse vito.xml",
+				"it": "parse vito.xml file",
+				"es": "archivo parse vito.xml",
+				"pl": "przeanalizuj plik vito.xml"
   				},
 			"0.3.0": {
 				"en": "ready for admin V3",
@@ -79,7 +90,9 @@
 		"datapoints":	{},
 		"ip":			"",
 		"port": 		"",
-		"answer":		false
+		"answer":		true,
+		"states_only":	true,
+		"errors":		false
     },
     "objects": []
 }

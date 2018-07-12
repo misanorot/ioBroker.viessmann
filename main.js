@@ -9,31 +9,31 @@
 "use strict";
 
 // you have to require the utils module and call adapter function
-var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
-var net = require('net');
-var xml2js = require('xml2js');
-var fs = fs = require('fs');
+const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const net = require('net');
+const xml2js = require('xml2js');
+const fs = require('fs');
 //Hilfsobjekt zum abfragen der Werte
-var datapoints = {};
-var toPoll = {};
+let datapoints = {};
+let toPoll = {};
 //Zähler für Hilfsobjekt
-var step = -1;
+let step = -1;
 //Hilfsarray zum setzen von Werten
-var setcommands = [];
+let setcommands = [];
 // you have to call the adapter function and pass a options object
 // name has to be set and has to be equal to adapters folder name and main file name excluding extension
 // adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.viessmann.0
-var adapter = utils.Adapter('viessmann');
+const adapter = utils.Adapter('viessmann');
 
-var client = new net.Socket();
-var parser = new xml2js.Parser();
+const client = new net.Socket();
+const parser = new xml2js.Parser();
 
 
 
 
 
 // is called when adapter shuts down - callback has to be called under any circumstances!
-adapter.on('unload', function (callback) {
+adapter.on('unload', (callback) => {
     try {
 		client.destroy(); // kill client after server's response
         adapter.log.info('cleaned everything up...');
@@ -44,13 +44,13 @@ adapter.on('unload', function (callback) {
 });
 
 // is called if a subscribed object changes
-adapter.on('objectChange', function (id, obj) {
+adapter.on('objectChange', (id, obj)=> {
     // Warning, obj can be null if it was deleted
     adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
 });
 
 // is called if a subscribed state changes
-adapter.on('stateChange', function (id, state) {
+adapter.on('stateChange', (id, state)=> {
     // Warning, state can be null if it was deleted
 	setcommands.push(String('set' + id.substring(16, id.length) + ' ' + state.val));
 });
@@ -71,7 +71,7 @@ adapter.on('stateChange', function (id, state) {
 
 // is called when databases are connected and adapter received configuration.
 // start here!
-adapter.on('ready', function () {
+adapter.on('ready', ()=> {
 	adapter.setObjectNotExists('info.connection', {
         type: 'state',
         common: {
@@ -84,22 +84,23 @@ adapter.on('ready', function () {
     else main();
 });
 
+//##########IMPORT XML FILE###########
 function readxml(){
   //Read files
-  fs.readFile(__dirname + '/vito.xml', 'utf8', function (err, data) {
+  fs.readFile(__dirname + '/vito.xml', 'utf8', (err, data) => {
     if(err){
       adapter.log.warn('cannot read vito.xml ' + err);
       adapter.setState('info.connection', false, true);
     }
     else{
-      parser.parseString(data, function (err, result) {
+      parser.parseString(data, (err, result)=> {
         if(err){
           adapter.log.warn('cannot parse vito.xml ' + err);
           adapter.setState('info.connection', false, true);
         }
         else{
           try{
-              var temp = JSON.stringify(result);
+              let temp = JSON.stringify(result);
               temp = JSON.parse(temp)
               adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
               main();
@@ -113,7 +114,9 @@ function readxml(){
     }
   });
 }
+//#################################
 
+//######IMPORT STATES######
 function getImport(json) {
 datapoints['gets'] = {};
 datapoints['sets'] = {};
@@ -124,48 +127,35 @@ datapoints['system'] = {};
     datapoints.system["-name"] = json.vito.devices[0].device[0].$.name;
     datapoints.system["-protocol"] = json.vito.devices[0].device[0].$.protocol;
 
-    for (var z in json.vito.commands[0].command) {
-      var poll = -1;
-      var c = (json.vito.commands[0].command[z].$.name);
-      var d = (json.vito.commands[0].command[z].description[0]);
-      if (c.substring(0, 3) === 'get' && c.length > 3) {
-        var dp = new Dpoint();
-        dp.name = c.substring(3, c.length);
-        dp.description = d;
-        dp.polling = poll;
-        dp.command = c;
-        datapoints.gets[c.substring(3, c.length)] = dp;
+    for (let i in json.vito.commands[0].command) {
+      const poll = -1;
+      const get_command = (json.vito.commands[0].command[i].$.name);
+      const desc = (json.vito.commands[0].command[i].description[0]);
+      if (get_command.substring(0, 3) === 'get' && get_command.length > 3) {
+        let obj_get = new Object();
+        obj_get.name = get_command.substring(3, get_command.length);
+        obj_get.description = desc;
+        obj_get.polling = poll;
+        obj_get.command = get_command;
+        datapoints.gets[get_command.substring(3, get_command.length)] = obj_get;
         continue;
       }
-      if(c.substring(0, 3) === 'set' && c.length > 3) {
-        var dps = new Dpoint();
-        dps.name = c.substring(3, c.length);
-        dps.description = d;
-        dps.polling = "nicht möglich";
-        dps.command = c;
-        datapoints.sets[c.substring(3, c.length)] = dps;
+      if(get_command.substring(0, 3) === 'set' && get_command.length > 3) {
+        let obj_set = new Object();
+        obj_set.name = get_command.substring(3, get_command.length);
+        obj_set.description = desc;
+        obj_set.polling = "nicht möglich";
+        obj_set.command = get_command;
+        datapoints.sets[get_command.substring(3, get_command.length)] = obj_set;
         continue;
             }
     }
     return datapoints;
 }
 }
+//########################
 
-function Dpoint() {
-    this.name = '';
-    this.description = '';
-    this.polling = '';
-this.command = '';
-}
-
-function Poll() {
-		this.name = '';
-        this.command = '';
-        this.description = '';
-        this.polling = '';
-		this.lastpoll = '';
-    }
-
+//######SET STATES#########
 function addState(pfad, name, beschreibung, callback) {
     adapter.setObjectNotExists(pfad + name, {
         type: 'state',
@@ -176,39 +166,48 @@ function addState(pfad, name, beschreibung, callback) {
         native: {}
     }, callback);
 }
-
+//##########################
 function setAllObjects(callback) {
-	adapter.getStatesOf(function (err, _states) {
+	adapter.getStatesOf((err, _states)=> {
 
-		var configToDelete = [];
-        var configToAdd    = [];
-        var id;
-		var pfadget = 'get.';
-		var pfadset = 'set.';
-
-        if (adapter.config.datapoints) {
-            for (var k in  adapter.config.datapoints.gets) {
-                configToAdd.push(adapter.config.datapoints.gets[k].name);
+		let configToDelete = [];
+        let configToAdd    = [];
+        let id;
+		const pfadget = 'get.';
+		const pfadset = 'set.';
+		let count = 0;
+		
+		if (adapter.config.datapoints) {
+			if(adapter.config.states_only){
+				for (let i in  adapter.config.datapoints.gets) {
+					if (adapter.config.datapoints.gets[i].polling !== -1 && adapter.config.datapoints.gets[i].polling != "-1"){
+						configToAdd.push(adapter.config.datapoints.gets[i].name);
+					}
+				}
+			}else{
+				for (let i in  adapter.config.datapoints.gets) {
+					configToAdd.push(adapter.config.datapoints.gets[i].name);
+				}
             }
-			for (var l in adapter.config.datapoints.sets) {
-				configToAdd.push(adapter.config.datapoints.sets[l].name);
+			for (let i in adapter.config.datapoints.sets) {
+				configToAdd.push(adapter.config.datapoints.sets[i].name);
 			}
         }
 
         if (_states) {
-            for (var j = 0; j < _states.length; j++) {
-				var name = _states[j].common.name;
+            for (let i = 0; i < _states.length; i++) {
+				let name = _states[i].common.name;
 				if (name === 'connection') {
 					continue;
 				}
-				var clean = _states[j]._id;
+				let clean = _states[i]._id;
 
 				if (name.length < 1) {
-					adapter.log.warn('No states found for ' + JSON.stringify(_states[j]));
+					adapter.log.warn('No states found for ' + JSON.stringify(_states[i]));
 					continue;
 				}
 				id = name.replace(/[.\s]+/g, '_');
-				var pos = configToAdd.indexOf(name);
+				let pos = configToAdd.indexOf(name);
 				if (pos !== -1) {
 					configToAdd.splice(pos, 1);
 				} else {
@@ -218,26 +217,25 @@ function setAllObjects(callback) {
         }
 
         if (configToAdd.length) {
-            var count = 0;
-            for (var r in adapter.config.datapoints.gets) {
-                if (configToAdd.indexOf(adapter.config.datapoints.gets[r].name) !== -1) {
+            for (let i in adapter.config.datapoints.gets) {
+                if (configToAdd.indexOf(adapter.config.datapoints.gets[i].name) !== -1) {
                     count++;
-                    addState(pfadget, adapter.config.datapoints.gets[r].name, adapter.config.datapoints.gets[r].description, function () {
+                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].description, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
             }
-			for (var o in adapter.config.datapoints.sets) {
-                if (configToAdd.indexOf(adapter.config.datapoints.sets[o].name) !== -1) {
+			for (let i in adapter.config.datapoints.sets) {
+                if (configToAdd.indexOf(adapter.config.datapoints.sets[i].name) !== -1) {
                     count++;
-                    addState(pfadset, adapter.config.datapoints.sets[o].name, adapter.config.datapoints.sets[o].description, function () {
+                    addState(pfadset, adapter.config.datapoints.sets[i].name, adapter.config.datapoints.sets[i].description, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
             }
         }
         if (configToDelete.length) {
-            for (var e = 0; e < configToDelete.length; e++) {
+            for (let e = 0; e < configToDelete.length; e++) {
                 adapter.log.debug('States to delete: ' + configToDelete[e]);
                 adapter.delObject(configToDelete[e]);
             }
@@ -249,23 +247,23 @@ function setAllObjects(callback) {
 function stepPolling() {
 
     step = -1;
-    var actualMinWaitTime = 1000000;
-    var time = Date.now();
+    let actualMinWaitTime = 1000000;
+    const time = Date.now();
 
 	if (setcommands.length > 0) {
-		var cmd = setcommands.shift();
+		let cmd = setcommands.shift();
 		adapter.log.debug('Set command: ' + cmd);
 		client.write(cmd + '\n');
 		return;
 	}
 
-    for (var i in toPoll) {
+    for (let i in toPoll) {
         if (typeof toPoll[i].lastPoll === 'undefined') {
             toPoll[i].lastPoll = time;
         }
 
-        var nextRun = toPoll[i].lastPoll + (toPoll[i].polling * 1000);
-        var nextDiff = nextRun - time;
+        let nextRun = toPoll[i].lastPoll + (toPoll[i].polling * 1000);
+        let nextDiff = nextRun - time;
 
         if (time < nextRun) {
 			if (actualMinWaitTime > nextDiff) {
@@ -282,28 +280,38 @@ function stepPolling() {
 
     if (step === -1) {
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
-        setTimeout(function () {
+        setTimeout(()=> {
             stepPolling();
         }, actualMinWaitTime);
 
     } else {
-		adapter.log.debug('Next poll: ' + toPoll[step].command);
+		adapter.log.debug('Next poll: ' + toPoll[step].command +'  ' + step);
 		toPoll[step].lastPoll = Date.now();
         client.write(toPoll[step].command + '\n');
     }
 }
 
 function commands() {
-	for (var q in adapter.config.datapoints.gets) {
-		if (adapter.config.datapoints.gets[q].polling > -1) {
-			adapter.log.debug('Commands for polling: ' + adapter.config.datapoints.gets[q].command);
-			var dp = new Poll();
-			dp.name = adapter.config.datapoints.gets[q].name;
-			dp.command = adapter.config.datapoints.gets[q].command;
-			dp.description = adapter.config.datapoints.gets[q].description;
-			dp.polling = adapter.config.datapoints.gets[q].polling;
-			dp.lastpoll = 0;
-			toPoll[q] = dp;
+	
+	let obj = new Object();
+	
+		obj.name = "Dummy";
+		obj.command = "heartbeat";
+		obj.description = "keep the adapter to stay alive";
+		obj.polling = 60;
+		obj.lastpoll = 0;
+		toPoll['heartbeat'] = obj;
+	
+	for (let i in adapter.config.datapoints.gets) {
+		if (adapter.config.datapoints.gets[i].polling > -1) {
+			adapter.log.debug('Commands for polling: ' + adapter.config.datapoints.gets[i].command);
+			obj = new Object();
+				obj.name = adapter.config.datapoints.gets[i].name;
+				obj.command = adapter.config.datapoints.gets[i].command;
+				obj.description = adapter.config.datapoints.gets[i].description;
+				obj.polling = adapter.config.datapoints.gets[i].polling;
+				obj.lastpoll = 0;
+				toPoll[i] = obj;
 		}
 	}
 }
@@ -315,7 +323,7 @@ function split_unit(v) {
 	}
 	// else split value and unit
 	else if (typeof v === 'string' && v !== ""){
-		var split = v.match(/^([-.\d]+(?:\.\d+)?)(.*)$/);
+		let split = v.match(/^([-.\d]+(?:\.\d+)?)(.*)$/);
 		return {'value':split[1].trim(),  'unit':split[2].trim()};
 	}
 	// catch the rest
@@ -325,7 +333,7 @@ function split_unit(v) {
 }
 
 function roundNumber(num, scale) {
-	var number = Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale);
+	let number = Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale);
 	if (num - number > 0) {
 		return (number + Math.floor(2 * Math.round((num - number) * Math.pow(10, (scale + 1))) / 10) / Math.pow(10, scale));
 	}
@@ -342,55 +350,56 @@ function main() {
     // adapter.config:
 	toPoll = {};
 	setcommands = [];
-
-	var ip = adapter.config.ip;
-	var port = adapter.config.port || 3002;
-	var answer = adapter.config.answer;
-	var time_out = 60000;
-
+	
+	const ip = adapter.config.ip;
+	const port = adapter.config.port || 3002;
+	const answer = adapter.config.answer;
+	const time_out = 120000;
+	let err_count = 0;
+	
     commands();
 
-	for (var i in adapter.config.datapoints.gets) {
-		if (adapter.config.datapoints.gets[i].polling * 1000 > time_out) {
-			time_out = adapter.config.datapoints.gets[i].polling * 1000 + 60000;
-		}
-	}
-
-
-	setAllObjects(function() {
+	setAllObjects(()=> {
 	});
 
 	client.setTimeout(time_out);
 
-	client.connect(port, ip, function() {
-		adapter.setState('info.connection', true, true, function (err) {
+	client.connect(port, ip, ()=> {
+		adapter.setState('info.connection', true, true, (err)=> {
 		 	if (err) adapter.log.error(err);
 		});
-		adapter.log.debug('Connect with Viessmann sytem!');
-		//client.write('dummy\n');
+		adapter.log.info('Connect with Viessmann sytem!');
 		stepPolling();
 	});
-	client.on('close', function() {
-		adapter.setState('info.connection', false, true, function (err) {
+	client.on('close', ()=> {
+		adapter.setState('info.connection', false, true, (err)=> {
 		 	if (err) adapter.log.error(err);
 		});
-		adapter.log.debug('Disable connection with Viessmann system!');
+		adapter.log.info('Connection with Viessmann system disconnected!');
 		client.destroy(); // kill client after server's response
 	});
 
 
-	client.on('data', function(data) {
+	client.on('data', (data)=> {
 		data = String(data);
-		var ok = /OK/;
-		var fail = /ERR/;
-		var vctrld = /vctrld>/;
+		const ok = /OK/;
+		const fail = /ERR/;
+		const vctrld = /vctrld>/;
 
 		if (ok.test(data)) {
 			adapter.log.debug('Send command okay!');
 			stepPolling();
-		} else if(fail.test(data)) {
+		} else if(fail.test(data) && !step == 'heartbeat') {
 			adapter.log.warn('Vctrld send ERROR: ' + data);
-			stepPolling();
+			err_count++
+			if(err_count > 5 && adapter.config.errors){
+				adapter.setState('info.connection', false, true);
+				adapter.log.warn('Vctrld send too many errors, restart connection!');
+				client.destroy(); // kill client after server's response
+				setTimeout(main, 10000);
+			}else{
+				stepPolling();
+			}			
 		} else if(data == 'vctrld>') {
 			return;
 		} else if(step == -1) {
@@ -404,31 +413,32 @@ function main() {
 				if(answer){
 					data = split_unit(data).value;
 					if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}
-					adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
+					adapter.setState('get.' + toPoll[step].name, data, true, (err)=> {
 					if (err) adapter.log.error(err);
 					stepPolling();
 					});
 				}
 				else{
-					adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
+					adapter.setState('get.' + toPoll[step].name, data, true, (err)=> {
 					if (err) adapter.log.error(err);
 					stepPolling();
 					});
 				}
 			} catch(e) {
-				adapter.setState('get.' + toPoll[step].name, data, true, function (err) {
+				adapter.setState('get.' + toPoll[step].name, data, true, (err)=> {
 					if (err) adapter.log.error(err);
 					stepPolling();
 				});
 			}
+			err_count = 0;
 		}
 	});
-	client.on('error', function(e) {
+	client.on('error', (e)=> {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection--> ' + e);
 		client.destroy(); // kill client after server's response
 	});
-    client.on('timeout', function() {
+    client.on('timeout', ()=> {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response

@@ -13,15 +13,7 @@
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
 
- var datapoints = {};
-
-    function Dpoint() {
-        this.name = '';
-        this.description = '';
-        this.polling = '';
-		this.command = '';
-    }
-
+ let datapoints = {};
 
     function setValue(id, value, onChange) {
         // example: select elements with id=key and class=value and insert value
@@ -39,10 +31,10 @@
             }).keyup(function() {
                 // Chack that only numbers entered
                 if ($(this).hasClass('number')) {
-                    var val = $(this).val();
+                    let val = $(this).val();
                     if (val) {
-                        var newVal = '';
-                        for (var i = 0; i < val.length; i++) {
+                        let newVal = '';
+                        for (let i = 0; i < val.length; i++) {
                             if (val[i] >= '0' && val[i] <= '9') {
                                 newVal += val[i];
                             }
@@ -59,11 +51,11 @@
         if (!settings) return;
         datapoints = settings.datapoints || {};
 		write();
-        for (var key in settings) {
+        for (let key in settings) {
             setValue(key, settings[key], onChange);
         }
 		onChange(false);
-		$('#button_import').click(function () {
+		$('#button_import').click(function() {
                     getImport();
 					$('#import_textarea').val('');
 					$('#import_textarea').trigger('autoresize');
@@ -74,9 +66,9 @@
     // you have to make sure the callback is called with the settings object as first param!
     function save(callback) {
         // example: select elements with class=value and build settings object
-        var obj = {};
-        $('.value').each(function () {
-            var $this = $(this);
+        let obj = {};
+        $('.value').each(function() {
+            let $this = $(this);
             if ($this.attr('type') == 'checkbox') {
                 obj[$this.attr('id')] = $this.prop('checked');
             } else {
@@ -95,10 +87,11 @@
 	datapoints['gets'] = {};
 	datapoints['sets'] = {};
 	datapoints['system'] = {};
-
-	var json = $('#import_textarea').val();
+	let commands;
+	
+	let json = $('#import_textarea').val();
     try {
-        var commands = JSON.parse(json);
+        commands = JSON.parse(json);
     }
     catch (e) {
         $('#info').html(_('read err') + e).css({ "background-color": "red", "color": "black" });
@@ -106,28 +99,28 @@
     if (typeof commands.vito.commands.command === "object" && typeof commands.vito.devices.device["-ID"] != "undefined") {
 
 		datapoints.system = commands.vito.devices.device;
-		for (var z in commands.vito.commands.command) {
-			var name = '-name';
-			var desc = 'description';
-			var poll = -1;
-			var c = (commands.vito.commands.command[z][name]);
-			var d = (commands.vito.commands.command[z][desc]);
-			if (c.substring(0, 3) === 'get' && c.length > 3) {
-				var dp = new Dpoint();
-				dp.name = c.substring(3, c.length);
-				dp.description = d;
-				dp.polling = poll;
-				dp.command = c;
-				datapoints.gets[c.substring(3, c.length)] = dp;
+		for (let i in commands.vito.commands.command) {
+			const name = '-name';
+			const desc = 'description';
+			const poll = -1;
+			const state_names = (commands.vito.commands.command[i][name]);
+			const state_descs = (commands.vito.commands.command[i][desc]);
+			if (state_names.substring(0, 3) === 'get' && state_names.length > 3) {
+				let obj_get = new Object();
+				obj_get.name = state_names.substring(3, state_names.length);
+				obj_get.description = state_descs;
+				obj_get.polling = poll;
+				obj_get.command = state_names;
+				datapoints.gets[state_names.substring(3, state_names.length)] = obj_get;
 				continue;
 			}
-			if(c.substring(0, 3) === 'set' && c.length > 3) {
-				var dps = new Dpoint();
-				dps.name = c.substring(3, c.length);
-				dps.description = d;
-				dps.polling = "nicht möglich";
-				dps.command = c;
-				datapoints.sets[c.substring(3, c.length)] = dps;
+			if(state_names.substring(0, 3) === 'set' && state_names.length > 3) {
+				let obj_set = new Object();
+				obj_set.name = state_names.substring(3, state_names.length);
+				obj_set.description = state_descs;
+				obj_set.polling = "nicht möglich";
+				obj_set.command = state_names;
+				datapoints.sets[state_names.substring(3, state_names.length)] = obj_set;
 				continue;
             }
 		}
@@ -142,7 +135,7 @@
 
 	function getPollSelect(name, act) {
 
-    var sel = '<select id="' + name + '" class="getSelect">' +
+    let sel = '<select id="' + name + '" class="getSelect">' +
         '<option ' + (act == -1 ? 'selected="selected"' : '') + 'value="-1">------</option>' +
         '<option ' + (act == 10 ? 'selected="selected"' : '') + 'value="10">' + _('opt10') + '</option>' +
         '<option ' + (act == 30 ? 'selected="selected"' : '') + 'value="30">' + _('opt30') + '</option>' +
@@ -175,24 +168,24 @@ function write() {
 		$('#plant_id').append(datapoints.system["-ID"]);
 		$('#typ').append(datapoints.system["-name"]);
 		$('#protocol').append(datapoints.system["-protocol"]);
-		for (var x in datapoints.gets) {
-			var name_g = datapoints.gets[x].name;
-			var desc_g = datapoints.gets[x].description;
-			var poll_g = datapoints.gets[x].polling;
+		for (let i in datapoints.gets) {
+			const name_g = datapoints.gets[i].name;
+			const desc_g = datapoints.gets[i].description;
+			const poll_g = datapoints.gets[i].polling;
 
-			var tr = $('<tr>');
-			var tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
+			let tr = $('<tr>');
+			let tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
 			tr.append(tds);
 			$('#commands_get').append(tr);
 			$('#'+name_g).select();
 		}
 
-		for (var y in datapoints.sets) {
-			var name_s = datapoints.sets[y].name;
-			var desc_s = datapoints.sets[y].description;
+		for (let i in datapoints.sets) {
+			const name_s = datapoints.sets[i].name;
+			const desc_s = datapoints.sets[i].description;
 
-		   var tr_s = $('<tr>');
-			var tds_s = $('<td>' + name_s + '</td><td>' + desc_s + '</td>');
+			let tr_s = $('<tr>');
+			let tds_s = $('<td>' + name_s + '</td><td>' + desc_s + '</td>');
 			tr_s.append(tds_s);
 			$('#commands_set').append(tr_s);
 		}
@@ -266,6 +259,8 @@ function write() {
 				<div class="row">
 					<div class="col s12">
 						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
+						<input type="checkbox" id="states_only" class="value" /><label  for="states_only" class="translate">states_only</label>
+						<input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">erros</label>
 					</div>
 				</div>
 					<div class="col s2 offset-s4">
