@@ -389,7 +389,7 @@ function main() {
 		if (ok.test(data)) {
 			adapter.log.debug('Send command okay!');
 			stepPolling();
-		} else if(fail.test(data) && !step == 'heartbeat') {
+		} else if(fail.test(data) && step !== 'heartbeat') {
 			adapter.log.warn('Vctrld send ERROR: ' + data);
 			err_count++
 			if(err_count > 5 && adapter.config.errors){
@@ -405,6 +405,7 @@ function main() {
 		} else if(step == -1) {
 			return;
 		} else {
+			err_count = 0;
 			if (vctrld.test(data)) {
 				data = data.substring(0, data.length - 7);
 			}
