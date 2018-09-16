@@ -12,7 +12,7 @@ die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommunizier
 in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese nach der Installation in das Adapter Verzeichnis zu kopieren 
-####*(../iobroker/node_modules/iobroker.viessmann)*. 
+#### * (../iobroker/node_modules/iobroker.viessmann). 
 Nach dem Neustart der Instanz, wird diese dann automatisch eingelesen und man kann nun in der Konfiguration der Instanz die Werte einstellen. 
 
 Des Weiteren ist es möglich diese als JSON einzulesen. Das umwandeln ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
@@ -59,7 +59,7 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 	
 
 ### Changelog
-####Versions from 0.5.0. needs node > 4.x and admin V3
+#### Versions from 0.5.0. needs node > 4.x and admin V3
 
 #### 0.5.0 (13.07.2018)
 * (misanorot) option to create only states if you use
