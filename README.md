@@ -10,12 +10,15 @@
 Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung
 die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommuniziert,
 in Objekten zu speichern. Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
-![Logo](admin/img/Viessmann_adapter.png)
 
-Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese in das Adapter Verzeichnis zu kopieren *(../iobroker/node_modules/iobroker.viessmann)*. Nach dem Starten der Instanz, wird diese dann automatisch eingelesen. Des Weiteren ist es möglich diese als JSON einzulesen. Das umwandeln ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
-Den umgewandelten Inhalt der Datei, dann mittels, z.B.mit STRG+C, in das Importfenster importieren.
+Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, diese nach der Installation in das Adapter Verzeichnis zu kopieren 
+####*(../iobroker/node_modules/iobroker.viessmann)*. 
+Nach dem Neustart der Instanz, wird diese dann automatisch eingelesen und man kann nun in der Konfiguration der Instanz die Werte einstellen. 
 
-Die Struktur der vito.xml muss in der folgenden Form aufgebaugt sein:
+Des Weiteren ist es möglich diese als JSON einzulesen. Das umwandeln ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
+Den umgewandelten Inhalt der Datei, dann mittels, z.B.mit STRG+C, in das Importfenster importieren und dann die Änderungen speichern.
+
+#### Die Struktur der vito.xml muss in der folgenden Form aufgebaugt sein:
 
 		```<vito>
 			<devices>
@@ -39,15 +42,22 @@ Die Struktur der vito.xml muss in der folgenden Form aufgebaugt sein:
 
 
 ## Wichtig!: 	
-	- Bei jedem neuen einlesen der JSON Daten, werden ggf. die "alten" Einstellungen gelöscht.
-	- Das einlesen der Vito.xml findet nur statt, wenn die Instanz noch keine Konfiguration hat.
+	- Bei jedem neuen einlesen der Vito Daten, werden ggf. die "alten" Einstellungen gelöscht.
+	- Das einlesen der Vito.xml findet nur statt, wenn die Instanz noch keine Konfiguration hat. Eine Veränderung der Vito.xml bedarf einer Neuinstallation der Instanz.
 
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen.
-![Logo](admin/img/Viessmann_settings.png)
 
 *Bitte erst die JSON einlesen und dann die Netzwerkeinstellungen im Adapter ändern.*  
 
 *die benutzten Bilder stammen von www.viessmann.com.*
+
+## ToDo
+	- Neueinlesen der Vito.xml bei Veränderung
+	- Anderung der Vito.xml ohne Verlust der Einstellungen
+	- Implementierung Unit on/off 
+	- Einfügen der Units aus der Vito.xml
+	
+
 ### Changelog
 ####Versions from 0.5.0. needs node > 4.x and admin V3
 
