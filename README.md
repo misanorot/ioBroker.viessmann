@@ -13,8 +13,10 @@ in Objekten zu speichern.
 Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
 Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, 
-diese nach der Installation in das Adapter Verzeichnis zu kopieren 
+diese nach der Installation in das Adapter Verzeichnis zu kopieren: 
 #### (../iobroker/node_modules/iobroker.viessmann). 
+
+
 Nach dem Neustart der Instanz, wird diese dann automatisch eingelesen, 
 man kann nun in der Konfiguration der Instanz die Werte einstellen. 
 
