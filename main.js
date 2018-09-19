@@ -122,6 +122,7 @@ function readxml(){
 	  
 	  ftp_session.connect({
 		host: adapter.config.ip,
+		port: 22,
 		user: adapter.config.user_name,
 		password: adapter.config.password
 		});
