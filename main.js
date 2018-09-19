@@ -88,7 +88,7 @@ adapter.on('ready', ()=> {
 //##########IMPORT XML FILE###########
 function readxml(){
   //Read files
-  if(adapter.config.ip === 127.0.0.1){
+  if(adapter.config.ip === "127.0.0.1"){
   fs.readFile('/etc/vcontrold/vito.xml', 'utf8', (err, data) => {
     if(err){
       adapter.log.warn('cannot read vito.xml ' + err);
