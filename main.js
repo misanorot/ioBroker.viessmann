@@ -13,6 +13,7 @@ const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 const net = require('net');
 const xml2js = require('xml2js');
 const fs = require('fs');
+const ftp = require('ftp');
 //Hilfsobjekt zum abfragen der Werte
 let datapoints = {};
 let toPoll = {};
@@ -80,14 +81,15 @@ adapter.on('ready', ()=> {
         },
         native: {}
     });
-    if(!adapter.config.datapoints.gets)readxml();
+    if(!adapter.config.datapoints.gets || adapter.config.new_read)readxml();
     else main();
 });
 
 //##########IMPORT XML FILE###########
 function readxml(){
   //Read files
-  fs.readFile(__dirname + '/vito.xml', 'utf8', (err, data) => {
+  if(adapter.config.ip === 127.0.0.1){
+  fs.readFile('/etc/vcontrold/vito.xml', 'utf8', (err, data) => {
     if(err){
       adapter.log.warn('cannot read vito.xml ' + err);
       adapter.setState('info.connection', false, true);
@@ -113,6 +115,55 @@ function readxml(){
       });
     }
   });
+  //Create a FTP connection
+  }
+  else{
+	  const ftp_session = new ftp;
+	  
+	  ftp_session.connect({
+		host: adapter.config.ip,
+		user: adapter.config.user_name,
+		password: adapter.config.password
+		});
+		
+		ftp_session.on('ready',()=>{
+			ftp_session.get('/etc/vcontrold/vito.xml', (err, stream)=>{
+				if(err){
+					adapter.log.warn('cannot read vito.xml ' + err);
+					adapter.setState('info.connection', false, true);
+					ftp_session.end();
+				}
+				else{
+					let xml_temp;
+					stream.on('data',(result)=>{
+						xml_temp = result;
+					});
+					stream.on('end',()=>{
+						parser.parseString(xml_temp, (err, result)=> {
+							if(err){
+								adapter.log.warn('cannot parse vito.xml ' + err);
+								adapter.setState('info.connection', false, true);
+							}else{
+								try{
+								let temp = JSON.stringify(result);
+								temp = JSON.parse(temp)
+								adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
+								main();
+								}catch(e){
+									adapter.log.warn('check vito.xml structure ' + e);
+									adapter.setState('info.connection', false, true);
+								}
+							}
+						});
+					}
+					
+				}
+			});
+		});
+	ftp_session.on('error',(err)=>{
+		adapter.log.warn('check your FTP login dates ' + err);
+		});	
+  }
 }
 //#################################
 

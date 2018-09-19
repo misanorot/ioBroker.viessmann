@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.5.1",
+        "version": "0.6.0",
 	    "news": {
 		"0.5.0": {
 			"en": "option to create only states if you use. option to restart the connection after to many errors",
@@ -90,6 +90,9 @@
 		"datapoints":	{},
 		"ip":			"",
 		"port": 		"",
+		"user_name"		"",
+		"password"		"",
+		"new_read"		false,
 		"answer":		true,
 		"states_only":	true,
 		"errors":		false

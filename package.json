@@ -1,6 +1,6 @@
 {
   "name": "iobroker.viessmann",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "ioBroker viessmann Adapter",
   "author": {
     "name": "misanorot",
@@ -25,7 +25,9 @@
     "url": "git+https://github.com/misanorot/ioBroker.viessmann.git"
   },
   "dependencies": {
-	"xml2js": "^0.4.17"},
+	"xml2js": "^0.4.17",
+	"ftp": "^0.3.10"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "mocha": "^4.1.0",

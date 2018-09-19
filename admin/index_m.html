@@ -55,12 +55,6 @@
             setValue(key, settings[key], onChange);
         }
 		onChange(false);
-		$('#button_import').click(function() {
-                    getImport();
-					$('#import_textarea').val('');
-					$('#import_textarea').trigger('autoresize');
-                });
-
     }
     // ... and the function save has to exist.
     // you have to make sure the callback is called with the settings object as first param!
@@ -89,13 +83,6 @@
 	datapoints['system'] = {};
 	let commands;
 	
-	let json = $('#import_textarea').val();
-    try {
-        commands = JSON.parse(json);
-    }
-    catch (e) {
-        $('#info').html(_('read err') + e).css({ "background-color": "red", "color": "black" });
-    }
     if (typeof commands.vito.commands.command === "object" && typeof commands.vito.devices.device["-ID"] != "undefined") {
 
 		datapoints.system = commands.vito.devices.device;
@@ -222,26 +209,15 @@ function write() {
     <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3"><a href="#tab_g" class="translate">Gerneral</a></li>
-        <li class="tab col s3"><a href="#tab_get" class="translate">Gets</a></li>
-        <li class="tab col s3"><a href="#tab_set" class="translate">Sets</a></li>
-		<li class="tab col s3"><a href="#tab_import" class="translate">Import</a></li>
+        <li class="tab col s4"><a href="#tab_g" class="translate">Gerneral</a></li>
+        <li class="tab col s4"><a href="#tab_get" class="translate">Gets</a></li>
+        <li class="tab col s4"><a href="#tab_set" class="translate">Sets</a></li>
       </ul>
     </div>
 
 	<div id="tab_g" class="col s12 page">
 		<img src="img/Viessmann_back.png" class="back_image">
 			<div class="center-align">
-				<div class="row">
-					<div class="col s12">
-						<h5 style="font-weight: bolder"; class="translate">adapter settings</h5>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col s12">
-							<a style="color:red; font-weight: bolder;" href="http://openv.wikispaces.com/" target="_blank" class="translate">main desc</a>
-					</div>
-				</div>
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
@@ -252,6 +228,21 @@ function write() {
 							<div class="input-field col s3">
 								<input placeholder="3002" id="port" type="text" class="value">
 								<label for="port" class="translate active">port desc</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s3 offset-s3">
+								<input placeholder="Placeholder" id="user_name" type="text" class="value validate">
+								<label for="user_name" class="translate">user_name</label>
+							</div>
+							<div class="input-field col s3">
+								<input id="password" type="password" class="value validate">
+								<label for="password" class="translate">password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s12">
+								<input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="translate">new_read</label>
 							</div>
 						</div>
 					</form>
