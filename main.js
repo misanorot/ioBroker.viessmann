@@ -87,6 +87,7 @@ adapter.on('ready', ()=> {
 
 //##########IMPORT XML FILE###########
 function readxml(){
+	adapter.log.debug('try to read xml');
   //Read files
   if(adapter.config.ip === "127.0.0.1"){
   fs.readFile('/etc/vcontrold/vito.xml', 'utf8', (err, data) => {
@@ -119,7 +120,7 @@ function readxml(){
   }
   else{
 	  const ftp_session = new ftp;
-	  
+	  adapter.log.debug('try to create a ftp session');
 	  ftp_session.connect({
 		host: adapter.config.ip,
 		port: 22,
@@ -142,6 +143,7 @@ function readxml(){
 						xml_temp = result;
 					});
 					stream.on('end',()=>{
+						adapter.log.debug('stream vito.xml finished');
 						parser.parseString(xml_temp, (err, result)=> {
 							if(err){
 								adapter.log.warn('cannot parse vito.xml ' + err);
