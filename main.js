@@ -128,6 +128,7 @@ function readxml(){
 		});
 		
 		ftp_session.on('ready',()=>{
+			adapter.log.debug('FTP session ready');
 			ftp_session.get('/etc/vcontrold/vito.xml', (err, stream)=>{
 				if(err){
 					adapter.log.warn('cannot read vito.xml ' + err);
@@ -135,6 +136,7 @@ function readxml(){
 					ftp_session.end();
 				}
 				else{
+					adapter.log.debug('running stream vito.xml');
 					let xml_temp;
 					stream.on('data',(result)=>{
 						xml_temp = result;
