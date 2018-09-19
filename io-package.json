@@ -90,9 +90,9 @@
 		"datapoints":	{},
 		"ip":			"",
 		"port": 		"",
-		"user_name"		"",
-		"password"		"",
-		"new_read"		false,
+		"user_name":	"",
+		"password":		"",
+		"new_read":		false,
 		"answer":		true,
 		"states_only":	true,
 		"errors":		false
