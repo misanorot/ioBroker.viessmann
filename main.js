@@ -13,7 +13,7 @@ const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 const net = require('net');
 const xml2js = require('xml2js');
 const fs = require('fs');
-const ftp = require('ftp');
+const ssh = require('ssh2-connect');
 //Hilfsobjekt zum abfragen der Werte
 let datapoints = {};
 let toPoll = {};
@@ -116,24 +116,24 @@ function readxml(){
       });
     }
   });
-  //Create a FTP connection
+  //Create a SSH connection
   }
   else{
-	  const ftp_session = new ftp;
-	  adapter.log.debug('try to create a ftp session');
-	  ftp_session.connect({
+	  const ssh_session = new ssh;
+	  adapter.log.debug('try to create a ssh session');
+	  ssh_session.connect({
 		host: adapter.config.ip,
 		user: adapter.config.user_name,
 		password: adapter.config.password
 		});
 		
-		ftp_session.on('ready',()=>{
+		ssh_session.on('ready',()=>{
 			adapter.log.debug('FTP session ready');
-			ftp_session.get('/etc/vcontrold/vito.xml', (err, stream)=>{
+			ssh_session.get('/etc/vcontrold/vito.xml', (err, stream)=>{
 				if(err){
 					adapter.log.warn('cannot read vito.xml ' + err);
 					adapter.setState('info.connection', false, true);
-					ftp_session.end();
+					ssh_session.end();
 				}
 				else{
 					adapter.log.debug('running stream vito.xml');
@@ -163,7 +163,7 @@ function readxml(){
 				}
 			});
 		});
-	ftp_session.on('error',(err)=>{
+	ssh_session.on('error',(err)=>{
 		adapter.log.warn('check your FTP login dates ' + err);
 		});	
   }

@@ -26,7 +26,7 @@
   },
   "dependencies": {
 	"xml2js": "^0.4.17",
-	"ftp": "^0.3.10"
+	"ssh2-connect": "^2.0.4"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
