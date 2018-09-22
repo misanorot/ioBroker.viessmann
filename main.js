@@ -119,7 +119,7 @@ function readxml(){
   //Create a SSH connection
   }
   else{
-	  const ssh_session = new ssh;
+	  const ssh_session = new ssh();
 	  adapter.log.debug('try to create a ssh session');
 	  ssh_session.connect({
 		host: adapter.config.ip,
