@@ -123,7 +123,7 @@ function readxml(){
 	  adapter.log.debug('try to create a ssh session');
 	  ssh_session.connect({
 		host: adapter.config.ip,
-		user: adapter.config.user_name,
+		username: adapter.config.user_name,
 		password: adapter.config.password
 		});
 		
