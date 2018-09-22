@@ -13,7 +13,7 @@ const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 const net = require('net');
 const xml2js = require('xml2js');
 const fs = require('fs');
-const ssh = require('ssh2-connect');
+const ssh = require('ssh2');
 //Hilfsobjekt zum abfragen der Werte
 let datapoints = {};
 let toPoll = {};

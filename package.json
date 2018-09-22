@@ -25,8 +25,7 @@
     "url": "git+https://github.com/misanorot/ioBroker.viessmann.git"
   },
   "dependencies": {
-	"xml2js": "^0.4.17",
-	"ssh2-connect": "^2.0.4"
+	"xml2js": "^0.4.17"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
