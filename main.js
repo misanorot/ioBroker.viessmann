@@ -103,6 +103,7 @@ function fileread(path){
 					let temp = JSON.stringify(result);
 					temp = JSON.parse(temp)
 					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
+					adapter.log.debug('read vito.xml successful');
 					main();
 				}
 				catch(e){
@@ -134,13 +135,13 @@ function readxml(){
 			adapter.log.debug('FTP session ready');
 			ssh_session.sftp ((err, sftp)=>{
 				if(err){
-					adapter.log.warn('cannot read vito.xml from Server ' + err);
+					adapter.log.warn('cannot create a SFTP session ' + err);
 					adapter.setState('info.connection', false, true);
 					ssh_session.end();
 				}
 				else{
 					const moveFrom =  '/etc/vcontrold/vito.xml';
-					const moveTo = '__dirname/vito.xml';
+					const moveTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
 					
 					sftp.fastGet(moveFrom, moveTo , {},(error)=>{
 						if(error){
