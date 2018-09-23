@@ -103,7 +103,7 @@ function fileread(path){
 					let temp = JSON.stringify(result);
 					temp = JSON.parse(temp)
 					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
-					adapter.log.debug('read vito.xml successful');
+					adapter.log.info('read vito.xml successful');
 					main();
 				}
 				catch(e){

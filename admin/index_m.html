@@ -77,48 +77,7 @@
 
 
 	//*******************************************************
-	function getImport() {
-	datapoints['gets'] = {};
-	datapoints['sets'] = {};
-	datapoints['system'] = {};
-	let commands;
-	
-    if (typeof commands.vito.commands.command === "object" && typeof commands.vito.devices.device["-ID"] != "undefined") {
 
-		datapoints.system = commands.vito.devices.device;
-		for (let i in commands.vito.commands.command) {
-			const name = '-name';
-			const desc = 'description';
-			const poll = -1;
-			const state_names = (commands.vito.commands.command[i][name]);
-			const state_descs = (commands.vito.commands.command[i][desc]);
-			if (state_names.substring(0, 3) === 'get' && state_names.length > 3) {
-				let obj_get = new Object();
-				obj_get.name = state_names.substring(3, state_names.length);
-				obj_get.description = state_descs;
-				obj_get.polling = poll;
-				obj_get.command = state_names;
-				datapoints.gets[state_names.substring(3, state_names.length)] = obj_get;
-				continue;
-			}
-			if(state_names.substring(0, 3) === 'set' && state_names.length > 3) {
-				let obj_set = new Object();
-				obj_set.name = state_names.substring(3, state_names.length);
-				obj_set.description = state_descs;
-				obj_set.polling = "nicht möglich";
-				obj_set.command = state_names;
-				datapoints.sets[state_names.substring(3, state_names.length)] = obj_set;
-				continue;
-            }
-		}
-		$('#info').html(_('read ok')).css({ "background-color": "green", "color": "black" });
-		write();
-		$('#import_textarea').val('');
-    }
-    else {
-        $('#info').html(_('read err')).css({ "background-color": "red", "color": "black" });
-    }
-	}
 
 	function getPollSelect(name, act) {
 
@@ -141,7 +100,6 @@
         '</select>';
     return sel;
 }
-
 
 
 function write() {
@@ -233,11 +191,11 @@ function write() {
 						<div class="row">
 							<div class="input-field col s3 offset-s3">
 								<input placeholder="Placeholder" id="user_name" type="text" class="value validate">
-								<label for="user_name" class="translate">user_name</label>
+								<label for="user_name" class="translate active">user_name</label>
 							</div>
 							<div class="input-field col s3">
 								<input id="password" type="password" class="value validate">
-								<label for="password" class="translate">password</label>
+								<label for="password" class="translate active">password</label>
 							</div>
 						</div>
 						<div class="row">
