@@ -86,39 +86,42 @@ adapter.on('ready', ()=> {
 });
 
 //##########IMPORT XML FILE###########
+function fileread(path){
+	fs.readFile(path, 'utf8', (err, data) => {
+		if(err){
+			adapter.log.warn('cannot read vito.xml ' + err);
+			adapter.setState('info.connection', false, true);
+		}
+		else{
+			parser.parseString(data, (err, result)=> {
+			if(err){
+				adapter.log.warn('cannot parse vito.xml ' + err);
+				adapter.setState('info.connection', false, true);
+			}
+			else{
+				try{
+					let temp = JSON.stringify(result);
+					temp = JSON.parse(temp)
+					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
+					main();
+				}
+				catch(e){
+					adapter.log.warn('check vito.xml structure ' + e);
+					adapter.setState('info.connection', false, true);
+				}
+			}	
+			});
+		}
+	});
+}
+
 function readxml(){
 	adapter.log.debug('try to read xml');
-  //Read files
   if(adapter.config.ip === "127.0.0.1"){
-  fs.readFile('/etc/vcontrold/vito.xml', 'utf8', (err, data) => {
-    if(err){
-      adapter.log.warn('cannot read vito.xml ' + err);
-      adapter.setState('info.connection', false, true);
-    }
-    else{
-      parser.parseString(data, (err, result)=> {
-        if(err){
-          adapter.log.warn('cannot parse vito.xml ' + err);
-          adapter.setState('info.connection', false, true);
-        }
-        else{
-          try{
-              let temp = JSON.stringify(result);
-              temp = JSON.parse(temp)
-              adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
-              main();
-            }
-            catch(e){
-              adapter.log.warn('check vito.xml structure ' + e);
-              adapter.setState('info.connection', false, true);
-            }
-        }
-      });
-    }
-  });
-  //Create a SSH connection
+	fileread('/etc/vcontrold/vito.xml');
   }
   else{
+	    //Create a SSH connection
 	  const ssh_session = new ssh();
 	  adapter.log.debug('try to create a ssh session');
 	  ssh_session.connect({
@@ -129,42 +132,35 @@ function readxml(){
 		
 		ssh_session.on('ready',()=>{
 			adapter.log.debug('FTP session ready');
-			ssh_session.get('/etc/vcontrold/vito.xml', (err, stream)=>{
+			ssh_session.sftp ((err, sftp)=>{
 				if(err){
-					adapter.log.warn('cannot read vito.xml ' + err);
+					adapter.log.warn('cannot read vito.xml from Server ' + err);
 					adapter.setState('info.connection', false, true);
 					ssh_session.end();
 				}
 				else{
-					adapter.log.debug('running stream vito.xml');
-					let xml_temp;
-					stream.on('data',(result)=>{
-						xml_temp = result;
-					});
-					stream.on('end',()=>{
-						adapter.log.debug('stream vito.xml finished');
-						parser.parseString(xml_temp, (err, result)=> {
-							if(err){
-								adapter.log.warn('cannot parse vito.xml ' + err);
-								adapter.setState('info.connection', false, true);
-							}else{
-								try{
-								let temp = JSON.stringify(result);
-								temp = JSON.parse(temp)
-								adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
-								main();
-								}catch(e){
-									adapter.log.warn('check vito.xml structure ' + e);
-									adapter.setState('info.connection', false, true);
-								}
-							}
-						});
-					});					
+					const moveFrom =  '/etc/vcontrold/vito.xml';
+					const moveTo = '__dirname/vito.xml';
+					
+					sftp.fastGet(moveFrom, moveTo , {},(error)=>{
+						if(error){
+							adapter.log.warn('cannot read vito.xml from Server ' + err);
+							adapter.setState('info.connection', false, true);
+							ssh_session.end();
+						}
+						fileread(moveTo);
+						ssh_session.end();
+					});				
 				}
 			});
 		});
+		
+	ssh_session.on('close',()=>{
+		adapter.log.debug('SSH connection closed');
+		});	
+		
 	ssh_session.on('error',(err)=>{
-		adapter.log.warn('check your FTP login dates ' + err);
+		adapter.log.warn('check your SSH login dates ' + err);
 		});	
   }
 }
