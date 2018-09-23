@@ -88,8 +88,8 @@
     },
     "native": {
 		"datapoints":	{},
-		"ip":			"",
-		"port": 		"",
+		"ip":			"127.0.0.1",
+		"port": 		"3002",
 		"user_name":	"",
 		"password":		"",
 		"new_read":		false,
