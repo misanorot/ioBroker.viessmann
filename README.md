@@ -12,18 +12,20 @@ die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommunizier
 in Objekten zu speichern. 
 Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
-Um die Kommandos aus der VITO.XML einzulesen, ist es nötig, 
-diese nach der Installation in das Adapter Verzeichnis zu kopieren: 
-#### (../iobroker/node_modules/iobroker.viessmann). 
+####(Linux: selber Host) 
+Sollte Vcontrold auf dem gleichen Host wie auch IOBroker laufen, 
+so ist keine weitere in der Adminkonfiguration nötig um die vito.xml einzulesen.
+* (Voraussetzung ist, sie liegt in dem Standard Pfad: /etc/vcontrold/vito.xml) *
 
+####(Anderer Host)
+Ist Vcontrold auf einem anderen Host installiert, kann man per SSH Zugang die vito.xml einlesen.
+Hierfür die nötigen Informationen in dem SSH Tab eingeben.
+* (Eine funktionierende SSH Verbindung wird vorausgesetzt.) *
 
 Nach dem Neustart der Instanz, wird diese dann automatisch eingelesen, 
 man kann nun in der Konfiguration der Instanz die Werte einstellen. 
 
-Des Weiteren ist es möglich, diese als JSON einzulesen. 
-Das umwandeln ist z.B. [HIER](http://www.utilities-online.info/xmltojson/#.WFVQv_DhA1I) möglich!
-Den umgewandelten Inhalt der Datei, dann mittels, z.B.mit STRG+C, 
-in das Importfenster importieren und dann die Änderungen speichern.
+
 
 #### Die Struktur der vito.xml muss in der folgenden Form aufgebaugt sein:
 
@@ -50,17 +52,14 @@ in das Importfenster importieren und dann die Änderungen speichern.
 
 ## Wichtig!: 	
 	- Bei jedem neuen einlesen der Vito Daten, werden ggf. die "alten" Einstellungen gelöscht.
-	- Das einlesen der Vito.xml findet nur statt, wenn die Instanz noch keine Konfiguration hat. 
-	  Eine Veränderung der Vito.xml bedarf einer Neuinstallation der Instanz.
+
 
 Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst grosses Abfrageintervall zu wählen.
-
-*Bitte erst die JSON einlesen und dann die Netzwerkeinstellungen im Adapter ändern.*  
+ 
 
 *die benutzten Bilder stammen von www.viessmann.com.*
 
 ## ToDo
-	- Neueinlesen der Vito.xml bei Veränderung
 	- Anderung der Vito.xml ohne Verlust der Einstellungen
 	- Implementierung Unit on/off 
 	- Einfügen der Units aus der Vito.xml
@@ -68,6 +67,10 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
+
+#### 0.6.0 (24.09.2018)
+* (misanorot) os:linux--> read vito.xml from /etc/vcontrold from the same host
+* (misanorot) use a ssh connection to read the vito.xml from a other server
 
 #### 0.5.0 (13.07.2018)
 * (misanorot) option to create only states if you use

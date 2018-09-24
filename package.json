@@ -1,6 +1,6 @@
 {
   "name": "iobroker.viessmann",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "ioBroker viessmann Adapter",
   "author": {
     "name": "misanorot",

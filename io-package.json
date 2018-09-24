@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.6.0",
+        "version": "0.6.1",
 	    "news": {
 		"0.6.0":	{
 		  "en": "(linux) read vito.xml from /etc/vcontrold from the same host\nuse a ssh connection to read the vito.xml from a other server ",
