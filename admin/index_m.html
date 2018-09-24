@@ -167,35 +167,64 @@ function write() {
     <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s4"><a href="#tab_g" class="translate">Gerneral</a></li>
-        <li class="tab col s4"><a href="#tab_get" class="translate">Gets</a></li>
-        <li class="tab col s4"><a href="#tab_set" class="translate">Sets</a></li>
+        <li class="tab col s3"><a href="#tab_g" class="translate">Gerneral</a></li>
+        <li class="tab col s3"><a href="#tab_get" class="translate">Gets</a></li>
+        <li class="tab col s3"><a href="#tab_set" class="translate">Sets</a></li>
+		<li class="tab col s3"><a href="#tab_ssh" class="translate">SSH</a></li>
       </ul>
     </div>
 
 	<div id="tab_g" class="col s12 page">
 		<img src="img/Viessmann_back.png" class="back_image">
-			<div class="center-align">
+			<div class="row center-align">
+				<div class="col s12">
+					<div><h5 class="translate">options</h5></div>
+				</div>
+			</div>
 				<div class="row">
-					<form class="col s12">
-						<div class="row">
-							<div class="input-field col s3 offset-s3">
-								<input placeholder="192.168.2.11" id="ip" type="text" class="value">
-								<label for="ip" class="translate active">ip desc</label>
-							</div>
-							<div class="input-field col s3">
-								<input placeholder="3002" id="port" type="text" class="value">
-								<label for="port" class="translate active">port desc</label>
+					<div class="col s6 offset-s4">
+						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
+					</div>
+					<div class="col s6 offset-s4">
+						<input type="checkbox" id="states_only" class="value" /><label  for="states_only" class="translate">states_only</label>
+					</div>
+					<div class="col s6 offset-s4">
+						<input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">errors</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="center-align">
+						<div class="col s12">
+							<div><h5 class="translate">information</h5></div>
+						</div>
+						<div class="col s2 offset-s4">
+							<div class="right">
+								<p class="translate">plant_id</p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="input-field col s3 offset-s3">
-								<input placeholder="Placeholder" id="user_name" type="text" class="value validate">
-								<label for="user_name" class="translate active">user_name</label>
+						<div class="col s2">
+							<div class="left">
+								<p><b id="plant_id"></b></p>
 							</div>
-							<div class="input-field col s3">
-								<input id="password" type="password" class="value validate">
-								<label for="password" class="translate active">password</label>
+						</div>
+						<div class="col s2 offset-s4">
+							<div class="right">
+								<p class="translate">typ</p>
+							</div>
+						</div>
+						<div class="col s2">
+							<div class="left">
+								<p><b id="typ"></b></p>
+							</div>
+						</div>
+						<div class="col s2 offset-s4">
+							<div class="right">
+								<p class="translate">protocol</p>
+							</div>
+						</div>
+						<div class="col s2">
+							<div class="left">
+								<p><b id="protocol"></b></p>
 							</div>
 						</div>
 						<div class="row">
@@ -203,47 +232,9 @@ function write() {
 								<input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="translate">new_read</label>
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="row">
-					<div class="col s12">
-						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
-						<input type="checkbox" id="states_only" class="value" /><label  for="states_only" class="translate">states_only</label>
-						<input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">errors</label>
 					</div>
 				</div>
-					<div class="col s2 offset-s4">
-						<div class="right">
-							<p class="translate">plant_id</p>
-						</div>
-					</div>
-					<div class="col s2">
-						<div class="left">
-							<p><b id="plant_id"></b></p>
-						</div>
-					</div>
-					<div class="col s2 offset-s4">
-						<div class="right">
-							<p class="translate">typ</p>
-						</div>
-					</div>
-					<div class="col s2">
-						<div class="left">
-							<p><b id="typ"></b></p>
-						</div>
-					</div>
-					<div class="col s2 offset-s4">
-						<div class="right">
-							<p class="translate">protocol</p>
-						</div>
-					</div>
-					<div class="col s2">
-						<div class="left">
-							<p><b id="protocol"></b></p>
-						</div>
-					</div>
-			</div>
-		</div>
+	</div>
 
 	<div id="tab_get" class="col s12 page" >
 		<div class="row">
@@ -279,8 +270,47 @@ function write() {
               <tbody id="commands_set"></tbody>
           </table>
 	</div>
+	<div id="tab_ssh" class="col s12 page">
+		<div class="center-align">
+			<div class="row">
+				<div class="col s12">
+					<div><h5 class="translate">SSH_settings</h5></div>
+				</div>
+				<div class="row">
+					<form class="col s12">
+						<div class="row">
+							<div class="input-field col s3 offset-s3">
+								<input placeholder="192.168.2.11" id="ip" type="text" class="value">
+								<label for="ip" class="translate active">ip desc</label>
+							</div>
+							<div class="input-field col s3">
+								<input placeholder="3002" id="port" type="text" class="value">
+								<label for="port" class="translate active">port desc</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s3 offset-s3">
+								<input placeholder="Placeholder" id="user_name" type="text" class="value validate">
+								<label for="user_name" class="translate active">user_name</label>
+							</div>
+							<div class="input-field col s3">
+								<input id="password" type="password" class="value validate">
+								<label for="password" class="translate active">password</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s6 offset-s3">
+								<input placeholder="/etc/vcontrold/vito.xml" id="path" type="text" class="value">
+								<label for="path" class="translate active">path</label>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>			
 	</div>
-  </div>
+	</div>
+ </div>
 
 </body>
 </html>

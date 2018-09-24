@@ -102,7 +102,7 @@ function fileread(path){
 				try{
 					let temp = JSON.stringify(result);
 					temp = JSON.parse(temp)
-					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp)}});
+					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp), new_read: false}});
 					adapter.log.info('read vito.xml successful');
 					main();
 				}
@@ -140,7 +140,7 @@ function readxml(){
 					ssh_session.end();
 				}
 				else{
-					const moveFrom =  '/etc/vcontrold/vito.xml';
+					const moveFrom =  adapter.config.path;
 					const moveTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
 					
 					sftp.fastGet(moveFrom, moveTo , {},(error)=>{

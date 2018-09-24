@@ -3,17 +3,28 @@
         "name":                     "viessmann",
         "version": "0.6.0",
 	    "news": {
-		"0.5.0": {
-			"en": "option to create only states if you use. option to restart the connection after to many errors",
-			"de": "Option, um nur Zustände zu erstellen, die Sie verwenden. Option, um die Verbindung nach vielen Fehlern neu zu starten",
-			"ru": "возможность создания только состояний, если вы используете. возможность перезапуска соединения после многих ошибок",
-			"pt": "opção para criar apenas estados, se você usar. opção para reiniciar a conexão após muitos erros",
-			"nl": "optie om alleen staten te maken als u gebruikt. optie om de verbinding opnieuw te starten na vele fouten",
-			"fr": "option pour créer uniquement des états si vous utilisez. option pour redémarrer la connexion après de nombreuses erreurs",
-			"it": "opzione per creare solo stati se si utilizza. opzione per riavviare la connessione dopo molti errori",
-			"es": "opción para crear solo estados si usa. opción para reiniciar la conexión después de muchos errores",
-			"pl": "opcja tworzenia tylko stanów, jeśli używasz. opcja ponownego uruchomienia połączenia po wielu błędach"
-  			},
+		"0.6.0":	{
+		  "en": "(linux) read vito.xml from /etc/vcontrold from the same host\nuse a ssh connection to read the vito.xml from a other server ",
+		  "de": "(linux) lese vito.xml von / etc / vcontrold von demselben Host\nVerwenden Sie eine SSH-Verbindung, um die Datei vito.xml von einem anderen Server zu lesen",
+		  "ru": "(linux) читайте vito.xml из / etc / vcontrold с того же хоста\nиспользуйте ssh-соединение для чтения файла vito.xml с другого сервера",
+		  "pt": "(linux) lê vito.xml do / etc / vcontrold do mesmo host\nuse uma conexão ssh para ler o vito.xml de outro servidor",
+		  "nl": "(linux) lees vito.xml uit / etc / vcontrold van dezelfde host\ngebruik een ssh-verbinding om de vito.xml van een andere server te lezen",
+		  "fr": "(linux) lire vito.xml à partir de / etc / vcontrold du même hôte\nutiliser une connexion ssh pour lire le vito.xml depuis un autre serveur",
+		  "it": "(linux) legge vito.xml da / etc / vcontrold dallo stesso host\nutilizzare una connessione ssh per leggere il vito.xml da un altro server",
+		  "es": "(linux) lee vito.xml de / etc / vcontrold del mismo host\nuse una conexión ssh para leer el vito.xml de otro servidor",
+		  "pl": "(Linux) przeczytaj vito.xml z / etc / vcontrold z tego samego hosta\nużyj połączenia ssh, aby odczytać plik vito.xml z innego serwera"
+		},
+			"0.5.0": {
+				"en": "option to create only states if you use. option to restart the connection after to many errors",
+				"de": "Option, um nur Zustände zu erstellen, die Sie verwenden. Option, um die Verbindung nach vielen Fehlern neu zu starten",
+				"ru": "возможность создания только состояний, если вы используете. возможность перезапуска соединения после многих ошибок",
+				"pt": "opção para criar apenas estados, se você usar. opção para reiniciar a conexão após muitos erros",
+				"nl": "optie om alleen staten te maken als u gebruikt. optie om de verbinding opnieuw te starten na vele fouten",
+				"fr": "option pour créer uniquement des états si vous utilisez. option pour redémarrer la connexion après de nombreuses erreurs",
+				"it": "opzione per creare solo stati se si utilizza. opzione per riavviare la connessione dopo molti errori",
+				"es": "opción para crear solo estados si usa. opción para reiniciar la conexión después de muchos errores",
+				"pl": "opcja tworzenia tylko stanów, jeśli używasz. opcja ponownego uruchomienia połączenia po wielu błędach"
+				},
 			"0.4.0": {
 				"en": "parse vito.xml file",
 				"de": "analysiere die Datei vito.xml",
@@ -92,6 +103,7 @@
 		"port": 		"3002",
 		"user_name":	"",
 		"password":		"",
+		"path":			"/etc/vcontrold/vito.xml",
 		"new_read":		false,
 		"answer":		true,
 		"states_only":	true,
