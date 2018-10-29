@@ -82,7 +82,7 @@ adapter.on('ready', ()=> {
         native: {}
     });
 	adapter.setObjectNotExists('info.lastPoll', {
-        type: '"state',
+        type: 'state',
         common: {
             name: 'lastPoll',
             desc: 'Timestamp des letzten Abrufs',
