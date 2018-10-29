@@ -338,7 +338,7 @@ function stepPolling() {
     }
 
     if (step === -1) {
-		adapter.setState('info.lastPoll', Date.now());
+		adapter.setState('info.lastPoll', Math.floor(time/1000));
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
         setTimeout(()=> {
             stepPolling();
