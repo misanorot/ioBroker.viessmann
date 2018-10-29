@@ -256,7 +256,7 @@ function setAllObjects(callback) {
         if (_states) {
             for (let i = 0; i < _states.length; i++) {
 				let name = _states[i].common.name;
-				if (name === 'connection') {
+				if (name === 'connection' || name === 'lastPoll') {
 					continue;
 				}
 				let clean = _states[i]._id;
@@ -336,9 +336,11 @@ function stepPolling() {
             step = i;
         }
     }
+	
+	if(step == Object.keys(toPoll)[Object.keys(toPoll).length - 1] || step === -1)
+		adapter.setState('info.lastPoll', Math.floor(time/1000));		
 
     if (step === -1) {
-		adapter.setState('info.lastPoll', Math.floor(time/1000));
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
         setTimeout(()=> {
             stepPolling();
