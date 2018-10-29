@@ -119,7 +119,7 @@ function fileread(path){
 function readxml(){
 	adapter.log.debug('try to read xml');
   if(adapter.config.ip === "127.0.0.1"){
-	fileread('/etc/vcontrold/vito.xml');
+	fileread(adapter.config.path);
   }
   else{
 	    //Create a SSH connection
