@@ -81,6 +81,14 @@ adapter.on('ready', ()=> {
         },
         native: {}
     });
+	adapter.setObjectNotExists('info.lastPoll', {
+        type: '"state',
+        common: {
+            name: 'lastPoll',
+            desc: 'Timestamp des letzten Abrufs',
+        },
+        native: {}
+    });
     if(!adapter.config.datapoints.gets || adapter.config.new_read)readxml();
     else main();
 });
@@ -330,6 +338,7 @@ function stepPolling() {
     }
 
     if (step === -1) {
+		adapter.setState('info.lastPoll', Date.now());
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
         setTimeout(()=> {
             stepPolling();
