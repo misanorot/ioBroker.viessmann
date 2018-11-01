@@ -1,19 +1,30 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.6.1",
+        "version": "0.7.0",
 	    "news": {
-		"0.6.0":	{
-		  "en": "(linux) read vito.xml from /etc/vcontrold from the same host\nuse a ssh connection to read the vito.xml from a other server ",
-		  "de": "(linux) lese vito.xml von / etc / vcontrold von demselben Host\nVerwenden Sie eine SSH-Verbindung, um die Datei vito.xml von einem anderen Server zu lesen",
-		  "ru": "(linux) читайте vito.xml из / etc / vcontrold с того же хоста\nиспользуйте ssh-соединение для чтения файла vito.xml с другого сервера",
-		  "pt": "(linux) lê vito.xml do / etc / vcontrold do mesmo host\nuse uma conexão ssh para ler o vito.xml de outro servidor",
-		  "nl": "(linux) lees vito.xml uit / etc / vcontrold van dezelfde host\ngebruik een ssh-verbinding om de vito.xml van een andere server te lezen",
-		  "fr": "(linux) lire vito.xml à partir de / etc / vcontrold du même hôte\nutiliser une connexion ssh pour lire le vito.xml depuis un autre serveur",
-		  "it": "(linux) legge vito.xml da / etc / vcontrold dallo stesso host\nutilizzare una connessione ssh per leggere il vito.xml da un altro server",
-		  "es": "(linux) lee vito.xml de / etc / vcontrold del mismo host\nuse una conexión ssh para leer el vito.xml de otro servidor",
-		  "pl": "(Linux) przeczytaj vito.xml z / etc / vcontrold z tego samego hosta\nużyj połączenia ssh, aby odczytać plik vito.xml z innego serwera"
+		"0.7.0":	{
+			"en": "added lastPoll state",
+			"de": "lastPoll-Status hinzugefügt",
+			"ru": "добавлено состояние lastPoll",
+			"pt": "adicionado lastPoll state",
+			"nl": "laatstePoll-status toegevoegd",
+			"fr": "état lastPoll ajouté",
+			"it": "aggiunto lo stato lastPoll",
+			"es": "añadido lastPoll state",
+			"pl": "dodano stan lastPoll"
 		},
+			"0.6.0":	{
+			  "en": "(linux) read vito.xml from /etc/vcontrold from the same host\nuse a ssh connection to read the vito.xml from a other server ",
+			  "de": "(linux) lese vito.xml von / etc / vcontrold von demselben Host\nVerwenden Sie eine SSH-Verbindung, um die Datei vito.xml von einem anderen Server zu lesen",
+			  "ru": "(linux) читайте vito.xml из / etc / vcontrold с того же хоста\nиспользуйте ssh-соединение для чтения файла vito.xml с другого сервера",
+			  "pt": "(linux) lê vito.xml do / etc / vcontrold do mesmo host\nuse uma conexão ssh para ler o vito.xml de outro servidor",
+			  "nl": "(linux) lees vito.xml uit / etc / vcontrold van dezelfde host\ngebruik een ssh-verbinding om de vito.xml van een andere server te lezen",
+			  "fr": "(linux) lire vito.xml à partir de / etc / vcontrold du même hôte\nutiliser une connexion ssh pour lire le vito.xml depuis un autre serveur",
+			  "it": "(linux) legge vito.xml da / etc / vcontrold dallo stesso host\nutilizzare una connessione ssh per leggere il vito.xml da un altro server",
+			  "es": "(linux) lee vito.xml de / etc / vcontrold del mismo host\nuse una conexión ssh para leer el vito.xml de otro servidor",
+			  "pl": "(Linux) przeczytaj vito.xml z / etc / vcontrold z tego samego hosta\nużyj połączenia ssh, aby odczytać plik vito.xml z innego serwera"
+			},
 			"0.5.0": {
 				"en": "option to create only states if you use. option to restart the connection after to many errors",
 				"de": "Option, um nur Zustände zu erstellen, die Sie verwenden. Option, um die Verbindung nach vielen Fehlern neu zu starten",

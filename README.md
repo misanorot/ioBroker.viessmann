@@ -68,6 +68,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
+#### 0.7.0 (01.11.2018)
+* (Bjoern3003) added lastPoll state
+
 #### 0.6.0 (24.09.2018)
 * (misanorot) os:linux--> read vito.xml from /etc/vcontrold from the same host
 * (misanorot) use a ssh connection to read the vito.xml from a other server
