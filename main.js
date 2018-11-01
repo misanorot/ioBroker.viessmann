@@ -81,6 +81,14 @@ adapter.on('ready', ()=> {
         },
         native: {}
     });
+	adapter.setObjectNotExists('info.lastPoll', {
+        type: 'state',
+        common: {
+            name: 'lastPoll',
+            desc: 'Timestamp des letzten Abrufs',
+        },
+        native: {}
+    });
     if(!adapter.config.datapoints.gets || adapter.config.new_read)readxml();
     else main();
 });
@@ -119,7 +127,7 @@ function fileread(path){
 function readxml(){
 	adapter.log.debug('try to read xml');
   if(adapter.config.ip === "127.0.0.1"){
-	fileread('/etc/vcontrold/vito.xml');
+	fileread(adapter.config.path);
   }
   else{
 	    //Create a SSH connection
@@ -248,7 +256,7 @@ function setAllObjects(callback) {
         if (_states) {
             for (let i = 0; i < _states.length; i++) {
 				let name = _states[i].common.name;
-				if (name === 'connection') {
+				if (name === 'connection' || name === 'lastPoll') {
 					continue;
 				}
 				let clean = _states[i]._id;
@@ -328,6 +336,9 @@ function stepPolling() {
             step = i;
         }
     }
+	
+	if(step == Object.keys(toPoll)[Object.keys(toPoll).length - 1] || step === -1)
+		adapter.setState('info.lastPoll', Math.floor(time/1000));		
 
     if (step === -1) {
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
