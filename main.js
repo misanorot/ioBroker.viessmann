@@ -132,21 +132,15 @@ function readxml(){
 							adapter.setState('info.connection', false, true);
 							ssh_session.end();
 						}
+						sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(error)=>{
+							if(error){
+								adapter.log.warn('cannot read vcontrold.xml from Server ' + err);
+								vcontrold_read(moveVcontroldTo);
+								ssh_session.end();
+							}
+							vcontrold_read(moveVcontroldTo);
+						});	
 					});	
-					sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(error)=>{
-						if(error){
-							adapter.log.warn('cannot read vcontrold.xml from Server ' + err);
-							adapter.setState('info.connection', false, true);
-							ssh_session.end();
-						}
-					});	
-					setTimeout(()=>{
-						vcontrold_read(moveVcontroldTo, (units)=>{
-						vito_read(adapter.config.path, units);
-						});
-						ssh_session.end();
-					}, 1000);
-					
 				}
 			});
 		});
@@ -166,13 +160,13 @@ function vcontrold_read(path, callback){
 	fs.readFile(path, 'utf8', (err, data) => {
 		if(err){
 			adapter.log.warn('cannot read vcontrold.xml ' + err);
-			callback();
+			vito_read();
 		}
 		else{
 			parser.parseString(data, (err, result)=> {
 			if(err){
 				adapter.log.warn('cannot parse vcontrold.xml --> cannot use units  ' + err);
-				callback();
+				vito_read();
 			}
 			else{
 				try{
@@ -189,12 +183,12 @@ function vcontrold_read(path, callback){
 						}
 					}
 					adapter.log.info('read vcontrold.xml successfull');
-					callback(units);
+					vito_read(units);
 				}
 				catch(e){
 					adapter.log.warn('check vcontrold.xml structure --> cannot use units   ' + e);
 					adapter.setState('info.connection', false, true);
-					callback();
+					vito_read();
 				}
 			}	
 			});
@@ -202,8 +196,8 @@ function vcontrold_read(path, callback){
 	});
 }
 
-function vito_read(path, units){
-	fs.readFile(path + '/vito.xml', 'utf8', (err, data) => {
+function vito_read(units){
+	fs.readFile(adapter.config.path + '/vito.xml', 'utf8', (err, data) => {
 		if(err){
 			adapter.log.warn('cannot read vito.xml ' + err);
 			adapter.setState('info.connection', false, true);
