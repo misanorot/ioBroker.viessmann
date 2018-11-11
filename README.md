@@ -62,11 +62,13 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ## ToDo
 	- Anderung der Vito.xml ohne Verlust der Einstellungen
 	- Implementierung Unit on/off 
-	- Einfügen der Units aus der Vito.xml
-	
+
 
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
+
+#### 0.7.0 (11.11.2018)
+* (misanorot) create units from vcontrold.xml (require a new config)	
 
 #### 0.7.0 (01.11.2018)
 * (Bjoern3003) added lastPoll state

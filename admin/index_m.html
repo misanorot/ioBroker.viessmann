@@ -119,10 +119,11 @@ function write() {
 		for (let i in datapoints.gets) {
 			const name_g = datapoints.gets[i].name;
 			const desc_g = datapoints.gets[i].description;
+			const unit_g = datapoints.gets[i].unit;
 			const poll_g = datapoints.gets[i].polling;
 
 			let tr = $('<tr>');
-			let tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
+			let tds = $('<td>' + name_g + '</td><td>' + desc_g + '</td><td>' + unit_g + '</td><td>' + getPollSelect(name_g, poll_g) + '</td>');
 			tr.append(tds);
 			$('#commands_get').append(tr);
 			$('#'+name_g).select();
@@ -254,6 +255,7 @@ function write() {
                   <tr>
                       <th class="translate">name</th>
                       <th class="translate">desc</th>
+					  <th class="translate">unit</th>
 					  <th class="translate">polling</th>
                   </tr>
               </thead>

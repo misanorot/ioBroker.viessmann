@@ -31,8 +31,6 @@ const parser = new xml2js.Parser();
 
 
 
-
-
 // is called when adapter shuts down - callback has to be called under any circumstances!
 adapter.on('unload', (callback) => {
     try {
@@ -93,41 +91,15 @@ adapter.on('ready', ()=> {
     else main();
 });
 
-//##########IMPORT XML FILE###########
-function fileread(path){
-	fs.readFile(path, 'utf8', (err, data) => {
-		if(err){
-			adapter.log.warn('cannot read vito.xml ' + err);
-			adapter.setState('info.connection', false, true);
-		}
-		else{
-			parser.parseString(data, (err, result)=> {
-			if(err){
-				adapter.log.warn('cannot parse vito.xml ' + err);
-				adapter.setState('info.connection', false, true);
-			}
-			else{
-				try{
-					let temp = JSON.stringify(result);
-					temp = JSON.parse(temp)
-					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp), new_read: false}});
-					adapter.log.info('read vito.xml successful');
-					main();
-				}
-				catch(e){
-					adapter.log.warn('check vito.xml structure ' + e);
-					adapter.setState('info.connection', false, true);
-				}
-			}	
-			});
-		}
-	});
-}
+//##########IMPORT XML FILE##################################################################################
+
 
 function readxml(){
-	adapter.log.debug('try to read xml');
+	adapter.log.debug('try to read xml files');
   if(adapter.config.ip === "127.0.0.1"){
-	fileread(adapter.config.path);
+	vcontrold_read(adapter.config.path, (units)=>{
+		vito_read(adapter.config.path, units);
+	});
   }
   else{
 	    //Create a SSH connection
@@ -148,18 +120,33 @@ function readxml(){
 					ssh_session.end();
 				}
 				else{
-					const moveFrom =  adapter.config.path;
-					const moveTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
+					const moveVcontroldFrom =  adapter.config.path + '/vcontrold.xml';
+					const moveVcontroldTo = '/opt/iobroker/node_modules/iobroker.viessmann/vcontrold.xml';
+					const moveVitoFrom =  adapter.config.path + '/vito.xml';
+					const moveVitoTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
 					
-					sftp.fastGet(moveFrom, moveTo , {},(error)=>{
+					
+					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(error)=>{
 						if(error){
 							adapter.log.warn('cannot read vito.xml from Server ' + err);
 							adapter.setState('info.connection', false, true);
 							ssh_session.end();
 						}
-						fileread(moveTo);
+					});	
+					sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(error)=>{
+						if(error){
+							adapter.log.warn('cannot read vcontrold.xml from Server ' + err);
+							adapter.setState('info.connection', false, true);
+							ssh_session.end();
+						}
+					});	
+					setTimeout(()=>{
+						vcontrold_read(moveVcontroldTo, (units)=>{
+						vito_read(adapter.config.path, units);
+						});
 						ssh_session.end();
-					});				
+					}, 1000);
+					
 				}
 			});
 		});
@@ -173,10 +160,81 @@ function readxml(){
 		});	
   }
 }
-//#################################
 
-//######IMPORT STATES######
-function getImport(json) {
+
+function vcontrold_read(path, callback){
+	fs.readFile(path, 'utf8', (err, data) => {
+		if(err){
+			adapter.log.warn('cannot read vcontrold.xml ' + err);
+			callback();
+		}
+		else{
+			parser.parseString(data, (err, result)=> {
+			if(err){
+				adapter.log.warn('cannot parse vcontrold.xml --> cannot use units  ' + err);
+				callback();
+			}
+			else{
+				try{
+					let temp = JSON.stringify(result);
+					temp = JSON.parse(temp);
+					
+					let units = {};
+
+					for(let i in temp["V-Control"].units[0].unit){
+						for (let e in temp["V-Control"].units[0].unit[i].entity){
+							let obj = new Object();
+							obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
+							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+						}
+					}
+					adapter.log.info('read vcontrold.xml successfull');
+					callback(units);
+				}
+				catch(e){
+					adapter.log.warn('check vcontrold.xml structure --> cannot use units   ' + e);
+					adapter.setState('info.connection', false, true);
+					callback();
+				}
+			}	
+			});
+		}
+	});
+}
+
+function vito_read(path, units){
+	fs.readFile(path + '/vito.xml', 'utf8', (err, data) => {
+		if(err){
+			adapter.log.warn('cannot read vito.xml ' + err);
+			adapter.setState('info.connection', false, true);
+		}
+		else{
+			parser.parseString(data, (err, result)=> {
+			if(err){
+				adapter.log.warn('cannot parse vito.xml ' + err);
+				adapter.setState('info.connection', false, true);
+			}
+			else{
+				try{
+					let temp = JSON.stringify(result);
+					temp = JSON.parse(temp)
+					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp, units), new_read: false}});
+					adapter.log.info('read vito.xml successfull');
+					main();
+				}
+				catch(e){
+					adapter.log.warn('check vito.xml structure ' + e);
+					adapter.setState('info.connection', false, true);
+				}
+			}	
+			});
+		}
+	});
+}
+//###########################################################################################################
+
+//######IMPORT STATES########################################################################################
+function getImport(json, units) {
 datapoints['gets'] = {};
 datapoints['sets'] = {};
 datapoints['system'] = {};
@@ -193,6 +251,11 @@ datapoints['system'] = {};
       if (get_command.substring(0, 3) === 'get' && get_command.length > 3) {
         let obj_get = new Object();
         obj_get.name = get_command.substring(3, get_command.length);
+		try{
+			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit
+		}catch(e){
+			obj_get.unit = "";
+		}
         obj_get.description = desc;
         obj_get.polling = poll;
         obj_get.command = get_command;
@@ -212,20 +275,23 @@ datapoints['system'] = {};
     return datapoints;
 }
 }
-//########################
+//###########################################################################################################
 
-//######SET STATES#########
-function addState(pfad, name, beschreibung, callback) {
+//######SET STATES###########################################################################################
+function addState(pfad, name, unit, beschreibung, callback) {
     adapter.setObjectNotExists(pfad + name, {
         type: 'state',
         common: {
             name: name,
+			unit: unit,
             desc: beschreibung,
         },
         native: {}
     }, callback);
 }
-//##########################
+//###########################################################################################################
+
+//######CONFIG STATES########################################################################################
 function setAllObjects(callback) {
 	adapter.getStatesOf((err, _states)=> {
 
@@ -279,7 +345,7 @@ function setAllObjects(callback) {
             for (let i in adapter.config.datapoints.gets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.gets[i].name) !== -1) {
                     count++;
-                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].description, ()=> {
+                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].unit, adapter.config.datapoints.gets[i].description, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
@@ -287,7 +353,7 @@ function setAllObjects(callback) {
 			for (let i in adapter.config.datapoints.sets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.sets[i].name) !== -1) {
                     count++;
-                    addState(pfadset, adapter.config.datapoints.sets[i].name, adapter.config.datapoints.sets[i].description, ()=> {
+                    addState(pfadset, adapter.config.datapoints.sets[i].name, "", adapter.config.datapoints.sets[i].description, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
@@ -302,7 +368,10 @@ function setAllObjects(callback) {
         if (!count && callback) callback();
     });
 }
+//###########################################################################################################
 
+
+//######POLLING##############################################################################################
 function stepPolling() {
 
     step = -1;
@@ -352,7 +421,10 @@ function stepPolling() {
         client.write(toPoll[step].command + '\n');
     }
 }
+//###########################################################################################################
 
+
+//######CONFIGURE POLLING COMMANDS###########################################################################
 function commands() {
 	
 	let obj = new Object();
@@ -377,20 +449,22 @@ function commands() {
 		}
 	}
 }
+//###########################################################################################################
 
+//######CUT ANSWER###########################################################################################
 function split_unit(v) {
 	// test if string starts with non digits, then just pass it
 	if  (typeof v === 'string' && v !== "" && (/^-?\D.*$/.test(v))){
-		return { 'value':v, 'unit':"" }
+		return v;
 	}
 	// else split value and unit
 	else if (typeof v === 'string' && v !== ""){
 		let split = v.match(/^([-.\d]+(?:\.\d+)?)(.*)$/);
-		return {'value':split[1].trim(),  'unit':split[2].trim()};
+		return split[1].trim();
 	}
 	// catch the rest
 	else {
-		return { 'value':v, 'unit':"" }
+		return v;
 	}
 }
 
@@ -403,7 +477,9 @@ function roundNumber(num, scale) {
 		return number;
   }
 }
+//###########################################################################################################
 
+//######MAIN#################################################################################################
 function main() {
 	// set connection status to false
 	adapter.setState('info.connection', false, true);
@@ -474,7 +550,7 @@ function main() {
 			try {
 				data = data.replace(/\n$/, '');
 				if(answer){
-					data = split_unit(data).value;
+					data = split_unit(data);
 					if(!isNaN(data)) {data = roundNumber(parseFloat(data), 2);}
 					adapter.setState('get.' + toPoll[step].name, data, true, (err)=> {
 					if (err) adapter.log.error(err);
@@ -514,3 +590,4 @@ function main() {
     adapter.subscribeStates('set.*');
 
 }
+//###########################################################################################################
