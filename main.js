@@ -197,7 +197,7 @@ function vcontrold_read(path, callback){
 }
 
 function vito_read(units){
-	fs.readFile(adapter.config.path + '/vito.xml', 'utf8', (err, data) => {
+	fs.readFile('/opt/iobroker/node_modules/iobroker.viessmann/vito.xml', 'utf8', (err, data) => {
 		if(err){
 			adapter.log.warn('cannot read vito.xml ' + err);
 			adapter.setState('info.connection', false, true);

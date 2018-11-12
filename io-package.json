@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.8.1",
+        "version": "0.8.2",
 	    "news": {
 		"0.8.0":	{
 			"en": "create units from vcontrold.xml (require a new config)",
