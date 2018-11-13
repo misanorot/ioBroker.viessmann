@@ -97,11 +97,8 @@ adapter.on('ready', ()=> {
 function readxml(){
 	adapter.log.debug('try to read xml files');
   if(adapter.config.ip === "127.0.0.1"){
-	vcontrold_read(adapter.config.path, (units)=>{
-		vito_read(adapter.config.path, units);
-	});
-  }
-  else{
+	vcontrold_read(adapter.config.path + '/vcontrold.xml');
+  }else{
 	    //Create a SSH connection
 	  const ssh_session = new ssh();
 	  adapter.log.debug('try to create a ssh session');
@@ -197,7 +194,16 @@ function vcontrold_read(path, callback){
 }
 
 function vito_read(units){
-	fs.readFile('/opt/iobroker/node_modules/iobroker.viessmann/vito.xml', 'utf8', (err, data) => {
+	const path_ssh = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
+	const path_host = adapter.config.path + '/vito.xml'; 
+	let path = "";
+	
+	if(adapter.config.ip === "127.0.0.1"){
+		path = path_host;
+	}else{
+		path = path_ssh
+	}
+	fs.readFile(path, 'utf8', (err, data) => {
 		if(err){
 			adapter.log.warn('cannot read vito.xml ' + err);
 			adapter.setState('info.connection', false, true);
