@@ -121,16 +121,16 @@ function readxml(){
 					const moveVcontroldTo = '/opt/iobroker/node_modules/iobroker.viessmann/vcontrold.xml';
 					const moveVitoFrom =  adapter.config.path + '/vito.xml';
 					const moveVitoTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
+					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom);
 					
-					
-					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(error)=>{
-						if(error){
+					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(err)=>{
+						if(err){
 							adapter.log.warn('cannot read vito.xml from Server ' + err);
 							adapter.setState('info.connection', false, true);
 							ssh_session.end();
 						}
-						sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(error)=>{
-							if(error){
+						sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(err)=>{
+							if(err){
 								adapter.log.warn('cannot read vcontrold.xml from Server ' + err);
 								vcontrold_read(moveVcontroldTo);
 								ssh_session.end();
