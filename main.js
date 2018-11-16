@@ -118,10 +118,10 @@ function readxml(){
 				}
 				else{
 					const moveVcontroldFrom =  adapter.config.path + '/vcontrold.xml';
-					const moveVcontroldTo = '/opt/iobroker/node_modules/iobroker.viessmann/vcontrold.xml';
+					const moveVcontroldTo = __dirname + '/vcontrold.xml';
 					const moveVitoFrom =  adapter.config.path + '/vito.xml';
-					const moveVitoTo = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
-					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom);
+					const moveVitoTo = __dirname + '/vito.xml';
+					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom + 'to: ' + __dirname);
 					
 					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(err)=>{
 						if(err){
