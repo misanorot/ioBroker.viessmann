@@ -121,20 +121,22 @@ function readxml(){
 					const moveVcontroldTo = __dirname + '/vcontrold.xml';
 					const moveVitoFrom =  adapter.config.path + '/vito.xml';
 					const moveVitoTo = __dirname + '/vito.xml';
-					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom + 'to: ' + __dirname);
+					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom + ' to: ' + __dirname);
 					
 					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(err)=>{
 						if(err){
-							adapter.log.warn('cannot read vito.xml from Server ' + err);
+							adapter.log.warn('cannot read vito.xml from Server: ' + err);
 							adapter.setState('info.connection', false, true);
 							ssh_session.end();
 						}
+						adapter.log.debug('Copy vito.xml from server to host successfully');
 						sftp.fastGet(moveVcontroldFrom, moveVcontroldTo , {},(err)=>{
 							if(err){
-								adapter.log.warn('cannot read vcontrold.xml from Server ' + err);
+								adapter.log.warn('cannot read vcontrold.xml from Server: ' + err);
 								vcontrold_read(moveVcontroldTo);
 								ssh_session.end();
 							}
+							adapter.log.debug('Copy vcontrold.xml from server to host successfully');
 							vcontrold_read(moveVcontroldTo);
 						});	
 					});	
@@ -194,7 +196,7 @@ function vcontrold_read(path, callback){
 }
 
 function vito_read(units){
-	const path_ssh = '/opt/iobroker/node_modules/iobroker.viessmann/vito.xml';
+	const path_ssh = __dirname + '/vito.xml';
 	const path_host = adapter.config.path + '/vito.xml'; 
 	let path = "";
 	
