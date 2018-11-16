@@ -12,13 +12,13 @@ die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommunizier
 in Objekten zu speichern. 
 Ebenso ist das Setzen von Werten, die man in seiner Vito.xml konfiguriert hat möglich.
 
-#### (Linux: selber Host) 
+#### (selber Host) 
 Sollte Vcontrold auf dem gleichen Host wie auch IOBroker laufen, 
-so ist keine weitere in der Adminkonfiguration nötig um die vito.xml einzulesen.
-*(Voraussetzung ist, sie liegt in dem Standard Pfad: /etc/vcontrold/vito.xml)*
+so ist unter Linux eigentlich keine weitere Veränderung in der Adminkonfiguration nötig um die .xml Dateien einzulesen.
+*(Vorausgesetzt, sie liegt in dem Standard Pfad: /etc/vcontrold/vito.xml)*
 
 #### (Anderer Host)
-Ist Vcontrold auf einem anderen Host installiert, kann man per SSH Zugang die vito.xml einlesen.
+Ist Vcontrold auf einem anderen Host installiert, kann man per SSH Zugang die .xml Dateien einlesen.
 Hierfür die nötigen Informationen in dem SSH Tab eingeben.
 *(Eine funktionierende SSH Verbindung wird vorausgesetzt.)*
 
