@@ -5,7 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 
 <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../lib/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
 <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
 <!-- these files always have to be included -->
@@ -272,7 +272,7 @@ function write() {
 					<div><h5 class="translate">setvito</h5></div>
 			</div>
 		</div>
-		<table class="bordered">
+		<table id="set_table" class="bordered">
               <thead>
                   <tr>
                       <th class="translate">name</th>
