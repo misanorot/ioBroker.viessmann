@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 
 <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.tablesorter.js"></script>
 <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 
 <!-- these files always have to be included -->
@@ -20,10 +21,6 @@
 
     function setValue(id, value, onChange) {
         // example: select elements with id=key and class=value and insert value
-		$('.getSelect').change(function (e) {
-        datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
-			onChange();
-		});
         if ($('#' + id + '.value').attr('type') == 'checkbox') {
             $('#' + id + '.value').prop('checked', value).change(function() {
                 onChange();
@@ -54,9 +51,15 @@
         if (!settings) return;
         datapoints = settings.datapoints || {};
 		write();
+		$('#get_table').tablesorter();
+		$('#set_table').tablesorter();
+		$('.getSelect').change(function (e) {
+        datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
+			onChange();
+		});
         for (let key in settings) {
             setValue(key, settings[key], onChange);
-        }
+			};
 		onChange(false);
     }
     // ... and the function save has to exist.
@@ -250,7 +253,7 @@ function write() {
 					<div><h5 class="translate">getvito</h5></div>
 			</div>
 		</div>
-		<table class="bordered">
+		<table id="get_table" class="bordered">
               <thead>
                   <tr>
                       <th class="translate">name</th>
