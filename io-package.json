@@ -1,19 +1,30 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.8.4",
+        "version": "0.9.0",
 	    "news": {
-		"0.8.0":	{
-			"en": "create units from vcontrold.xml (require a new config)",
-			"de": "Einheiten aus vcontrold.xml erstellen (neue Konfiguration erforderlich)",
-			"ru": "создавать единицы из vcontrold.xml (требуется новая конфигурация)",
-			"pt": "crie unidades a partir do vcontrold.xml (requer uma nova configuração)",
-			"nl": "maak eenheden van vcontrold.xml (vereist een nieuwe config)",
-			"fr": "créer des unités à partir de vcontrold.xml (nécessite une nouvelle configuration)",
-			"it": "creare unità da vcontrold.xml (richiede una nuova configurazione)",
-			"es": "crear unidades desde vcontrold.xml (requiere una nueva configuración)",
-			"pl": "twórz jednostki z vcontrold.xml (wymaga nowej konfiguracji)"
+		"0.9.0":	{
+			"en": "create types from vcontrold.xml to states (require a new config) ",
+			"de": "Erstellen Sie Typen von vcontrold.xml in Zustände (erfordern eine neue Konfiguration)",
+			"ru": "создавать типы из vcontrold.xml в состояния (требуется новый конфиг)",
+			"pt": "crie tipos de vcontrold.xml para states (requer uma nova configuração)",
+			"nl": "soorten maken van vcontrold.xml naar statussen (hiervoor is een nieuwe configuratie vereist)",
+			"fr": "crée des types de vcontrold.xml en états (nécessite une nouvelle configuration)",
+			"it": "creare tipi da vcontrold.xml a stati (richiede una nuova configurazione)",
+			"es": "crear tipos desde vcontrold.xml a estados (requiere una nueva configuración)",
+			"pl": "twórz typy od vcontrold.xml do stanów (wymaga nowej konfiguracji)"
 		},
+			"0.8.0":	{
+				"en": "create units from vcontrold.xml (require a new config)",
+				"de": "Einheiten aus vcontrold.xml erstellen (neue Konfiguration erforderlich)",
+				"ru": "создавать единицы из vcontrold.xml (требуется новая конфигурация)",
+				"pt": "crie unidades a partir do vcontrold.xml (requer uma nova configuração)",
+				"nl": "maak eenheden van vcontrold.xml (vereist een nieuwe config)",
+				"fr": "créer des unités à partir de vcontrold.xml (nécessite une nouvelle configuration)",
+				"it": "creare unità da vcontrold.xml (richiede una nuova configurazione)",
+				"es": "crear unidades desde vcontrold.xml (requiere una nueva configuración)",
+				"pl": "twórz jednostki z vcontrold.xml (wymaga nowej konfiguracji)"
+			},
 			"0.7.0":	{
 				"en": "added lastPoll state",
 				"de": "lastPoll-Status hinzugefügt",

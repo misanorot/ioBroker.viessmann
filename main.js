@@ -168,27 +168,39 @@ function vcontrold_read(path, callback){
 				vito_read();
 			}
 			else{
+				let temp;
 				try{
-					let temp = JSON.stringify(result);
+					temp = JSON.stringify(result);
 					temp = JSON.parse(temp);
-					
-					let units = {};
-
-					for(let i in temp["V-Control"].units[0].unit){
-						for (let e in temp["V-Control"].units[0].unit[i].entity){
-							let obj = new Object();
-							obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
-							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
-						}
-					}
-					adapter.log.info('read vcontrold.xml successfull');
-					vito_read(units);
 				}
 				catch(e){
-					adapter.log.warn('check vcontrold.xml structure --> cannot use units   ' + e);
+					adapter.log.warn('check vcontrold.xml structure:  ' + e);
 					adapter.setState('info.connection', false, true);
 					vito_read();
+					return;
 				}
+				let units = {};
+				for(let i in temp["V-Control"].units[0].unit){
+					let obj = new Object;
+						try{
+							for (let e in temp["V-Control"].units[0].unit[i].entity){			
+							obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
+							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+						}}catch(e){
+							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
+						}
+						try{
+							for (let e in temp["V-Control"].units[0].unit[i].type){			
+							obj.type = temp["V-Control"].units[0].unit[i].type[0]
+							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+						}
+						}catch(e){
+							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
+						}
+						
+					}
+			adapter.log.info('read vcontrold.xml successfull');
+			vito_read(units);
 			}	
 			});
 		}
@@ -254,7 +266,12 @@ datapoints['system'] = {};
         let obj_get = new Object();
         obj_get.name = get_command.substring(3, get_command.length);
 		try{
-			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit
+			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit;
+		}catch(e){
+			obj_get.unit = "";
+		}
+		try{
+			obj_get.type = get_type(units[json.vito.commands[0].command[i].unit[0]].type);
 		}catch(e){
 			obj_get.unit = "";
 		}
@@ -279,13 +296,53 @@ datapoints['system'] = {};
 }
 //###########################################################################################################
 
+//######GET TYPES########################################################################################
+function get_type(type){
+	switch (type){
+		case "enum":
+			return "string";
+		break;
+		case "systime":
+			return "string";
+		break;
+		case "cycletime":
+			return "string";
+		break;
+		case "errstate":
+			return "string";
+		break;
+		case "char":
+			return "number";
+		break;
+		case "uchar":
+			return "number";
+		break;
+		case "int":
+			return "number";
+		break;
+		case "uint":
+			return "number";
+		break;
+		case "short":
+			return "number";
+		break;
+		case "ushort":
+			return "number";
+		break;
+		default:
+			return "mixed";
+	}
+}
+//###########################################################################################################
+
 //######SET STATES###########################################################################################
-function addState(pfad, name, unit, beschreibung, callback) {
+function addState(pfad, name, unit, beschreibung, type, callback) {
     adapter.setObjectNotExists(pfad + name, {
         type: 'state',
         common: {
             name: name,
 			unit: unit,
+			type: type,
             desc: beschreibung,
         },
         native: {}
@@ -347,7 +404,7 @@ function setAllObjects(callback) {
             for (let i in adapter.config.datapoints.gets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.gets[i].name) !== -1) {
                     count++;
-                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].unit, adapter.config.datapoints.gets[i].description, ()=> {
+                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].unit, adapter.config.datapoints.gets[i].description, adapter.config.datapoints.gets[i].type, ()=> {
                         if (!--count && callback) callback();
                     });
                 }

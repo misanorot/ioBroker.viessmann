@@ -48,6 +48,8 @@ man kann nun in der Konfiguration der Instanz die Werte einstellen.
 				</command>
 			</commands>
 		</vito>```
+		
+Eine Sortierung der Befehle, ist durch klicken auf den Tabellenkopf möglich.
 
 
 ## Wichtig!: 	
@@ -67,7 +69,11 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
-#### 0.7.0 (11.11.2018)
+#### 0.9.0 (11.12.2018)
+* (misanorot) create types from vcontrold.xml to states (require a new config)
+* (misanorot) add sort tables	
+
+#### 0.8.0 (11.11.2018)
 * (misanorot) create units from vcontrold.xml (require a new config)	
 
 #### 0.7.0 (01.11.2018)
