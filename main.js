@@ -266,16 +266,14 @@ datapoints['system'] = {};
         let obj_get = new Object();
         obj_get.name = get_command.substring(3, get_command.length);
 		try{
-			if(units[json.vito.commands[0].command[i].unit[0]].unit != "undefined"){
-			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit}else{
-			obj_get.unit = "";};
+			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit
 		}catch(e){
 			obj_get.unit = "";
 		}
 		try{
 			obj_get.type = get_type(units[json.vito.commands[0].command[i].unit[0]].type);
 		}catch(e){
-			obj_get.unit = "";
+			obj_get.type = "";
 		}
         obj_get.description = desc;
         obj_get.polling = poll;
