@@ -185,6 +185,11 @@ function vcontrold_read(path, callback){
 							for (let e in temp["V-Control"].units[0].unit[i].entity){	
 								let obj = new Object;
 								obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
+								try{
+									obj.type = temp["V-Control"].units[0].unit[i].type[0]
+								}catch(e){
+									obj.type = "";
+								}
 								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
