@@ -266,7 +266,9 @@ datapoints['system'] = {};
         let obj_get = new Object();
         obj_get.name = get_command.substring(3, get_command.length);
 		try{
-			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit;
+			if(units[json.vito.commands[0].command[i].unit[0]].unit != "undefined"){
+			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit}else{
+			obj_get.unit = "";};
 		}catch(e){
 			obj_get.unit = "";
 		}
