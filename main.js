@@ -181,23 +181,15 @@ function vcontrold_read(path, callback){
 				}
 				let units = {};
 				for(let i in temp["V-Control"].units[0].unit){
-					let obj = new Object;
 						try{
-							for (let e in temp["V-Control"].units[0].unit[i].entity){			
-							obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
+							for (let e in temp["V-Control"].units[0].unit[i].entity){	
+								let obj = new Object;
+								obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
+								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
 						}
-						try{
-							for (let e in temp["V-Control"].units[0].unit[i].type){			
-							obj.type = temp["V-Control"].units[0].unit[i].type[0]
-						}
-						}catch(e){
-							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
-						}
-						units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
-						
-					}
+				}
 			adapter.log.info('read vcontrold.xml successfull');
 			vito_read(units);
 			}	
