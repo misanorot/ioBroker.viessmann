@@ -185,14 +185,14 @@ function vcontrold_read(path, callback){
 						try{
 							for (let e in temp["V-Control"].units[0].unit[i].entity){			
 							obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
-							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj.unit
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
 						}
 						try{
 							for (let e in temp["V-Control"].units[0].unit[i].type){			
 							obj.type = temp["V-Control"].units[0].unit[i].type[0]
-							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+							units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj.type
 						}
 						}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
