@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.9.0",
+        "version": "0.9.1",
 	    "news": {
 		"0.9.0":	{
 			"en": "create types from vcontrold.xml to states (require a new config) ",

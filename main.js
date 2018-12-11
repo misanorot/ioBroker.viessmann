@@ -180,30 +180,36 @@ function vcontrold_read(path, callback){
 					return;
 				}
 				let units = {};
+				let types = {};
 				for(let i in temp["V-Control"].units[0].unit){
 						try{
 							for (let e in temp["V-Control"].units[0].unit[i].entity){	
 								let obj = new Object;
-								obj.unit = temp["V-Control"].units[0].unit[i].entity[0]
-								try{
-									obj.type = temp["V-Control"].units[0].unit[i].type[0]
-								}catch(e){
-									obj.type = "";
-								}
-								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj
+								obj.unit = temp["V-Control"].units[0].unit[i].entity[0];
+								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;							
+								adapter.log.debug('Units in vcontrold.xml: ' + units[temp["V-Control"].units[0].unit[i].abbrev[0]]);
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
 						}
+						try{
+							for (let e in temp["V-Control"].units[0].unit[i].type){	
+								let obj = new Object;
+								obj.type = temp["V-Control"].units[0].unit[i].type[0];
+								adapter.log.debug('Types in vcontrold.xml: ' + temp["V-Control"].units[0].unit[i].type[0]);
+							}
+						}catch(e){
+							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
+						}
 				}
 			adapter.log.info('read vcontrold.xml successfull');
-			vito_read(units);
+			vito_read(units, types);
 			}	
 			});
 		}
 	});
 }
 
-function vito_read(units){
+function vito_read(units, types){
 	const path_ssh = __dirname + '/vito.xml';
 	const path_host = adapter.config.path + '/vito.xml'; 
 	let path = "";
@@ -228,7 +234,7 @@ function vito_read(units){
 				try{
 					let temp = JSON.stringify(result);
 					temp = JSON.parse(temp)
-					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp, units), new_read: false}});
+					adapter.extendForeignObject('system.adapter.' + adapter.namespace, {native: {datapoints: getImport(temp, units, types), new_read: false}});
 					adapter.log.info('read vito.xml successfull');
 					main();
 				}
@@ -244,7 +250,7 @@ function vito_read(units){
 //###########################################################################################################
 
 //######IMPORT STATES########################################################################################
-function getImport(json, units) {
+function getImport(json, units, types) {
 datapoints['gets'] = {};
 datapoints['sets'] = {};
 datapoints['system'] = {};
@@ -267,7 +273,7 @@ datapoints['system'] = {};
 			obj_get.unit = "";
 		}
 		try{
-			obj_get.type = get_type(units[json.vito.commands[0].command[i].unit[0]].type);
+			obj_get.type = get_type(types[json.vito.commands[0].command[i].unit[0]].type);
 		}catch(e){
 			obj_get.type = "";
 		}
@@ -294,6 +300,7 @@ datapoints['system'] = {};
 
 //######GET TYPES########################################################################################
 function get_type(type){
+	
 	switch (type){
 		case "enum":
 			return "string";
