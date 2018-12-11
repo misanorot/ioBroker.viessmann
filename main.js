@@ -187,7 +187,6 @@ function vcontrold_read(path, callback){
 								let obj = new Object;
 								obj.unit = temp["V-Control"].units[0].unit[i].entity[0];
 								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;							
-								adapter.log.debug('Units in vcontrold.xml: ' + units[temp["V-Control"].units[0].unit[i].abbrev[0]]);
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
 						}
@@ -195,12 +194,14 @@ function vcontrold_read(path, callback){
 							for (let e in temp["V-Control"].units[0].unit[i].type){	
 								let obj = new Object;
 								obj.type = temp["V-Control"].units[0].unit[i].type[0];
-								adapter.log.debug('Types in vcontrold.xml: ' + temp["V-Control"].units[0].unit[i].type[0]);
+								types[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;		
 							}
 						}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
 						}
 				}
+			adapter.log.debug('Types in vcontrold.xml: ' + JSON.stringify(types));
+			adapter.log.debug('Units in vcontrold.xml: ' + JSON.stringify(units));
 			adapter.log.info('read vcontrold.xml successfull');
 			vito_read(units, types);
 			}	
@@ -268,7 +269,7 @@ datapoints['system'] = {};
         let obj_get = new Object();
         obj_get.name = get_command.substring(3, get_command.length);
 		try{
-			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit
+			obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit;
 		}catch(e){
 			obj_get.unit = "";
 		}
