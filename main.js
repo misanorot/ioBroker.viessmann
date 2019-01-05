@@ -517,7 +517,7 @@ function commands() {
 //######CUT ANSWER###########################################################################################
 function split_unit(v) {
 	// test if string starts with non digits, then just pass it
-	if  (typeof v === 'string' && v !== "" && (/^-?\D.*$/.test(v))){
+	if  (typeof v === 'string' && v !== "" && (/^\D.*$/.test(v)) && !(/^-?/.test(v))){
 		return v;
 	}
 	// else split value and unit
