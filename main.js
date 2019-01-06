@@ -252,6 +252,7 @@ function vito_read(units, types){
 
 //######IMPORT STATES########################################################################################
 function getImport(json, units, types) {
+adapter.config.datapoints = {};
 datapoints['gets'] = {};
 datapoints['sets'] = {};
 datapoints['system'] = {};
