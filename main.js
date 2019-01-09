@@ -87,8 +87,25 @@ adapter.on('ready', ()=> {
         },
         native: {}
     });
-    if(!adapter.config.datapoints.gets || adapter.config.new_read)readxml();
-    else main();
+    if(!adapter.config.datapoints.gets)readxml();
+	else if(adapter.config.new_read){
+		adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj)=>{
+			if(err){
+				adapter.log.error(err);
+				return;
+			}else{
+				obj.native.datapoints = {};
+				adapter.setForeignObject('system.adapter.' + adapter.namespace, obj, (err)=>{
+					if(err){
+						adapter.log.error(err);
+						return;
+					}
+					readxml();
+				});
+			}
+		
+		});		
+	}else main();
 });
 
 //##########IMPORT XML FILE##################################################################################
@@ -252,12 +269,10 @@ function vito_read(units, types){
 
 //######IMPORT STATES########################################################################################
 function getImport(json, units, types) {
-adapter.config.datapoints = {};
 datapoints['gets'] = {};
 datapoints['sets'] = {};
 datapoints['system'] = {};
   if (typeof json.vito.commands[0].command === "object") {
-
     datapoints.system["-ID"] = json.vito.devices[0].device[0].$.ID;
     datapoints.system["-name"] = json.vito.devices[0].device[0].$.name;
     datapoints.system["-protocol"] = json.vito.devices[0].device[0].$.protocol;
