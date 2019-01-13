@@ -162,7 +162,7 @@
 		"path":			"/etc/vcontrold",
 		"new_read":		false,
 		"answer":		true,
-		"states_only":	true,
+		"states_only":	false,
 		"errors":		false
     },
     "objects": []
