@@ -1,18 +1,29 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.9.2",
+        "version": "0.9.5",
 	    "news": {
-		"0.9.2":	{
-			"en": "Fixed little issue with new xml read",
-			"de": "Kleiner Fehler beim neuen XML-Lesen behoben",
-			"ru": "Исправлена ​​небольшая проблема с новым чтением XML",
-			"pt": "Corrigido pequeno problema com a nova leitura de xml",
-			"nl": "Er is een klein probleem met de nieuwe xml-lees opgelost",
-			"fr": "Correction d'un petit problème avec la nouvelle lecture xml",
-			"it": "Risolto un piccolo problema con la nuova lettura di xml",
-			"es": "Pequeño problema solucionado con la nueva lectura de XML",
-			"pl": "Naprawiono mały problem z odczytaniem nowego xml"
+		"0.9.5":	{
+				"en": "compact mode compatibility added",
+                "de": "Kompaktmodus-Kompatibilität hinzugefügt",
+                "ru": "добавлена ​​совместимость с компактным режимом",
+                "pt": "compatibilidade de modo compacto adicionada",
+                "nl": "compatibiliteit met compacte modus toegevoegd",
+                "fr": "Compatibilité en mode compact ajoutée",
+                "it": "aggiunta la compatibilità in modalità compatta",
+                "es": "compatibilidad de modo compacto agregado",
+                "pl": "Dodano kompatybilność w trybie kompaktowym"
+			},
+			"0.9.2":	{
+				"en": "Fixed little issue with new xml read",
+				"de": "Kleiner Fehler beim neuen XML-Lesen behoben",
+				"ru": "Исправлена ​​небольшая проблема с новым чтением XML",
+				"pt": "Corrigido pequeno problema com a nova leitura de xml",
+				"nl": "Er is een klein probleem met de nieuwe xml-lees opgelost",
+				"fr": "Correction d'un petit problème avec la nouvelle lecture xml",
+				"it": "Risolto un piccolo problema con la nuova lettura di xml",
+				"es": "Pequeño problema solucionado con la nueva lectura de XML",
+				"pl": "Naprawiono mały problem z odczytaniem nowego xml"
 			},
 			"0.9.0":	{
 				"en": "create types from vcontrold.xml to states (require a new config) ",
@@ -130,6 +141,7 @@
             "misanorot <audi16v@gmx.de>"
         ],
         "materialize": true,
+		"compact": true,
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
         "icon":                     "viessmann.png",
@@ -138,7 +150,7 @@
         "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
         "type":                     "climate-control",
-      "enabled": true
+		"enabled": true
 
     },
     "native": {

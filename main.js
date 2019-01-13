@@ -9,7 +9,7 @@
 "use strict";
 
 // you have to require the utils module and call adapter function
-const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils = require('@iobroker/adapter-core');
 const net = require('net');
 const xml2js = require('xml2js');
 const fs = require('fs');
@@ -21,56 +21,87 @@ let toPoll = {};
 let step = -1;
 //Hilfsarray zum setzen von Werten
 let setcommands = [];
-// you have to call the adapter function and pass a options object
-// name has to be set and has to be equal to adapters folder name and main file name excluding extension
-// adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.viessmann.0
-const adapter = utils.Adapter('viessmann');
+
+
 
 const client = new net.Socket();
 const parser = new xml2js.Parser();
 
+/**
+ * The adapter instance
+ * @type {ioBroker.Adapter}
+ */
+let adapter;
+
+/**
+ * Starts the adapter instance
+ * @param {Partial<ioBroker.AdapterOptions>} [options]
+ */
+function startAdapter(options) {
+    // Create the adapter and define its methods
+    return adapter = utils.adapter(Object.assign({}, options, {
+        name: 'viessmann',
+
+        // The ready callback is called when databases are connected and adapter received configuration.
+        // start here!
+        ready: start, // Main method defined below for readability
+
+        // is called when adapter shuts down - callback has to be called under any circumstances!
+        unload: (callback) => {
+            try {
+                adapter.log.info('cleaned everything up...');
+                callback();
+            } catch (e) {
+                callback();
+            }
+        },
+
+        // is called if a subscribed object changes
+        objectChange: (id, obj) => {
+            if (obj) {
+                // The object was changed
+                adapter.log.debug(`object ${id} changed: ${JSON.stringify(obj)}`);
+            } else {
+                // The object was deleted
+                adapter.log.debug(`object ${id} deleted`);
+            }
+        },
+
+        // is called if a subscribed state changes
+        stateChange: (id, state) => {
+            if (state) {
+                // The state was changed
+                adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+				setcommands.push(String('set' + id.substring(16, id.length) + ' ' + state.val));
+            } else {
+                // The state was deleted
+                adapter.log.info(`state ${id} deleted`);
+            }
+        },
+
+        // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
+        // requires "common.message" property to be set to true in io-package.json
+        // message: (obj) => {
+        // 	if (typeof obj === "object" && obj.message) {
+        // 		if (obj.command === "send") {
+        // 			// e.g. send email or pushover or whatever
+        // 			adapter.log.info("send command");
+
+        // 			// Send response in callback if required
+        // 			if (obj.callback) adapter.sendTo(obj.from, obj.command, "Message received", obj.callback);
+        // 		}
+        // 	}
+        // },
+    }));
+}
 
 
-// is called when adapter shuts down - callback has to be called under any circumstances!
-adapter.on('unload', (callback) => {
-    try {
-		client.destroy(); // kill client after server's response
-        adapter.log.info('cleaned everything up...');
-        callback();
-    } catch (e) {
-        callback();
-    }
-});
-
-// is called if a subscribed object changes
-adapter.on('objectChange', (id, obj)=> {
-    // Warning, obj can be null if it was deleted
-    adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
-});
-
-// is called if a subscribed state changes
-adapter.on('stateChange', (id, state)=> {
-    // Warning, state can be null if it was deleted
-	setcommands.push(String('set' + id.substring(16, id.length) + ' ' + state.val));
-});
 
 
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-/*adapter.on('message', function (obj) {
-    if (typeof obj === 'object' && obj.message) {
-        if (obj.command === 'send') {
-            // e.g. send email or pushover or whatever
-            console.log('send command');
-
-            // Send response in callback if required
-            if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-        }
-    }
-});*/
 
 // is called when databases are connected and adapter received configuration.
 // start here!
-adapter.on('ready', ()=> {
+function start(){
 	adapter.setObjectNotExists('info.connection', {
         type: 'state',
         common: {
@@ -106,7 +137,7 @@ adapter.on('ready', ()=> {
 		
 		});		
 	}else main();
-});
+}
 
 //##########IMPORT XML FILE##################################################################################
 
@@ -669,4 +700,12 @@ function main() {
     adapter.subscribeStates('set.*');
 
 }
+//###########################################################################################################
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
+} 
 //###########################################################################################################

@@ -69,7 +69,10 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
-#### 0.9.2 (11.12.2018)
+#### 0.9.5 (13.01.2018)
+* (misanorot) Compact modus added
+
+#### 0.9.2 (13.01.2018)
 * (misanorot) Fixed little issue with new xml read
 
 #### 0.9.0 (11.12.2018)
