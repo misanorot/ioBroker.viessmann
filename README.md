@@ -69,6 +69,9 @@ Es ist empfehlenswert, bei relativ unwichtigen Abfragewerten, ein möglichst gro
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
+#### 0.9.2 (11.12.2018)
+* (misanorot) Fixed little issue with new xml read
+
 #### 0.9.0 (11.12.2018)
 * (misanorot) create types from vcontrold.xml to states (require a new config)
 * (misanorot) add sort tables	

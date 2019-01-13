@@ -1,19 +1,30 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.9.1",
+        "version": "0.9.2",
 	    "news": {
-		"0.9.0":	{
-			"en": "create types from vcontrold.xml to states (require a new config) ",
-			"de": "Erstellen Sie Typen von vcontrold.xml in Zustände (erfordern eine neue Konfiguration)",
-			"ru": "создавать типы из vcontrold.xml в состояния (требуется новый конфиг)",
-			"pt": "crie tipos de vcontrold.xml para states (requer uma nova configuração)",
-			"nl": "soorten maken van vcontrold.xml naar statussen (hiervoor is een nieuwe configuratie vereist)",
-			"fr": "crée des types de vcontrold.xml en états (nécessite une nouvelle configuration)",
-			"it": "creare tipi da vcontrold.xml a stati (richiede una nuova configurazione)",
-			"es": "crear tipos desde vcontrold.xml a estados (requiere una nueva configuración)",
-			"pl": "twórz typy od vcontrold.xml do stanów (wymaga nowej konfiguracji)"
-		},
+		"0.9.2"{
+			"en": "Fixed little issue with new xml read",
+			"de": "Kleiner Fehler beim neuen XML-Lesen behoben",
+			"ru": "Исправлена ​​небольшая проблема с новым чтением XML",
+			"pt": "Corrigido pequeno problema com a nova leitura de xml",
+			"nl": "Er is een klein probleem met de nieuwe xml-lees opgelost",
+			"fr": "Correction d'un petit problème avec la nouvelle lecture xml",
+			"it": "Risolto un piccolo problema con la nuova lettura di xml",
+			"es": "Pequeño problema solucionado con la nueva lectura de XML",
+			"pl": "Naprawiono mały problem z odczytaniem nowego xml"
+				},
+			"0.9.0":	{
+				"en": "create types from vcontrold.xml to states (require a new config) ",
+				"de": "Erstellen Sie Typen von vcontrold.xml in Zustände (erfordern eine neue Konfiguration)",
+				"ru": "создавать типы из vcontrold.xml в состояния (требуется новый конфиг)",
+				"pt": "crie tipos de vcontrold.xml para states (requer uma nova configuração)",
+				"nl": "soorten maken van vcontrold.xml naar statussen (hiervoor is een nieuwe configuratie vereist)",
+				"fr": "crée des types de vcontrold.xml en états (nécessite une nouvelle configuration)",
+				"it": "creare tipi da vcontrold.xml a stati (richiede una nuova configurazione)",
+				"es": "crear tipos desde vcontrold.xml a estados (requiere una nueva configuración)",
+				"pl": "twórz typy od vcontrold.xml do stanów (wymaga nowej konfiguracji)"
+			},
 			"0.8.0":	{
 				"en": "create units from vcontrold.xml (require a new config)",
 				"de": "Einheiten aus vcontrold.xml erstellen (neue Konfiguration erforderlich)",
