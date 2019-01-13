@@ -4,6 +4,7 @@
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
+[![Tests](https://travis-ci.org/misanorot/ioBroker.viessmann.svg?branch=master)](https://travis-ci.org/misanorot/ioBroker.viessmann)
 
 [![NPM](https://nodei.co/npm/iobroker.viessmann.png?downloads=true)](https://nodei.co/npm/iobroker.viessmann/)
 
