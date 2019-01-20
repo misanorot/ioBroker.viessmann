@@ -372,18 +372,18 @@ function get_type(type){
 //###########################################################################################################
 
 //######SET STATES###########################################################################################
-function addState(pfad, name, unit, beschreibung, type, write,callback) {
+function addState(pfad, name, unit, beschreibung, type, write, callback) {
     adapter.setObjectNotExists(pfad + name, {
-        type: 'state',
-        common: {
-            name: name,
-			unit: unit,
-			type: type,
-            desc: beschreibung,
-			read: true,
-			write: write
+        "type": "state",
+        "common": {
+            "name": name,
+			"unit": unit,
+			"type": type,
+            "desc": beschreibung,
+			"read": true,
+			"write": write
         },
-        native: {}
+        "native": {}
     }, callback);
 }
 //###########################################################################################################
