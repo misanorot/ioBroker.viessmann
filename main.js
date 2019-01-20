@@ -102,22 +102,7 @@ function startAdapter(options) {
 // is called when databases are connected and adapter received configuration.
 // start here!
 function start(){
-	adapter.setObjectNotExists('info.connection', {
-        type: 'state',
-        common: {
-            name: 'connection',
-            desc: 'Info über Verbindung zur Viessmann Steuerung',
-        },
-        native: {}
-    });
-	adapter.setObjectNotExists('info.lastPoll', {
-        type: 'state',
-        common: {
-            name: 'lastPoll',
-            desc: 'Timestamp des letzten Abrufs',
-        },
-        native: {}
-    });
+	
     if(!adapter.config.datapoints.gets)readxml();
 	else if(adapter.config.new_read){
 		adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj)=>{
@@ -387,7 +372,7 @@ function get_type(type){
 //###########################################################################################################
 
 //######SET STATES###########################################################################################
-function addState(pfad, name, unit, beschreibung, type, callback) {
+function addState(pfad, name, unit, beschreibung, type, write,callback) {
     adapter.setObjectNotExists(pfad + name, {
         type: 'state',
         common: {
@@ -395,6 +380,8 @@ function addState(pfad, name, unit, beschreibung, type, callback) {
 			unit: unit,
 			type: type,
             desc: beschreibung,
+			read: true,
+			write: write
         },
         native: {}
     }, callback);
@@ -455,7 +442,7 @@ function setAllObjects(callback) {
             for (let i in adapter.config.datapoints.gets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.gets[i].name) !== -1) {
                     count++;
-                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].unit, adapter.config.datapoints.gets[i].description, adapter.config.datapoints.gets[i].type, ()=> {
+                    addState(pfadget, adapter.config.datapoints.gets[i].name, adapter.config.datapoints.gets[i].unit, adapter.config.datapoints.gets[i].description, adapter.config.datapoints.gets[i].type, false, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
@@ -463,7 +450,7 @@ function setAllObjects(callback) {
 			for (let i in adapter.config.datapoints.sets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.sets[i].name) !== -1) {
                     count++;
-                    addState(pfadset, adapter.config.datapoints.sets[i].name, "", adapter.config.datapoints.sets[i].description, ()=> {
+                    addState(pfadset, adapter.config.datapoints.sets[i].name, "", adapter.config.datapoints.sets[i].description, "", true, ()=> {
                         if (!--count && callback) callback();
                     });
                 }

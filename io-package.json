@@ -165,5 +165,33 @@
 		"states_only":	false,
 		"errors":		false
     },
-    "objects": []
+    "objects": [],
+	"instanceObjects":	[
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "",
+				"name": "connection",
+				"desc": "Info über Verbindung zur Viessmann Steuerung",
+				"type": "boolean",
+				"read": true,
+				"write": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.lastPoll",
+			"type": "state",
+			"common": {
+				"role": "",
+				"name": "lastPoll",
+				"desc": "Timestamp des letzten Abrufs",
+				"type": "number",
+				"read": true,
+				"write": false
+			},
+			"native": {}
+		}
+	]
 }
