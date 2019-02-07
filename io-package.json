@@ -137,6 +137,7 @@
 			"es": "Comunicación con los controladores Viessmann sobre Vcontrold",
 			"pl": "Komunikacja z kontrolerami Viessmann nad Vcontrold"
 		},
+	"license": "MIT",
     "authors": [
             "misanorot <audi16v@gmx.de>"
         ],
