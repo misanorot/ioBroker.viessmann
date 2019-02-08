@@ -125,7 +125,7 @@
 				"pl": "początkowa wersja"
 				}
 		},
-        "title":                    "viessmann adapter",
+        "title":                    "viessmann",
         "desc":                     {
 			"en": "Communication with Viessmann controllers over Vcontrold",
 			"de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
