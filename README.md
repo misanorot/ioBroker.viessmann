@@ -2,7 +2,7 @@
 # ioBroker.viessmann
 =================
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
+![Number of Installations](http://iobroker.live/badges/viessmann-installed.svg) ![Number of Installations](http://iobroker.live/badges/viessmann-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.viessmann.svg)](https://www.npmjs.com/package/iobroker.viessmann)
 [![Tests](https://travis-ci.org/misanorot/ioBroker.viessmann.svg?branch=master)](https://travis-ci.org/misanorot/ioBroker.viessmann)
 
