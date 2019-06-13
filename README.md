@@ -13,6 +13,7 @@
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=M6HVU7FQ96GWW&source=url)
 
+**[English description](https://github.com/misanorot/ioBroker.viessmann/blob/master/lib/Readme_en.md)**
 
 Mit diesem Adapter ist es möglich, Werte aus einer Viessmann Steuerung
 die mit dem Programm [Vcontrold](https://github.com/openv/vcontrold) kommuniziert,
