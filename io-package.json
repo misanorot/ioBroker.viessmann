@@ -1,19 +1,30 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "0.9.5",
+        "version": "1.0.0",
 	    "news": {
-		"0.9.5":	{
-				"en": "compact mode compatibility added",
-                "de": "Kompaktmodus-Kompatibilität hinzugefügt",
-                "ru": "добавлена ​​совместимость с компактным режимом",
-                "pt": "compatibilidade de modo compacto adicionada",
-                "nl": "compatibiliteit met compacte modus toegevoegd",
-                "fr": "Compatibilité en mode compact ajoutée",
-                "it": "aggiunta la compatibilità in modalità compatta",
-                "es": "compatibilidad de modo compacto agregado",
-                "pl": "Dodano kompatybilność w trybie kompaktowym"
-			},
+        "1.0.0":	{
+          "en": " fixes little issues in compact modus",
+          "de": " behebt kleine Probleme im Kompaktmodus",
+          "ru": " исправляет небольшие проблемы в компактном режиме",
+          "pt": " corrige pequenos problemas no modo compacto",
+          "nl": " lost kleine problemen op in compacte modus",
+          "fr": " corrige de petits problèmes en mode compact",
+          "it": " risolve piccoli problemi in modus compatto",
+          "es": " Soluciona pequeños problemas en modo compacto.",
+          "pl": " naprawia małe problemy w kompaktowym trybie"
+    			},
+  		"0.9.5":	{
+  				"en": "compact mode compatibility added",
+          "de": "Kompaktmodus-Kompatibilität hinzugefügt",
+          "ru": "добавлена ​​совместимость с компактным режимом",
+          "pt": "compatibilidade de modo compacto adicionada",
+          "nl": "compatibiliteit met compacte modus toegevoegd",
+          "fr": "Compatibilité en mode compact ajoutée",
+          "it": "aggiunta la compatibilità in modalità compatta",
+          "es": "compatibilidad de modo compacto agregado",
+          "pl": "Dodano kompatybilność w trybie kompaktowym"
+  		},
 			"0.9.2":	{
 				"en": "Fixed little issue with new xml read",
 				"de": "Kleiner Fehler beim neuen XML-Lesen behoben",

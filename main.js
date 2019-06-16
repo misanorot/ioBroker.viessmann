@@ -22,7 +22,10 @@ let step = -1;
 //Hilfsarray zum setzen von Werten
 let setcommands = [];
 
-
+//helpers for timeout
+let timerWait = null;
+let timerErr = null;
+let timerTimeout = null;
 
 const client = new net.Socket();
 const parser = new xml2js.Parser();
@@ -49,6 +52,9 @@ function startAdapter(options) {
         // is called when adapter shuts down - callback has to be called under any circumstances!
         unload: (callback) => {
             try {
+				clearTimeout(timerWait);
+				clearInterval(timerErr);
+				clearTimeout(timerTimeout);
                 adapter.log.info('cleaned everything up...');
                 callback();
             } catch (e) {
@@ -470,7 +476,7 @@ function setAllObjects(callback) {
 
 //######POLLING##############################################################################################
 function stepPolling() {
-
+	clearTimeout(timerWait);
     step = -1;
     let actualMinWaitTime = 1000000;
     const time = Date.now();
@@ -508,7 +514,7 @@ function stepPolling() {
 
     if (step === -1) {
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
-        setTimeout(()=> {
+        timerWait = setTimeout(()=> {
             stepPolling();
         }, actualMinWaitTime);
 
@@ -616,6 +622,7 @@ function main() {
 
 
 	client.on('data', (data)=> {
+		clearInterval(timerErr);
 		data = String(data);
 		const ok = /OK/;
 		const fail = /ERR/;
@@ -631,7 +638,7 @@ function main() {
 				adapter.setState('info.connection', false, true);
 				adapter.log.warn('Vctrld send too many errors, restart connection!');
 				client.destroy(); // kill client after server's response
-				setTimeout(main, 10000);
+				timerErr = setTimeout(main, 10000);
 			}else{
 				stepPolling();
 			}			
@@ -678,7 +685,7 @@ function main() {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response
-		setTimeout(main, 10000);
+		timerTimeout = setTimeout(main, 10000);
 	});
 
 
