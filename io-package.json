@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.0.0",
+        "version": "1.0.1",
 	    "news": {
         "1.0.0":	{
           "en": " fixes little issues in compact modus",
