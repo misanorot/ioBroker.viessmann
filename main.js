@@ -53,7 +53,7 @@ function startAdapter(options) {
         unload: (callback) => {
             try {
 				clearTimeout(timerWait);
-				clearInterval(timerErr);
+				clearTimeout(timerErr);
 				clearTimeout(timerTimeout);
                 adapter.log.info('cleaned everything up...');
                 callback();
@@ -519,7 +519,7 @@ function stepPolling() {
         }, actualMinWaitTime);
 
     } else {
-		adapter.log.debug('Next poll: ' + toPoll[step].command +'  ' + step);
+		adapter.log.debug('Next poll: ' + toPoll[step].command +'  (For Object: ' + step + ')');
 		toPoll[step].lastPoll = Date.now();
         client.write(toPoll[step].command + '\n');
     }
@@ -598,6 +598,8 @@ function main() {
 	const time_out = 120000;
 	let err_count = 0;
 	
+	clearTimeout(timerErr);
+	
     commands();
 
 	setAllObjects(()=> {
@@ -622,11 +624,11 @@ function main() {
 
 
 	client.on('data', (data)=> {
-		clearInterval(timerErr);
 		data = String(data);
 		const ok = /OK/;
 		const fail = /ERR/;
 		const vctrld = /vctrld>/;
+
 
 		if (ok.test(data)) {
 			adapter.log.debug('Send command okay!');
@@ -638,6 +640,7 @@ function main() {
 				adapter.setState('info.connection', false, true);
 				adapter.log.warn('Vctrld send too many errors, restart connection!');
 				client.destroy(); // kill client after server's response
+				clearTimeout(timerWait);
 				timerErr = setTimeout(main, 10000);
 			}else{
 				stepPolling();
@@ -646,7 +649,10 @@ function main() {
 			return;
 		} else if(step == -1) {
 			return;
-		} else {
+		} else if(step == "") {
+			return;
+		}else {
+			adapter.log.debug(`Received: ${data}`);
 			err_count = 0;
 			if (vctrld.test(data)) {
 				data = data.substring(0, data.length - 7);
@@ -680,11 +686,13 @@ function main() {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection--> ' + e);
 		client.destroy(); // kill client after server's response
+		clearTimeout(timerErr);
 	});
     client.on('timeout', ()=> {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response
+		clearTimeout(timerWait);
 		timerTimeout = setTimeout(main, 10000);
 	});
 
