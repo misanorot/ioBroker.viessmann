@@ -26,6 +26,7 @@ let setcommands = [];
 let timerWait = null;
 let timerErr = null;
 let timerTimeout = null;
+let timerReconnect = null;
 
 const client = new net.Socket();
 const parser = new xml2js.Parser();
@@ -55,6 +56,7 @@ function startAdapter(options) {
 				clearTimeout(timerWait);
 				clearTimeout(timerErr);
 				clearTimeout(timerTimeout);
+        clearTimeout(timerReconnect);
                 adapter.log.info('cleaned everything up...');
                 callback();
             } catch (e) {
@@ -108,7 +110,7 @@ function startAdapter(options) {
 // is called when databases are connected and adapter received configuration.
 // start here!
 function start(){
-	
+
     if(!adapter.config.datapoints.gets)readxml();
 	else if(adapter.config.new_read){
 		adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj)=>{
@@ -125,8 +127,8 @@ function start(){
 					readxml();
 				});
 			}
-		
-		});		
+
+		});
 	}else main();
 }
 
@@ -146,7 +148,7 @@ function readxml(){
 		username: adapter.config.user_name,
 		password: adapter.config.password
 		});
-		
+
 		ssh_session.on('ready',()=>{
 			adapter.log.debug('FTP session ready');
 			ssh_session.sftp ((err, sftp)=>{
@@ -161,7 +163,7 @@ function readxml(){
 					const moveVitoFrom =  adapter.config.path + '/vito.xml';
 					const moveVitoTo = __dirname + '/vito.xml';
 					adapter.log.debug('Try to read Vito from: ' + moveVitoFrom + ' to: ' + __dirname);
-					
+
 					sftp.fastGet(moveVitoFrom, moveVitoTo , {},(err)=>{
 						if(err){
 							adapter.log.warn('cannot read vito.xml from Server: ' + err);
@@ -177,19 +179,19 @@ function readxml(){
 							}
 							adapter.log.debug('Copy vcontrold.xml from server to host successfully');
 							vcontrold_read(moveVcontroldTo);
-						});	
-					});	
+						});
+					});
 				}
 			});
 		});
-		
+
 	ssh_session.on('close',()=>{
 		adapter.log.debug('SSH connection closed');
-		});	
-		
+		});
+
 	ssh_session.on('error',(err)=>{
 		adapter.log.warn('check your SSH login dates ' + err);
-		});	
+		});
   }
 }
 
@@ -222,18 +224,18 @@ function vcontrold_read(path, callback){
 				let types = {};
 				for(let i in temp["V-Control"].units[0].unit){
 						try{
-							for (let e in temp["V-Control"].units[0].unit[i].entity){	
+							for (let e in temp["V-Control"].units[0].unit[i].entity){
 								let obj = new Object;
 								obj.unit = temp["V-Control"].units[0].unit[i].entity[0];
-								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;							
+								units[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;
 						}}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read units:  ' + e);
 						}
 						try{
-							for (let e in temp["V-Control"].units[0].unit[i].type){	
+							for (let e in temp["V-Control"].units[0].unit[i].type){
 								let obj = new Object;
 								obj.type = temp["V-Control"].units[0].unit[i].type[0];
-								types[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;		
+								types[temp["V-Control"].units[0].unit[i].abbrev[0]] = obj;
 							}
 						}catch(e){
 							adapter.log.warn('check vcontrold.xml structure cannot read types:  ' + e);
@@ -243,7 +245,7 @@ function vcontrold_read(path, callback){
 			adapter.log.debug('Units in vcontrold.xml: ' + JSON.stringify(units));
 			adapter.log.info('read vcontrold.xml successfull');
 			vito_read(units, types);
-			}	
+			}
 			});
 		}
 	});
@@ -251,9 +253,9 @@ function vcontrold_read(path, callback){
 
 function vito_read(units, types){
 	const path_ssh = __dirname + '/vito.xml';
-	const path_host = adapter.config.path + '/vito.xml'; 
+	const path_host = adapter.config.path + '/vito.xml';
 	let path = "";
-	
+
 	if(adapter.config.ip === "127.0.0.1"){
 		path = path_host;
 	}else{
@@ -282,7 +284,7 @@ function vito_read(units, types){
 					adapter.log.warn('check vito.xml structure ' + e);
 					adapter.setState('info.connection', false, true);
 				}
-			}	
+			}
 			});
 		}
 	});
@@ -339,7 +341,7 @@ datapoints['system'] = {};
 
 //######GET TYPES########################################################################################
 function get_type(type){
-	
+
 	switch (type){
 		case "enum":
 			return "string";
@@ -404,7 +406,7 @@ function setAllObjects(callback) {
 		const pfadget = 'get.';
 		const pfadset = 'set.';
 		let count = 0;
-		
+
 		if (adapter.config.datapoints) {
 			if(adapter.config.states_only){
 				for (let i in  adapter.config.datapoints.gets) {
@@ -508,9 +510,9 @@ function stepPolling() {
             step = i;
         }
     }
-	
+
 	if(step == Object.keys(toPoll)[Object.keys(toPoll).length - 1] || step === -1)
-		adapter.setState('info.lastPoll', Math.floor(time/1000));		
+		adapter.setState('info.lastPoll', Math.floor(time/1000));
 
     if (step === -1) {
 		adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
@@ -529,16 +531,16 @@ function stepPolling() {
 
 //######CONFIGURE POLLING COMMANDS###########################################################################
 function commands() {
-	
+
 	let obj = new Object();
-	
+
 		obj.name = "Dummy";
 		obj.command = "heartbeat";
 		obj.description = "keep the adapter to stay alive";
 		obj.polling = 60;
 		obj.lastpoll = 0;
 		toPoll['heartbeat'] = obj;
-	
+
 	for (let i in adapter.config.datapoints.gets) {
 		if (adapter.config.datapoints.gets[i].polling > -1) {
 			adapter.log.debug('Commands for polling: ' + adapter.config.datapoints.gets[i].command);
@@ -591,16 +593,15 @@ function main() {
     // adapter.config:
 	toPoll = {};
 	setcommands = [];
-	
+
 	const ip = adapter.config.ip;
 	const port = adapter.config.port || 3002;
 	const answer = adapter.config.answer;
 	const time_out = 120000;
 	let err_count = 0;
-	
+
 	clearTimeout(timerErr);
-	
-    commands();
+  clearTimeout(timerReconnect);
 
 	setAllObjects(()=> {
 	});
@@ -610,8 +611,10 @@ function main() {
 	client.connect(port, ip, ()=> {
 		adapter.setState('info.connection', true, true, (err)=> {
 		 	if (err) adapter.log.error(err);
+      timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
 		});
 		adapter.log.info('Connect with Viessmann sytem!');
+    commands();
 		stepPolling();
 	});
 	client.on('close', ()=> {
@@ -644,7 +647,7 @@ function main() {
 				timerErr = setTimeout(main, 10000);
 			}else{
 				stepPolling();
-			}			
+			}
 		} else if(data == 'vctrld>') {
 			return;
 		} else if(step == -1) {
@@ -709,5 +712,5 @@ if (module && module.parent) {
 } else {
     // or start the instance directly
     startAdapter();
-} 
+}
 //###########################################################################################################
