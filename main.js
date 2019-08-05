@@ -642,7 +642,7 @@ function main() {
 			if(err_count > 5 && adapter.config.errors){
 				adapter.setState('info.connection', false, true);
 				adapter.log.warn('Vctrld send too many errors, restart connection!');
-        client..end();
+        client.end();
 				client.destroy(); // kill client after server's response
 				clearTimeout(timerWait);
 				timerErr = setTimeout(main, 10000);
