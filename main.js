@@ -609,13 +609,6 @@ function main() {
 	client.setTimeout(time_out);
 
 	client.connect(port, ip, ()=> {
-		adapter.setState('info.connection', true, true, (err)=> {
-		 	if (err) adapter.log.error(err);
-      timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
-		});
-		adapter.log.info('Connect with Viessmann sytem!');
-    commands();
-		stepPolling();
 	});
 	client.on('close', ()=> {
 		adapter.setState('info.connection', false, true, (err)=> {
@@ -625,6 +618,14 @@ function main() {
 		client.destroy(); // kill client after server's response
 	});
 
+  client.on('ready', ()=> {
+    adapter.setState('info.connection', true, true, (err)=> {
+		 	if (err) adapter.log.error(err);
+		});
+		adapter.log.info('Connect with Viessmann sytem!');
+    commands();
+		stepPolling();
+  })
 
 	client.on('data', (data)=> {
 		data = String(data);
@@ -689,6 +690,7 @@ function main() {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection--> ' + e);
 		client.destroy(); // kill client after server's response
+    timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
 		clearTimeout(timerErr);
 	});
     client.on('timeout', ()=> {
