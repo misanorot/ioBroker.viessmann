@@ -588,7 +588,6 @@ function roundNumber(num, scale) {
 function main() {
 	// set connection status to false
 	adapter.setState('info.connection', false, true);
-  adapter.log.debug('Main function called!');
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 	toPoll = {};
@@ -643,6 +642,7 @@ function main() {
 			if(err_count > 5 && adapter.config.errors){
 				adapter.setState('info.connection', false, true);
 				adapter.log.warn('Vctrld send too many errors, restart connection!');
+        client..end();
 				client.destroy(); // kill client after server's response
 				clearTimeout(timerWait);
 				timerErr = setTimeout(main, 10000);
@@ -689,6 +689,7 @@ function main() {
 	client.on('error', (e)=> {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection--> ' + e);
+    client.end();
 		client.destroy(); // kill client after server's response
     if(timerReconnect){clearTimeout(timerReconnect)};
     timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
@@ -696,6 +697,7 @@ function main() {
     client.on('timeout', ()=> {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Timeout error connection!');
+    client.end();
 		client.destroy(); // kill client after server's response
 		clearTimeout(timerWait);
     if(timerTimeout){clearTimeout(timerTimeout)};
