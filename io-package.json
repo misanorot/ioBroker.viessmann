@@ -153,7 +153,7 @@
             "misanorot <audi16v@gmx.de>"
         ],
         "materialize": true,
-		"compact": true,
+		"compact": false,
         "platform":                 "Javascript/Node.js",
         "mode":                     "daemon",
         "icon":                     "viessmann.png",
