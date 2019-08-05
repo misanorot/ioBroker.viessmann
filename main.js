@@ -690,6 +690,7 @@ function main() {
 		adapter.setState('info.connection', false, true);
 		adapter.log.warn('Malfunction connection--> ' + e);
 		client.destroy(); // kill client after server's response
+    if(timerReconnect){clearTimeout(timerReconnect)};
     timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
 	});
     client.on('timeout', ()=> {
@@ -697,6 +698,7 @@ function main() {
 		adapter.log.warn('Timeout error connection!');
 		client.destroy(); // kill client after server's response
 		clearTimeout(timerWait);
+    if(timerTimeout){clearTimeout(timerTimeout)};
 		timerTimeout = setTimeout(main, 10000);
 	});
 
