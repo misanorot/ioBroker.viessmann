@@ -588,7 +588,7 @@ function roundNumber(num, scale) {
 function main() {
 	// set connection status to false
 	adapter.setState('info.connection', false, true);
-
+  adapter.log.debug('Main function called!');
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
 	toPoll = {};
