@@ -28,7 +28,7 @@ let timerErr = null;
 let timerTimeout = null;
 let timerReconnect = null;
 
-const client = new net.Socket();
+let client = null;
 const parser = new xml2js.Parser();
 
 /**
@@ -592,6 +592,8 @@ function main() {
     // adapter.config:
 	toPoll = {};
 	setcommands = [];
+  client = null;
+  client = new net.Socket();
 
 	const ip = adapter.config.ip;
 	const port = adapter.config.port || 3002;
