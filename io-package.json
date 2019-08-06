@@ -1,8 +1,19 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.1.1",
+        "version": "1.1.2",
 	    "news": {
+        "1.1.2":	{
+          "en": "fixed issue with reconnect",
+           "de": "Problem mit erneuter Verbindung behoben",
+           "ru": "исправлена проблема с переподключением",
+           "pt": "problema fixo com reconectar",
+           "nl": "probleem opgelost met opnieuw verbinden",
+           "fr": "problème résolu avec reconnect",
+           "it": "risolto problema con la riconnessione",
+           "es": "problema solucionado con la reconexión",
+           "pl": "naprawiony problem z ponownym połączeniem"
+    			},
         "1.0.0":	{
           "en": " fixes little issues in compact modus",
           "de": " behebt kleine Probleme im Kompaktmodus",

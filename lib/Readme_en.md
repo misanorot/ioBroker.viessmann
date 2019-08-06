@@ -47,5 +47,6 @@ In the settings page you can sort your objects when you click at the table head.
 
 It is advisable to choose a large query interval for relatively unimportant query values.
 
+**[CHANGELOG](https://github.com/misanorot/ioBroker.viessmann/blob/master/changelog.md)**
 
 *all pictures comes from www.viessmann.com.*
