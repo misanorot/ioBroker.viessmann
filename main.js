@@ -598,7 +598,7 @@ function main() {
 	const ip = adapter.config.ip;
 	const port = adapter.config.port || 3002;
 	const answer = adapter.config.answer;
-	const time_out = 120000;
+	const time_reconnect = adapter.config.reconnect;
 	let err_count = 0;
 
 	clearTimeout(timerErr);
@@ -694,7 +694,7 @@ function main() {
     client.end();
 		client.destroy(); // kill client after server's response
     if(timerReconnect){clearTimeout(timerReconnect)};
-    timerReconnect = setTimeout(main, 300000); //Try to reconnect all 5mins
+    if(time_reconnect != "" && typeof time_reconnect.Number() == "number"){timerReconnect = setTimeout(main, time_reconnect*60000)};
 	});
     client.on('timeout', ()=> {
 		adapter.setState('info.connection', false, true);
@@ -703,7 +703,7 @@ function main() {
 		client.destroy(); // kill client after server's response
 		clearTimeout(timerWait);
     if(timerTimeout){clearTimeout(timerTimeout)};
-		timerTimeout = setTimeout(main, 10000);
+		if(time_reconnect != "" && typeof time_reconnect.Number() == "number"){timerReconnect = setTimeout(main, time_reconnect*60000)};
 	});
 
 

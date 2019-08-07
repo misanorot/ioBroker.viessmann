@@ -19,47 +19,34 @@
 
  let datapoints = {};
 
-    function setValue(id, value, onChange) {
-        // example: select elements with id=key and class=value and insert value
-        if ($('#' + id + '.value').attr('type') == 'checkbox') {
-            $('#' + id + '.value').prop('checked', value).change(function() {
-                onChange();
-            });
-        } else {
-            $('#' + id + '.value').val(value).change(function() {
-                onChange();
-            }).keyup(function() {
-                // Chack that only numbers entered
-                if ($(this).hasClass('number')) {
-                    let val = $(this).val();
-                    if (val) {
-                        let newVal = '';
-                        for (let i = 0; i < val.length; i++) {
-                            if (val[i] >= '0' && val[i] <= '9') {
-                                newVal += val[i];
-                            }
-                        }
-                        if (val != newVal) $(this).val(newVal);
-                    }
-                }
-                onChange();
-            });
-        }
-    }
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
         if (!settings) return;
         datapoints = settings.datapoints || {};
 		write();
+    $('.modal').modal();
 		$('#get_table').tablesorter();
 		$('#set_table').tablesorter();
 		$('.getSelect').change(function (e) {
         datapoints.gets[$($(this)[0]).attr('id')].polling = $($(this)[0]).val();
 			onChange();
 		});
-        for (let key in settings) {
-            setValue(key, settings[key], onChange);
-			};
+    $('.value').each(function () {
+        var $key = $(this);
+        var id = $key.attr('id');
+        if ($key.attr('type') === 'checkbox') {
+            // do not call onChange direct, because onChange could expect some arguments
+            $key.prop('checked', settings[id])
+                .on('change', () => onChange())
+                ;
+        } else {
+            // do not call onChange direct, because onChange could expect some arguments
+            $key.val(settings[id])
+                .on('change', () => onChange())
+                .on('keyup', () => onChange())
+                ;
+        }
+    });
 		onChange(false);
     }
     // ... and the function save has to exist.
@@ -170,11 +157,51 @@ function write() {
 
 <!-- you have to put your config page in a div with id adapter-container -->
 <div class="m adapter-container">
+  <!-- Modal Structure -->
+  <div id="modalinfo" class="modal">
+    <div class="modal-content">
+      <div class="row">
+          <div class="col s6">
+            <div class="right">
+              <p class="translate">plant_id</p>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="left">
+              <p><b id="plant_id"></b></p>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="right">
+              <p class="translate">typ</p>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="left">
+              <p><b id="typ"></b></p>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="right">
+              <p class="translate">protocol</p>
+            </div>
+          </div>
+          <div class="col s6">
+            <div class="left">
+              <p><b id="protocol"></b></p>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-blue btn-flat">close</a>
+    </div>
+  </div>
 
     <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3"><a href="#tab_g" class="translate">Gerneral</a></li>
+        <li class="tab col s3"><a href="#tab_g" class="translate">General</a></li>
         <li class="tab col s3"><a href="#tab_get" class="translate">Gets</a></li>
         <li class="tab col s3"><a href="#tab_set" class="translate">Sets</a></li>
 		<li class="tab col s3"><a href="#tab_ssh" class="translate">SSH</a></li>
@@ -187,64 +214,39 @@ function write() {
                 <img src="img/Viessmann_back.png" class="logo">
             </div>
         </div>
+      <div class="row center-align">
+        <div class="col s12">
+        <!-- Modal Trigger -->
+          <a class="waves-effect waves-light btn modal-trigger" href="#modalinfo">System informations</a>
+        </div>
+      </div>
 			<div class="row center-align">
 				<div class="col s12">
 					<div><h5 class="translate">options</h5></div>
 				</div>
 			</div>
 				<div class="row">
-					<div class="col s6 offset-s4">
+					<div class="col s6 offset-s5">
 						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
 					</div>
-					<div class="col s6 offset-s4">
+					<div class="col s6 offset-s5">
 						<input type="checkbox" id="states_only" class="value" /><label  for="states_only" class="translate">states_only</label>
 					</div>
-					<div class="col s6 offset-s4">
+					<div class="col s6 offset-s5">
 						<input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">errors</label>
 					</div>
 				</div>
-				<div class="row">
-					<div class="center-align">
-						<div class="col s12">
-							<div><h5 class="translate">information</h5></div>
-						</div>
-						<div class="col s2 offset-s4">
-							<div class="right">
-								<p class="translate">plant_id</p>
-							</div>
-						</div>
-						<div class="col s2">
-							<div class="left">
-								<p><b id="plant_id"></b></p>
-							</div>
-						</div>
-						<div class="col s2 offset-s4">
-							<div class="right">
-								<p class="translate">typ</p>
-							</div>
-						</div>
-						<div class="col s2">
-							<div class="left">
-								<p><b id="typ"></b></p>
-							</div>
-						</div>
-						<div class="col s2 offset-s4">
-							<div class="right">
-								<p class="translate">protocol</p>
-							</div>
-						</div>
-						<div class="col s2">
-							<div class="left">
-								<p><b id="protocol"></b></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col s12">
-								<input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="translate">new_read</label>
-							</div>
-						</div>
-					</div>
-				</div>
+        <div class="row">
+          <div class="col s3 offset-s5">
+            <input id="reconnect" type="text" class="timepicker value">
+            <label for="reconnect" class="translate">reconnect</label>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col s6 offset-s5">
+          <input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="translate">new_read</label>
+        </div>
+      </div>
 	</div>
 
 	<div id="tab_get" class="col s12 page" >
@@ -319,7 +321,7 @@ function write() {
 					</form>
 				</div>
 			</div>
-		</div>			
+		</div>
 	</div>
 	</div>
  </div>

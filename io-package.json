@@ -1,8 +1,19 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.1.2",
+        "version": "1.2.0",
 	    "news": {
+        "1.2.0":	{
+          "en": "added reconnect time",
+          "de": "Verbindungswiederherstellungszeit hinzugefügt",
+          "ru": "добавлено время переподключения",
+          "pt": "adicionado tempo de reconexão",
+          "nl": "tijd voor opnieuw verbinden toegevoegd",
+          "fr": "temps de reconnexion ajouté",
+          "it": "aggiunto tempo di riconnessione",
+          "es": "tiempo de reconexión adicional",
+          "pl": "dodano czas ponownego połączenia"
+    			},
         "1.1.2":	{
           "en": "fixed issue with reconnect",
            "de": "Problem mit erneuter Verbindung behoben",
@@ -182,6 +193,7 @@
 		"port": 		"3002",
 		"user_name":	"",
 		"password":		"",
+    "reconnect":		5,
 		"path":			"/etc/vcontrold",
 		"new_read":		false,
 		"answer":		true,
