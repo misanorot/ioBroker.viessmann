@@ -599,7 +599,10 @@ function main() {
 	const port = adapter.config.port || 3002;
 	const answer = adapter.config.answer;
 	const time_reconnect = adapter.config.reconnect;
+  const time_out = 120000;
 	let err_count = 0;
+  let time_reconnect_type = Number(time_reconnect);
+  time_reconnect_type = typeof time_reconnect_type;
 
 	clearTimeout(timerErr);
   clearTimeout(timerReconnect);
@@ -694,7 +697,11 @@ function main() {
     client.end();
 		client.destroy(); // kill client after server's response
     if(timerReconnect){clearTimeout(timerReconnect)};
-    if(time_reconnect != "" && typeof time_reconnect.Number() == "number"){timerReconnect = setTimeout(main, time_reconnect*60000)};
+    if(time_reconnect != "" && time_reconnect_type == "number"){
+      timerReconnect = setTimeout(main, time_reconnect*60000);
+    }else {
+      adapter.log.warn('Reconnect time is wrong')
+    }
 	});
     client.on('timeout', ()=> {
 		adapter.setState('info.connection', false, true);
@@ -703,7 +710,11 @@ function main() {
 		client.destroy(); // kill client after server's response
 		clearTimeout(timerWait);
     if(timerTimeout){clearTimeout(timerTimeout)};
-		if(time_reconnect != "" && typeof time_reconnect.Number() == "number"){timerReconnect = setTimeout(main, time_reconnect*60000)};
+    if(time_reconnect != "" && time_reconnect_type == "number"){
+      timerReconnect = setTimeout(main, time_reconnect*60000);
+    }else {
+      adapter.log.warn('Reconnect time is wrong')
+    }
 	});
 
 
