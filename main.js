@@ -627,7 +627,7 @@ function main() {
 		 	      if(err)adapter.log.error(err);
         });
         adapter.log.info('Connect with Viessmann sytem!');
-        adapter.setState('info.timeout', false, true);
+        adapter.setState('info.timeout', false);
         commands();
         stepPolling();
     });
@@ -707,7 +707,7 @@ function main() {
     client.on('timeout', ()=> {
         adapter.setState('info.connection', false, true);
         adapter.log.error('Timeout connection error!');
-        adapter.setState('info.timeout', true, true);
+        adapter.setState('info.timeout', true);
         client.end();
         client.destroy(); // kill client after server's response
         clearTimeout(timerWait);
