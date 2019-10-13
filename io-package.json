@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.2.0",
+        "version": "1.2.1",
 	    "news": {
         "1.2.0":	{
           "en": "added reconnect time",
@@ -209,6 +209,19 @@
 				"role": "",
 				"name": "connection",
 				"desc": "Info über Verbindung zur Viessmann Steuerung",
+				"type": "boolean",
+				"read": true,
+				"write": false
+			},
+			"native": {}
+		},
+    {
+			"_id": "info.timeout",
+			"type": "state",
+			"common": {
+				"role": "",
+				"name": "timeout",
+				"desc": "Info über einen timeout Fehler zur Viessmann Steuerung",
 				"type": "boolean",
 				"read": true,
 				"write": false
