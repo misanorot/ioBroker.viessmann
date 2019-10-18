@@ -587,6 +587,7 @@ function roundNumber(num, scale) {
 //######MAIN#################################################################################################
 function main() {
     // set connection status to false
+    adapter.setState('info.timeout', false);
     adapter.setState('info.connection', false, true);
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
