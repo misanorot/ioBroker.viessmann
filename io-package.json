@@ -220,7 +220,7 @@
 			"type": "state",
 			"common": {
 				"role": "",
-				"name": "timeout",
+				"name": "timeout_connection",
 				"desc": "Info über einen timeout Fehler zur Viessmann Steuerung",
 				"type": "boolean",
 				"read": true,
