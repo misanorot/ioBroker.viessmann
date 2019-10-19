@@ -427,7 +427,7 @@ function setAllObjects(callback) {
         if (_states) {
             for (let i = 0; i < _states.length; i++) {
                 const name = _states[i].common.name;
-                if (name === 'connection' || name === 'lastPoll') {
+                if (name === 'connection' || name === 'lastPoll' || name === 'timeout_connection') {
                     continue;
                 }
                 const clean = _states[i]._id;
@@ -587,13 +587,7 @@ function roundNumber(num, scale) {
 //######MAIN#################################################################################################
 function main() {
     // set connection status to false
-    adapter.setState('info.timeout_connection', false, true, (err)=>{
-      if (err) {
-        adapter.log.info(err);
-      } else {
-        adapter.log.info('set state timeout');
-      }
-    });
+    adapter.setState('info.timeout_connection', false);
     adapter.setState('info.connection', false, true);
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
