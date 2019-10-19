@@ -587,7 +587,7 @@ function roundNumber(num, scale) {
 //######MAIN#################################################################################################
 function main() {
     // set connection status to false
-    adapter.setState('info.timeout', false);
+    adapter.setState('info.timeout_connection', false);
     adapter.setState('info.connection', false, true);
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
@@ -628,7 +628,7 @@ function main() {
 		 	      if(err)adapter.log.error(err);
         });
         adapter.log.info('Connect with Viessmann sytem!');
-        adapter.setState('info.timeout', false);
+        adapter.setState('info.timeout_connection', false);
         commands();
         stepPolling();
     });
@@ -708,7 +708,7 @@ function main() {
     client.on('timeout', ()=> {
         adapter.setState('info.connection', false, true);
         adapter.log.error('Timeout connection error!');
-        adapter.setState('info.timeout', true);
+        adapter.setState('info.timeout_connection', true);
         client.end();
         client.destroy(); // kill client after server's response
         clearTimeout(timerWait);

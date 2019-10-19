@@ -216,7 +216,7 @@
 			"native": {}
 		},
     {
-			"_id": "info.timeout",
+			"_id": "info.timeout_connection",
 			"type": "state",
 			"common": {
 				"role": "",
