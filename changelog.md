@@ -1,6 +1,10 @@
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
+
+#### 1.2.4 (01.02.2020)
+* (misanorot) add trigger state and two second polling
+
 #### 1.2.0 (10.08.2019)
 * (misanorot) added reconnect time
 

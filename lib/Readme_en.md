@@ -46,6 +46,7 @@ In the settings page you can sort your objects when you click at the table head.
 
 
 It is advisable to choose a large query interval for relatively unimportant query values.
+It is also possible to do a force poll. Write on the *force_polling* state with the wish *get* value.
 
 **[CHANGELOG](https://github.com/misanorot/ioBroker.viessmann/blob/master/changelog.md)**
 

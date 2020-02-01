@@ -1,8 +1,20 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.2.3",
+        "version": "1.2.4",
 	    "news": {
+        "1.2.4":	{
+          "en": "add trigger state and two second polling",
+          "de": "Trigger Datenpunkt und zwei Sekunden polling hinzugefügt",
+          "ru": "добавить состояние триггера и два вторых опроса",
+          "pt": "adicionar estado de disparo e dois segundos de pesquisa",
+          "nl": "trigger-status toevoegen en twee seconden pollen",
+          "fr": "ajouter un état de déclenchement et deux secondes d'interrogation",
+          "it": "aggiungere lo stato di trigger e due secondi di polling",
+          "es": "agregar estado de activación y dos segundos sondeo",
+          "pl": "dodaj stan wyzwalania i dwie sekundy sondowania",
+          "zh-cn": "添加触发状态和两秒钟的轮询"
+    			},
         "1.2.0":	{
           "en": "added reconnect time",
           "de": "Verbindungswiederherstellungszeit hinzugefügt",
@@ -239,6 +251,19 @@
 				"read": true,
 				"write": false
 			},
+      {
+  			"_id": "input.force_polling_interval",
+  			"type": "state",
+  			"common": {
+  				"role": "",
+  				"name": "Force polling interval",
+  				"desc": "Zur direkten Abfrage eines Wertes von der Heizungsanlage",
+  				"type": "string",
+  				"read": true,
+  				"write": true
+  			},
+  			"native": {}
+  		},
 			"native": {}
 		}
 	]

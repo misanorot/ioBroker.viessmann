@@ -68,6 +68,8 @@ function startAdapter(options) {
         objectChange: (id, obj) => {
             if (obj) {
                 // The object was changed
+
+
                 adapter.log.debug(`object ${id} changed: ${JSON.stringify(obj)}`);
             } else {
                 // The object was deleted
@@ -79,8 +81,13 @@ function startAdapter(options) {
         stateChange: (id, state) => {
             if (state) {
                 // The state was changed
-                adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-                setcommands.push(String('set' + id.substring(16, id.length) + ' ' + state.val));
+                if(id === adapter.namespace + '.input.force_polling_interval'){
+                    adapter.log.info(`Force polling interval: ${id}`);
+                    force(state.val);
+                }else{
+                    adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+                    setcommands.push(String('set' + id.substring(16, id.length) + ' ' + state.val));
+                }
             } else {
                 // The state was deleted
                 adapter.log.info(`state ${id} deleted`);
@@ -724,8 +731,20 @@ function main() {
 
     // in this viessmann all states changes inside the adapters namespace are subscribed
     adapter.subscribeStates('set.*');
+    adapter.subscribeStates('input.*');
 
 }
+//#############HELPERS#######################################################################################
+function force(id){
+    if(toPoll.inculudes(id)){
+        toPoll[id].lastPoll = 0;
+    }else{
+        adapter.log.warn(`Force polling interval: ${id} not incude in get states`);
+    }
+}
+
+//###########################################################################################################
+
 //###########################################################################################################
 // If started as allInOne/compact mode => return function to create instance
 if (module && module.parent) {
