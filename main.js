@@ -434,7 +434,7 @@ function setAllObjects(callback) {
         if (_states) {
             for (let i = 0; i < _states.length; i++) {
                 const name = _states[i].common.name;
-                if (name === 'connection' || name === 'lastPoll' || name === 'timeout_connection' || name === 'force_polling_interval') {
+                if (name === 'connection' || name === 'lastPoll' || name === 'timeout_connection' || name === 'Force polling interval') {
                     continue;
                 }
                 const clean = _states[i]._id;
