@@ -82,7 +82,7 @@ function startAdapter(options) {
             if (state) {
                 // The state was changed
                 if(id === adapter.namespace + '.input.force_polling_interval'){
-                    adapter.log.info(`Force polling interval: ${id}`);
+                    adapter.log.info(`Force polling interval: ${state.val}`);
                     force(state.val);
                 }else{
                     adapter.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
