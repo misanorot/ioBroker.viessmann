@@ -251,6 +251,8 @@
 				"read": true,
 				"write": false
 			},
+      "native": {}
+		},
       {
   			"_id": "input.force_polling_interval",
   			"type": "state",
