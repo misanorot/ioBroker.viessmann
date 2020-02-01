@@ -737,7 +737,8 @@ function main() {
 //#############HELPERS#######################################################################################
 function force(id){
     try{
-        toPoll[id].lastPoll = 0;
+        const force_step = id.slice(3);
+        toPoll[force_step].lastPoll = 0;
     }catch(e){
         adapter.log.warn(`Force polling interval: ${id} not incude in get states`);
     }
