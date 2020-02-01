@@ -736,9 +736,10 @@ function main() {
 }
 //#############HELPERS#######################################################################################
 function force(id){
-    if(toPoll.inculudes(id)){
-        toPoll[id].lastPoll = 0;
-    }else{
+    const force_step = 'get' + id;
+    try{
+        toPoll[force_step].lastPoll = 0;
+    }catch(e){
         adapter.log.warn(`Force polling interval: ${id} not incude in get states`);
     }
 }
