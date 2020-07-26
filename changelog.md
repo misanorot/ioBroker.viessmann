@@ -1,6 +1,8 @@
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
+### 1.2.5 (26.07.2020)
+* (misanorot) new config style
 
 #### 1.2.4 (01.02.2020)
 * (misanorot) add trigger state and two second polling

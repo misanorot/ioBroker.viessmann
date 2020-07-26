@@ -12,6 +12,7 @@
 <script type="text/javascript" src="../../js/translate.js"></script>
 <script type="text/javascript" src="../../lib/js/materialize.js"></script>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <script type="text/javascript" src="words.js"></script>
 
 <!-- you have to define 2 functions in the global scope: -->
@@ -141,17 +142,7 @@ function write() {
 }
 
 </script>
-<style>
-.back_image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        z-index: 0;
-        opacity: 0.2;
-    }
-</style>
+
 </head>
 <body>
 
@@ -199,26 +190,35 @@ function write() {
     </div>
   </div>
 
+  <!-- ============= HEADER WITH LOGO AND BUTTONS ============= -->
+    <div id="header-area" class="row" >
+        <div id="header-logo-title" class="col s6" >
+            <img class="logo" src="viessmann.png" >
+            <p>
+                <span class="h-title">Viessmann</span><br />
+                <span class="h-sub-title">Connection over vcontrold...</p>
+            </p>
+        </div>
+    </div>
+
+    <!-- ============= MAIN SECTION ============= -->
+
+
     <div class="row">
-    <div class="col s12">
-      <ul class="tabs">
+    <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+      <ul class="tabs blue lighten-4">
         <li class="tab col s3"><a href="#tab_g" class="translate">General</a></li>
         <li class="tab col s3"><a href="#tab_get" class="translate">Gets</a></li>
         <li class="tab col s3"><a href="#tab_set" class="translate">Sets</a></li>
-		<li class="tab col s3"><a href="#tab_ssh" class="translate">SSH</a></li>
+		    <li class="tab col s3"><a href="#tab_ssh" class="translate">SSH</a></li>
       </ul>
     </div>
 
 	<div id="tab_g" class="col s12 page">
-		<div class="row">
-            <div class="col s6">
-                <img src="img/Viessmann_back.png" class="logo">
-            </div>
-        </div>
       <div class="row center-align">
         <div class="col s12">
         <!-- Modal Trigger -->
-          <a class="waves-effect waves-light btn modal-trigger translate" href="#modalinfo">System informations</a>
+          <a class="spaceTop3em waves-effect waves-light btn modal-trigger translate" href="#modalinfo">System informations</a>
         </div>
       </div>
 			<div class="row center-align">
@@ -252,21 +252,22 @@ function write() {
 
 	<div id="tab_get" class="col s12 page" >
 		<div class="row">
-			<div class="col s12">
+      <div class="col s12">
 					<div><h5 class="translate">getvito</h5></div>
 			</div>
 		</div>
+    <div><p class="blue-text text-darken-2 translate">sort</p></div>
 		<table id="get_table" class="bordered">
-              <thead>
-                  <tr>
-                      <th class="translate">name</th>
-                      <th class="translate">desc</th>
-					  <th class="translate">unit</th>
-					  <th class="translate">polling</th>
-                  </tr>
-              </thead>
-              <tbody id="commands_get"></tbody>
-          </table>
+      <thead>
+        <tr>
+          <th class="header translate">name</th>
+          <th class="header translate">desc</th>
+					<th class="header translate">unit</th>
+					<th class="header translate">polling</th>
+        </tr>
+      </thead>
+      <tbody id="commands_get"></tbody>
+    </table>
 	</div>
 
     <div id="tab_set" class="col s12 page">
@@ -275,15 +276,16 @@ function write() {
 					<div><h5 class="translate">setvito</h5></div>
 			</div>
 		</div>
+    <div><p class="blue-text text-darken-2 translate">sort</p></div>
 		<table id="set_table" class="bordered">
-              <thead>
-                  <tr>
-                      <th class="translate">name</th>
-                      <th class="translate">desc</th>
-                  </tr>
-              </thead>
-              <tbody id="commands_set"></tbody>
-          </table>
+      <thead>
+        <tr>
+          <th class="header translate">name</th>
+          <th class="header translate">desc</th>
+        </tr>
+      </thead>
+      <tbody id="commands_set"></tbody>
+    </table>
 	</div>
 	<div id="tab_ssh" class="col s12 page">
 		<div class="center-align">
