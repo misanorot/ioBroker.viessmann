@@ -1,8 +1,20 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.2.5",
+        "version": "1.3.0",
 	    "news": {
+        "1.3.0":	{
+          "en": "fixed issue at object type",
+           "de": "Problem beim Objekttyp behoben",
+           "ru": "исправлена проблема с типом объекта",
+           "pt": "problema corrigido no tipo de objeto",
+           "nl": "probleem opgelost bij objecttype",
+           "fr": "problème résolu au type d'objet",
+           "it": "problema risolto nel tipo di oggetto",
+           "es": "problema solucionado en el tipo de objeto",
+           "pl": "naprawiony problem z typem obiektu",
+           "zh-cn": "解决对象类型的问题"
+    			},
         "1.2.4":	{
           "en": "add trigger state and two second polling",
           "de": "Trigger Datenpunkt und zwei Sekunden polling hinzugefügt",

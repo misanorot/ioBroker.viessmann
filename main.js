@@ -323,7 +323,7 @@ function getImport(json, units, types) {
                 try{
                     obj_get.type = get_type(types[json.vito.commands[0].command[i].unit[0]].type);
                 }catch(e){
-                    obj_get.type = '';
+                    obj_get.type = 'mixed';
                 }
                 obj_get.description = desc;
                 obj_get.polling = poll;
@@ -336,6 +336,7 @@ function getImport(json, units, types) {
                 obj_set.name = get_command.substring(3, get_command.length);
                 obj_set.description = desc;
                 obj_set.polling = 'nicht möglich';
+                obj_set.type = 'mixed';
                 obj_set.command = get_command;
                 datapoints.sets[get_command.substring(3, get_command.length)] = obj_set;
                 continue;
