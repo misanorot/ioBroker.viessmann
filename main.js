@@ -466,7 +466,7 @@ function setAllObjects(callback) {
             for (const i in adapter.config.datapoints.sets) {
                 if (configToAdd.indexOf(adapter.config.datapoints.sets[i].name) !== -1) {
                     count++;
-                    addState(pfadset, adapter.config.datapoints.sets[i].name, '', adapter.config.datapoints.sets[i].description, '', true, ()=> {
+                    addState(pfadset, adapter.config.datapoints.sets[i].name, '', adapter.config.datapoints.sets[i].description, adapter.config.datapoints.sets[i].type, true, ()=> {
                         if (!--count && callback) callback();
                     });
                 }
