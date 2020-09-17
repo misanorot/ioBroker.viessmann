@@ -573,12 +573,19 @@ function split_unit(v) {
     // else split value and unit
     else if (typeof v === 'string' && v !== ''){
         const split = v.match(/^([-.\d]+(?:\.\d+)?)(.*)$/);
+        if(isDate(split[1])) return v;
         return split[1].trim();
     }
     // catch the rest
     else {
         return v;
     }
+}
+
+
+function isDate(val) {
+    const d = new Date(val);
+    return !isNaN(d.valueOf());
 }
 
 function roundNumber(num, scale) {
