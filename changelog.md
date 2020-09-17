@@ -1,6 +1,9 @@
 ### Changelog
 #### Versions from 0.5.0. needs node > 4.x and admin V3
 
+### 1.3.1 (17.09.2020)
+* (misanorot) fixed little issues
+
 ### 1.2.5 (26.07.2020)
 * (misanorot) new config style
 
