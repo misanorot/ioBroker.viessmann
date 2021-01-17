@@ -675,6 +675,8 @@ function main() {
             return;
         } else if(step == -1) {
             return;
+        } else if(step == 'heartbeat') {
+            stepPolling();
         } else if(step == '') {
             return;
         }else {

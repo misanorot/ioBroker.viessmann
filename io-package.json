@@ -1,8 +1,20 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.3.2",
+        "version": "1.3.3",
 	    "news": {
+        "1.3.3":	{
+          "en": "fixed notification state issue in JS-Controller 3.2.x",
+            "de": "Problem mit dem Benachrichtigungsstatus in JS-Controller 3.2.x behoben",
+            "ru": "исправлена проблема состояния уведомлений в JS-Controller 3.2.x",
+            "pt": "corrigiu o problema de estado de notificação no JS-Controller 3.2.x",
+            "nl": "probleem met meldingsstatus in JS-Controller 3.2.x opgelost",
+            "fr": "Correction d'un problème d'état de notification dans JS-Controller 3.2.x",
+            "it": "risolto il problema dello stato di notifica in JS-Controller 3.2.x",
+            "es": "problema de estado de notificación solucionado en JS-Controller 3.2.x",
+            "pl": "naprawiono problem ze stanem powiadomień w JS-Controller 3.2.x",
+            "zh-cn": "修复了JS-Controller 3.2.x中的通知状态问题"
+          },
         "1.3.2":	{
           "en": "fixed little issues",
           "de": "kleine Probleme behoben",
@@ -15,7 +27,7 @@
           "pl": "naprawiono drobne problemy",
           "zh-cn": "修复了小问题"
     			},
-        "1.3.0":	{
+          "1.3.0":	{
           "en": "fixed issue at object type",
            "de": "Problem beim Objekttyp behoben",
            "ru": "исправлена проблема с типом объекта",
@@ -60,139 +72,7 @@
            "it": "risolto problema con la riconnessione",
            "es": "problema solucionado con la reconexión",
            "pl": "naprawiony problem z ponownym połączeniem"
-    			},
-        "1.0.0":	{
-          "en": " fixes little issues in compact modus",
-          "de": " behebt kleine Probleme im Kompaktmodus",
-          "ru": " исправляет небольшие проблемы в компактном режиме",
-          "pt": " corrige pequenos problemas no modo compacto",
-          "nl": " lost kleine problemen op in compacte modus",
-          "fr": " corrige de petits problèmes en mode compact",
-          "it": " risolve piccoli problemi in modus compatto",
-          "es": " Soluciona pequeños problemas en modo compacto.",
-          "pl": " naprawia małe problemy w kompaktowym trybie"
-    			},
-  		"0.9.5":	{
-  				"en": "compact mode compatibility added",
-          "de": "Kompaktmodus-Kompatibilität hinzugefügt",
-          "ru": "добавлена ​​совместимость с компактным режимом",
-          "pt": "compatibilidade de modo compacto adicionada",
-          "nl": "compatibiliteit met compacte modus toegevoegd",
-          "fr": "Compatibilité en mode compact ajoutée",
-          "it": "aggiunta la compatibilità in modalità compatta",
-          "es": "compatibilidad de modo compacto agregado",
-          "pl": "Dodano kompatybilność w trybie kompaktowym"
-  		},
-			"0.9.2":	{
-				"en": "Fixed little issue with new xml read",
-				"de": "Kleiner Fehler beim neuen XML-Lesen behoben",
-				"ru": "Исправлена ​​небольшая проблема с новым чтением XML",
-				"pt": "Corrigido pequeno problema com a nova leitura de xml",
-				"nl": "Er is een klein probleem met de nieuwe xml-lees opgelost",
-				"fr": "Correction d'un petit problème avec la nouvelle lecture xml",
-				"it": "Risolto un piccolo problema con la nuova lettura di xml",
-				"es": "Pequeño problema solucionado con la nueva lectura de XML",
-				"pl": "Naprawiono mały problem z odczytaniem nowego xml"
-			},
-			"0.9.0":	{
-				"en": "create types from vcontrold.xml to states (require a new config) ",
-				"de": "Erstellen Sie Typen von vcontrold.xml in Zustände (erfordern eine neue Konfiguration)",
-				"ru": "создавать типы из vcontrold.xml в состояния (требуется новый конфиг)",
-				"pt": "crie tipos de vcontrold.xml para states (requer uma nova configuração)",
-				"nl": "soorten maken van vcontrold.xml naar statussen (hiervoor is een nieuwe configuratie vereist)",
-				"fr": "crée des types de vcontrold.xml en états (nécessite une nouvelle configuration)",
-				"it": "creare tipi da vcontrold.xml a stati (richiede una nuova configurazione)",
-				"es": "crear tipos desde vcontrold.xml a estados (requiere una nueva configuración)",
-				"pl": "twórz typy od vcontrold.xml do stanów (wymaga nowej konfiguracji)"
-			},
-			"0.8.0":	{
-				"en": "create units from vcontrold.xml (require a new config)",
-				"de": "Einheiten aus vcontrold.xml erstellen (neue Konfiguration erforderlich)",
-				"ru": "создавать единицы из vcontrold.xml (требуется новая конфигурация)",
-				"pt": "crie unidades a partir do vcontrold.xml (requer uma nova configuração)",
-				"nl": "maak eenheden van vcontrold.xml (vereist een nieuwe config)",
-				"fr": "créer des unités à partir de vcontrold.xml (nécessite une nouvelle configuration)",
-				"it": "creare unità da vcontrold.xml (richiede una nuova configurazione)",
-				"es": "crear unidades desde vcontrold.xml (requiere una nueva configuración)",
-				"pl": "twórz jednostki z vcontrold.xml (wymaga nowej konfiguracji)"
-			},
-			"0.7.0":	{
-				"en": "added lastPoll state",
-				"de": "lastPoll-Status hinzugefügt",
-				"ru": "добавлено состояние lastPoll",
-				"pt": "adicionado lastPoll state",
-				"nl": "laatstePoll-status toegevoegd",
-				"fr": "état lastPoll ajouté",
-				"it": "aggiunto lo stato lastPoll",
-				"es": "añadido lastPoll state",
-				"pl": "dodano stan lastPoll"
-			},
-			"0.6.0":	{
-			  "en": "(linux) read vito.xml from /etc/vcontrold from the same host\nuse a ssh connection to read the vito.xml from a other server ",
-			  "de": "(linux) lese vito.xml von / etc / vcontrold von demselben Host\nVerwenden Sie eine SSH-Verbindung, um die Datei vito.xml von einem anderen Server zu lesen",
-			  "ru": "(linux) читайте vito.xml из / etc / vcontrold с того же хоста\nиспользуйте ssh-соединение для чтения файла vito.xml с другого сервера",
-			  "pt": "(linux) lê vito.xml do / etc / vcontrold do mesmo host\nuse uma conexão ssh para ler o vito.xml de outro servidor",
-			  "nl": "(linux) lees vito.xml uit / etc / vcontrold van dezelfde host\ngebruik een ssh-verbinding om de vito.xml van een andere server te lezen",
-			  "fr": "(linux) lire vito.xml à partir de / etc / vcontrold du même hôte\nutiliser une connexion ssh pour lire le vito.xml depuis un autre serveur",
-			  "it": "(linux) legge vito.xml da / etc / vcontrold dallo stesso host\nutilizzare una connessione ssh per leggere il vito.xml da un altro server",
-			  "es": "(linux) lee vito.xml de / etc / vcontrold del mismo host\nuse una conexión ssh para leer el vito.xml de otro servidor",
-			  "pl": "(Linux) przeczytaj vito.xml z / etc / vcontrold z tego samego hosta\nużyj połączenia ssh, aby odczytać plik vito.xml z innego serwera"
-			},
-			"0.5.0": {
-				"en": "option to create only states if you use. option to restart the connection after to many errors",
-				"de": "Option, um nur Zustände zu erstellen, die Sie verwenden. Option, um die Verbindung nach vielen Fehlern neu zu starten",
-				"ru": "возможность создания только состояний, если вы используете. возможность перезапуска соединения после многих ошибок",
-				"pt": "opção para criar apenas estados, se você usar. opção para reiniciar a conexão após muitos erros",
-				"nl": "optie om alleen staten te maken als u gebruikt. optie om de verbinding opnieuw te starten na vele fouten",
-				"fr": "option pour créer uniquement des états si vous utilisez. option pour redémarrer la connexion après de nombreuses erreurs",
-				"it": "opzione per creare solo stati se si utilizza. opzione per riavviare la connessione dopo molti errori",
-				"es": "opción para crear solo estados si usa. opción para reiniciar la conexión después de muchos errores",
-				"pl": "opcja tworzenia tylko stanów, jeśli używasz. opcja ponownego uruchomienia połączenia po wielu błędach"
-				},
-			"0.4.0": {
-				"en": "parse vito.xml file",
-				"de": "analysiere die Datei vito.xml",
-				"ru": "Файл parse vito.xml",
-				"pt": "Parse vito.xml arquivo",
-				"nl": "ontleed het bestand vito.xml",
-				"fr": "fichier parse vito.xml",
-				"it": "parse vito.xml file",
-				"es": "archivo parse vito.xml",
-				"pl": "przeanalizuj plik vito.xml"
-  				},
-			"0.3.0": {
-				"en": "ready for admin V3",
-				"de": "Bereit für Admin V3",
-				"ru": "готово для администратора V3",
-				"pt": "pronto para admin V3",
-				"nl": "klaar voor beheerder V3",
-				"fr": "prêt pour l'administration V3",
-				"it": "pronto per l'amministratore V3",
-				"es": "listo para el administrador V3",
-				"pl": "gotowy dla administratora V3"
-				},
-			"0.2.6": {
-				"en": "added option to use format values",
-				"de": "Option zur Formatierung von Werten hinzugefügt",
-				"ru": "добавлена ​​опция использования значений формата",
-				"pt": "opção adicionada para usar os valores de formato",
-				"nl": "toegevoegde optie om formaatwaarden te gebruiken",
-				"fr": "option ajoutée pour utiliser les valeurs de format",
-				"it": "opzione aggiunta per utilizzare i valori di formato",
-				"es": "opción agregada para usar valores de formato",
-				"pl": "dodano opcję korzystania z wartości formatu"
-				},
-			"0.0.1": {
-				"en": "initial Version",
-				"de": "erste Version",
-				"ru": "Первоначальная версия",
-				"pt": "versão inicial",
-				"nl": "eerste versie",
-				"fr": "version initiale",
-				"it": "versione iniziale",
-				"es": "versión inicial",
-				"pl": "początkowa wersja"
-				}
+    			}
 		},
         "title":                    "viessmann",
         "desc":                     {
@@ -210,16 +90,18 @@
     "authors": [
             "misanorot <audi16v@gmx.de>"
         ],
-        "materialize": true,
+    "materialize": true,
 		"compact": false,
-        "platform":                 "Javascript/Node.js",
-        "mode":                     "daemon",
-        "icon":                     "viessmann.png",
+    "connectionType": "local",
+    "dataSource": "poll",
+    "platform":                 "Javascript/Node.js",
+    "mode":                     "daemon",
+    "icon":                     "viessmann.png",
 		"extIcon":                  "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
 		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
-        "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
+    "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
 		"loglevel":                 "info",
-        "type":                     "climate-control",
+    "type":                     "climate-control",
 		"enabled": true
 
     },
