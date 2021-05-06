@@ -1,8 +1,20 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.3.3",
+        "version": "1.3.4",
 	    "news": {
+        "1.3.4":	{
+          "en": "fixed ack issue",
+          "de": "ack Problem behoben",
+          "ru": "исправлена проблема с подтверждением",
+          "pt": "problema de reconhecimento corrigido",
+          "nl": "probleem opgelost",
+          "fr": "problème d'ack corrigé",
+          "it": "risolto problema ack",
+          "es": "problema de ack solucionado",
+          "pl": "naprawiono problem z potwierdzeniem",
+          "zh-cn": "固定确认问题"
+          },
         "1.3.3":	{
           "en": "fixed notification state issue in JS-Controller 3.2.x",
             "de": "Problem mit dem Benachrichtigungsstatus in JS-Controller 3.2.x behoben",

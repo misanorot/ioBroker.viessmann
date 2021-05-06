@@ -520,7 +520,7 @@ function stepPolling() {
     }
 
     if(step == Object.keys(toPoll)[Object.keys(toPoll).length - 1] || step === -1)
-        adapter.setState('info.lastPoll', Math.floor(time/1000));
+        adapter.setState('info.lastPoll', Math.floor(time/1000), true);
 
     if (step === -1) {
         adapter.log.debug('Wait for next run: ' + actualMinWaitTime + ' in ms');
@@ -602,8 +602,8 @@ function roundNumber(num, scale) {
 //######MAIN#################################################################################################
 function main() {
     // set connection status to false
-    adapter.setState('info.timeout_connection', false);
-    adapter.setState('info.connection', false, true);
+    adapter.setState('info.timeout_connection', false, true);
+    adapter.setState('info.connection', false, true, true);
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // adapter.config:
     toPoll = {};
@@ -643,7 +643,7 @@ function main() {
 		 	      if(err)adapter.log.error(err);
         });
         adapter.log.info('Connect with Viessmann sytem!');
-        adapter.setState('info.timeout_connection', false);
+        adapter.setState('info.timeout_connection', false, true);
         commands();
         stepPolling();
     });
@@ -725,7 +725,7 @@ function main() {
     client.on('timeout', ()=> {
         adapter.setState('info.connection', false, true);
         adapter.log.error('Timeout connection error!');
-        adapter.setState('info.timeout_connection', true);
+        adapter.setState('info.timeout_connection', true, true);
         client.end();
         client.destroy(); // kill client after server's response
         clearTimeout(timerWait);
