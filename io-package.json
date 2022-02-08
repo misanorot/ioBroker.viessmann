@@ -1,8 +1,20 @@
 {
     "common": {
         "name":                     "viessmann",
-        "version": "1.3.4",
+        "version": "1.3.5",
 	    "news": {
+        "1.3.5":	{
+          "en": "added set units",
+          "de": "Set-Einheiten hinzugefügt",
+          "ru": "добавлен набор единиц",
+          "pt": "unidades de conjunto adicionadas",
+          "nl": "toegevoegde set-eenheden",
+          "fr": "unités d'ensemble ajoutées",
+          "it": "unità impostate aggiunte",
+          "es": "unidades de conjunto añadidas",
+          "pl": "dodane jednostki zestawu",
+          "zh-cn": "添加了设置单位"
+          },
         "1.3.4":	{
           "en": "fixed ack issue",
           "de": "ack Problem behoben",
@@ -86,7 +98,19 @@
            "pl": "naprawiony problem z ponownym połączeniem"
     			}
 		},
-        "title":                    "viessmann",
+  "title":                    "viessmann",
+  "titleLang": {
+    "en": "connect viessmann systems over vcontrold",
+    "de": "Verbinden Sie Viessmann-Systeme über vcontrold",
+    "ru": "подключение систем Viessmann через vcontrold",
+    "pt": "conectar sistemas viessmann sobre vcontrold",
+    "nl": "verbind viessmann-systemen via vcontrold",
+    "fr": "connecter les systèmes viessmann via vcontrold",
+    "it": "collegare i sistemi viessmann su vcontrold",
+    "es": "conectar sistemas viessmann a través de vcontrold",
+    "pl": "podłącz systemy Viessmann przez vcontrold",
+    "zh-cn": "通过 vcontrold 连接菲斯曼系统"
+  },
         "desc":                     {
 			"en": "Communication with Viessmann controllers over Vcontrold",
 			"de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
