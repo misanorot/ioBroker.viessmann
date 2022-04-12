@@ -13,7 +13,7 @@ const utils = require('@iobroker/adapter-core');
 const net = require('net');
 const xml2js = require('xml2js');
 const fs = require('fs');
-const ssh = require('ssh2');
+const { Client } = require('ssh2');
 //Hilfsobjekt zum abfragen der Werte
 const datapoints = {};
 let toPoll = {};
@@ -148,7 +148,7 @@ function readxml(){
         vcontrold_read(adapter.config.path + '/vcontrold.xml');
     }else{
 	    //Create a SSH connection
-	  const ssh_session = new ssh();
+	  const ssh_session = new Client();
 	  adapter.log.debug('try to create a ssh session');
 	  ssh_session.connect({
             host: adapter.config.ip,
