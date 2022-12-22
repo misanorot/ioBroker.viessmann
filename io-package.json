@@ -1,191 +1,162 @@
 {
-    "common": {
-        "name":                     "viessmann",
-        "version": "1.3.7",
-	    "news": {
-        "1.3.7":	{
-          "en": "admin",
-          "de": "Administrator",
-          "ru": "администратор",
-          "pt": "administrador",
-          "nl": "beheerder",
-          "fr": "administrateur",
-          "it": "amministratore",
-          "es": "administración",
-          "pl": "Administrator",
-          "zh-cn": "行政"
-          },
-        "1.3.6":	{
-          "en": "fixed ssh errors",
-           "de": "ssh-Fehler behoben",
-           "ru": "исправлены ошибки ssh",
-           "pt": "erros ssh corrigidos",
-           "nl": "opgeloste ssh-fouten",
-           "fr": "erreurs ssh corrigées",
-           "it": "errori ssh corretti",
-           "es": "errores ssh fijos",
-           "pl": "naprawiono błędy ssh",
-           "zh-cn": "修复了 ssh 错误"
-          },
-        "1.3.5":	{
-          "en": "added set units",
-          "de": "Set-Einheiten hinzugefügt",
-          "ru": "добавлен набор единиц",
-          "pt": "unidades de conjunto adicionadas",
-          "nl": "toegevoegde set-eenheden",
-          "fr": "unités d'ensemble ajoutées",
-          "it": "unità impostate aggiunte",
-          "es": "unidades de conjunto añadidas",
-          "pl": "dodane jednostki zestawu",
-          "zh-cn": "添加了设置单位"
-          },
-        "1.3.4":	{
-          "en": "fixed ack issue",
-          "de": "ack Problem behoben",
-          "ru": "исправлена проблема с подтверждением",
-          "pt": "problema de reconhecimento corrigido",
-          "nl": "probleem opgelost",
-          "fr": "problème d'ack corrigé",
-          "it": "risolto problema ack",
-          "es": "problema de ack solucionado",
-          "pl": "naprawiono problem z potwierdzeniem",
-          "zh-cn": "固定确认问题"
-          },
-        "1.3.3":	{
-          "en": "fixed notification state issue in JS-Controller 3.2.x",
-            "de": "Problem mit dem Benachrichtigungsstatus in JS-Controller 3.2.x behoben",
-            "ru": "исправлена проблема состояния уведомлений в JS-Controller 3.2.x",
-            "pt": "corrigiu o problema de estado de notificação no JS-Controller 3.2.x",
-            "nl": "probleem met meldingsstatus in JS-Controller 3.2.x opgelost",
-            "fr": "Correction d'un problème d'état de notification dans JS-Controller 3.2.x",
-            "it": "risolto il problema dello stato di notifica in JS-Controller 3.2.x",
-            "es": "problema de estado de notificación solucionado en JS-Controller 3.2.x",
-            "pl": "naprawiono problem ze stanem powiadomień w JS-Controller 3.2.x",
-            "zh-cn": "修复了JS-Controller 3.2.x中的通知状态问题"
-          },
-        "1.3.2":	{
-          "en": "fixed little issues",
-          "de": "kleine Probleme behoben",
-          "ru": "исправлены мелкие проблемы",
-          "pt": "consertou pequenos problemas",
-          "nl": "kleine problemen opgelost",
-          "fr": "correction de petits problèmes",
-          "it": "risolti piccoli problemi",
-          "es": "pequeños problemas arreglados",
-          "pl": "naprawiono drobne problemy",
-          "zh-cn": "修复了小问题"
-    			},
-          "1.3.0":	{
-          "en": "fixed issue at object type",
-           "de": "Problem beim Objekttyp behoben",
-           "ru": "исправлена проблема с типом объекта",
-           "pt": "problema corrigido no tipo de objeto",
-           "nl": "probleem opgelost bij objecttype",
-           "fr": "problème résolu au type d'objet",
-           "it": "problema risolto nel tipo di oggetto",
-           "es": "problema solucionado en el tipo de objeto",
-           "pl": "naprawiony problem z typem obiektu",
-           "zh-cn": "解决对象类型的问题"
-    			},
-        "1.2.4":	{
-          "en": "add trigger state and two second polling",
-          "de": "Trigger Datenpunkt und zwei Sekunden polling hinzugefügt",
-          "ru": "добавить состояние триггера и два вторых опроса",
-          "pt": "adicionar estado de disparo e dois segundos de pesquisa",
-          "nl": "trigger-status toevoegen en twee seconden pollen",
-          "fr": "ajouter un état de déclenchement et deux secondes d'interrogation",
-          "it": "aggiungere lo stato di trigger e due secondi di polling",
-          "es": "agregar estado de activación y dos segundos sondeo",
-          "pl": "dodaj stan wyzwalania i dwie sekundy sondowania",
-          "zh-cn": "添加触发状态和两秒钟的轮询"
-    			},
-        "1.2.0":	{
-          "en": "added reconnect time",
-          "de": "Verbindungswiederherstellungszeit hinzugefügt",
-          "ru": "добавлено время переподключения",
-          "pt": "adicionado tempo de reconexão",
-          "nl": "tijd voor opnieuw verbinden toegevoegd",
-          "fr": "temps de reconnexion ajouté",
-          "it": "aggiunto tempo di riconnessione",
-          "es": "tiempo de reconexión adicional",
-          "pl": "dodano czas ponownego połączenia"
-    			},
-        "1.1.2":	{
-          "en": "fixed issue with reconnect",
-           "de": "Problem mit erneuter Verbindung behoben",
-           "ru": "исправлена проблема с переподключением",
-           "pt": "problema fixo com reconectar",
-           "nl": "probleem opgelost met opnieuw verbinden",
-           "fr": "problème résolu avec reconnect",
-           "it": "risolto problema con la riconnessione",
-           "es": "problema solucionado con la reconexión",
-           "pl": "naprawiony problem z ponownym połączeniem"
-    			}
-		},
-  "title":                    "viessmann",
-  "titleLang": {
-    "en": "connect viessmann systems over vcontrold",
-    "de": "Verbinden Sie Viessmann-Systeme über vcontrold",
-    "ru": "подключение систем Viessmann через vcontrold",
-    "pt": "conectar sistemas viessmann sobre vcontrold",
-    "nl": "verbind viessmann-systemen via vcontrold",
-    "fr": "connecter les systèmes viessmann via vcontrold",
-    "it": "collegare i sistemi viessmann su vcontrold",
-    "es": "conectar sistemas viessmann a través de vcontrold",
-    "pl": "podłącz systemy Viessmann przez vcontrold",
-    "zh-cn": "通过 vcontrold 连接菲斯曼系统"
-  },
-        "desc":                     {
-			"en": "Communication with Viessmann controllers over Vcontrold",
-			"de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
-			"ru": "Связь с контроллерами Viessmann над Vcontrold",
-			"pt": "Comunicação com controladores Viessmann sobre o Vcontrold",
-			"nl": "Communicatie met Viessmann-controllers via Vcontrold",
-			"fr": "Communication avec les contrôleurs Viessmann via Vcontrold",
-			"it": "Comunicazione con i controller Viessmann su Vcontrold",
-			"es": "Comunicación con los controladores Viessmann sobre Vcontrold",
-			"pl": "Komunikacja z kontrolerami Viessmann nad Vcontrold"
-		},
-	"license": "MIT",
+  "common": {
+    "name": "viessmann",
+    "version": "1.4.0",
+    "news": {
+      "1.4.0": {
+        "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
+        "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
+        "ru": "* обновление файлов\n* перевести государства\n\n\n#### 1.3.6 (12.04.2022)\n* исправлены ошибки ssh",
+        "pt": "* arquivos de atualização\n* traduzir estados\n\n\n### 1.3.6 (12.04.2022)\n* corrigido erros ssh",
+        "nl": "♪ update files ♪\nvertaling:\n\n\nQuality over Quantity (QoQ) Releases Vertaling:\n♪ fixed ssh foutors ♪",
+        "fr": "* mise à jour des fichiers\n* traduire les états\n\n\n### 1.3.6 (12.04.2022)\n* erreurs de ssh fixes",
+        "it": "* file di aggiornamento\n* tradurre stati\n\n\n#### 1.3.6 (12.04.2022)\n* errori di ssh fissi",
+        "es": "* archivos de actualización\n* estados de traducción\n\n\n#### 1.3.6 (12.04.2022)\n* errores ssh fijos",
+        "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
+        "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
+        "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
+      },
+      "1.3.7": {
+        "en": "admin",
+        "de": "Administrator",
+        "ru": "администратор",
+        "pt": "administrador",
+        "nl": "beheerder",
+        "fr": "administrateur",
+        "it": "amministratore",
+        "es": "administración",
+        "pl": "Administrator",
+        "zh-cn": "行政"
+      },
+      "1.3.6": {
+        "en": "fixed ssh errors",
+        "de": "ssh-Fehler behoben",
+        "ru": "исправлены ошибки ssh",
+        "pt": "erros ssh corrigidos",
+        "nl": "opgeloste ssh-fouten",
+        "fr": "erreurs ssh corrigées",
+        "it": "errori ssh corretti",
+        "es": "errores ssh fijos",
+        "pl": "naprawiono błędy ssh",
+        "zh-cn": "修复了 ssh 错误"
+      },
+      "1.3.5": {
+        "en": "added set units",
+        "de": "Set-Einheiten hinzugefügt",
+        "ru": "добавлен набор единиц",
+        "pt": "unidades de conjunto adicionadas",
+        "nl": "toegevoegde set-eenheden",
+        "fr": "unités d'ensemble ajoutées",
+        "it": "unità impostate aggiunte",
+        "es": "unidades de conjunto añadidas",
+        "pl": "dodane jednostki zestawu",
+        "zh-cn": "添加了设置单位"
+      },
+      "1.3.4": {
+        "en": "fixed ack issue",
+        "de": "ack Problem behoben",
+        "ru": "исправлена проблема с подтверждением",
+        "pt": "problema de reconhecimento corrigido",
+        "nl": "probleem opgelost",
+        "fr": "problème d'ack corrigé",
+        "it": "risolto problema ack",
+        "es": "problema de ack solucionado",
+        "pl": "naprawiono problem z potwierdzeniem",
+        "zh-cn": "固定确认问题"
+      },
+      "1.3.3": {
+        "en": "fixed notification state issue in JS-Controller 3.2.x",
+        "de": "Problem mit dem Benachrichtigungsstatus in JS-Controller 3.2.x behoben",
+        "ru": "исправлена проблема состояния уведомлений в JS-Controller 3.2.x",
+        "pt": "corrigiu o problema de estado de notificação no JS-Controller 3.2.x",
+        "nl": "probleem met meldingsstatus in JS-Controller 3.2.x opgelost",
+        "fr": "Correction d'un problème d'état de notification dans JS-Controller 3.2.x",
+        "it": "risolto il problema dello stato di notifica in JS-Controller 3.2.x",
+        "es": "problema de estado de notificación solucionado en JS-Controller 3.2.x",
+        "pl": "naprawiono problem ze stanem powiadomień w JS-Controller 3.2.x",
+        "zh-cn": "修复了JS-Controller 3.2.x中的通知状态问题"
+      },
+      "1.3.2": {
+        "en": "fixed little issues",
+        "de": "kleine Probleme behoben",
+        "ru": "исправлены мелкие проблемы",
+        "pt": "consertou pequenos problemas",
+        "nl": "kleine problemen opgelost",
+        "fr": "correction de petits problèmes",
+        "it": "risolti piccoli problemi",
+        "es": "pequeños problemas arreglados",
+        "pl": "naprawiono drobne problemy",
+        "zh-cn": "修复了小问题"
+      }
+    },
+    "title": "viessmann",
+    "titleLang": {
+      "en": "connect viessmann systems over vcontrold",
+      "de": "Verbinden Sie Viessmann-Systeme über vcontrold",
+      "ru": "подключение систем Viessmann через vcontrold",
+      "pt": "conectar sistemas viessmann sobre vcontrold",
+      "nl": "verbind viessmann-systemen via vcontrold",
+      "fr": "connecter les systèmes viessmann via vcontrold",
+      "it": "collegare i sistemi viessmann su vcontrold",
+      "es": "conectar sistemas viessmann a través de vcontrold",
+      "pl": "podłącz systemy Viessmann przez vcontrold",
+      "zh-cn": "通过 vcontrold 连接菲斯曼系统"
+    },
+    "desc": {
+      "en": "Communication with Viessmann controllers over Vcontrold",
+      "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
+      "ru": "Связь с контроллерами Viessmann над Vcontrold",
+      "pt": "Comunicação com controladores Viessmann sobre o Vcontrold",
+      "nl": "Communicatie met Viessmann-controllers via Vcontrold",
+      "fr": "Communication avec les contrôleurs Viessmann via Vcontrold",
+      "it": "Comunicazione con i controller Viessmann su Vcontrold",
+      "es": "Comunicación con los controladores Viessmann sobre Vcontrold",
+      "pl": "Komunikacja z kontrolerami Viessmann nad Vcontrold"
+    },
+    "license": "MIT",
     "authors": [
-            "misanorot <audi16v@gmx.de>"
-        ],
+      "misanorot <audi16v@gmx.de>"
+    ],
     "materialize": true,
-		"compact": false,
+    "compact": false,
     "connectionType": "local",
     "dataSource": "poll",
-    "platform":                 "Javascript/Node.js",
-    "mode":                     "daemon",
-    "icon":                     "viessmann.png",
-		"extIcon":                  "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
-		"keywords":                 ["viessmann", "heizung", "vito", "vitotronic"],
-    "readme":                   "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
-		"loglevel":                 "info",
-    "type":                     "climate-control",
-		"enabled": true
-
-    },
-    "native": {
-		"datapoints":	{},
-		"ip":			"127.0.0.1",
-		"port": 		"3002",
-		"user_name":	"",
-		"password":		"",
-    "reconnect":		5,
-		"path":			"/etc/vcontrold",
-		"new_read":		false,
-		"answer":		true,
-		"states_only":	false,
-		"errors":		false
-    },
-    "objects": [],
-	"instanceObjects":	[
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "",
-				"name": {
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "viessmann.png",
+    "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
+    "keywords": [
+      "viessmann",
+      "heizung",
+      "vito",
+      "vitotronic"
+    ],
+    "readme": "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
+    "loglevel": "info",
+    "type": "climate-control",
+    "enabled": true
+  },
+  "native": {
+    "datapoints": {},
+    "ip": "127.0.0.1",
+    "port": "3002",
+    "user_name": "",
+    "password": "",
+    "reconnect": 5,
+    "path": "/etc/vcontrold",
+    "new_read": false,
+    "answer": true,
+    "states_only": false,
+    "errors": false
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": {
           "en": "Connection",
           "de": "Verbindung",
           "ru": "Контакт",
@@ -198,7 +169,7 @@
           "uk": "Підключення",
           "zh-cn": "A. 驱逐"
         },
-				"desc": {
+        "desc": {
           "en": "Connection to Viessmann system",
           "de": "Verbindung zum Viessmann System",
           "ru": "Подключение к системе Viessmann",
@@ -211,18 +182,18 @@
           "uk": "Підключення до системи Viessmann",
           "zh-cn": "对维斯曼系统的攻击"
         },
-				"type": "boolean",
-				"read": true,
-				"write": false
-			},
-			"native": {}
-		},
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
     {
-			"_id": "info.timeout_connection",
-			"type": "state",
-			"common": {
-				"role": "",
-				"name": {
+      "_id": "info.timeout_connection",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": {
           "en": "Timeout connection",
           "de": "Zeitüberschreitung Verbindung",
           "ru": "Timeout подключение",
@@ -235,7 +206,7 @@
           "uk": "Підключення часу",
           "zh-cn": "时间安排"
         },
-				"desc": {
+        "desc": {
           "en": "Timeout connection to Viessmann system",
           "de": "Zeitüberschreitung Verbindung zum Viessmann-System",
           "ru": "Подключение к системе Viessmann",
@@ -248,18 +219,18 @@
           "uk": "Часове підключення до системи Viessmann",
           "zh-cn": "B. 对维斯曼系统的时限"
         },
-				"type": "boolean",
-				"read": true,
-				"write": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.lastPoll",
-			"type": "state",
-			"common": {
-				"role": "",
-				"name": {
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.lastPoll",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": {
           "en": "Last poll",
           "de": "Letzte Abfrage",
           "ru": "Последний опрос",
@@ -272,7 +243,7 @@
           "uk": "Останнє опитування",
           "zh-cn": "上次投票"
         },
-				"desc": {
+        "desc": {
           "en": "Timestamp last poll",
           "de": "Zeitstempel letzte Abfrage",
           "ru": "Timestamp последний опрос",
@@ -285,48 +256,48 @@
           "uk": "Останнє опитування",
           "zh-cn": "上次投票时间"
         },
-				"type": "number",
-				"read": true,
-				"write": false
-			},
+        "type": "number",
+        "read": true,
+        "write": false
+      },
       "native": {}
-		},
-      {
-  			"_id": "input.force_polling_interval",
-  			"type": "state",
-  			"common": {
-  				"role": "",
-  				"name": {
-            "en": "Force polling",
-            "de": "Forciere Abfrage",
-            "ru": "Загрязнение силы",
-            "pt": "Poluindo forças",
-            "nl": "Force peiling",
-            "fr": "Polling de force",
-            "it": "Inquinamento della forza",
-            "es": "Encuestas de fuerzas",
-            "pl": "Polling",
-            "uk": "Примусове опитування",
-            "zh-cn": "部队投票"
-          },
-  				"desc": {
-            "en": "For direct query of a value from the heating system",
-            "de": "Zur direkten Abfrage eines Wertes aus dem Heizsystem",
-            "ru": "Для прямого запроса стоимости от системы отопления",
-            "pt": "Para consulta direta de um valor do sistema de aquecimento",
-            "nl": "Voor directe zoektocht naar een waarde van het verhitte systeem",
-            "fr": "Pour une requête directe d'une valeur du système de chauffage",
-            "it": "Per query diretta di un valore dal sistema di riscaldamento",
-            "es": "Para la consulta directa de un valor del sistema de calefacción",
-            "pl": "W przypadku bezpośredniego zapytania o wartość z systemu ogrzewania",
-            "uk": "Для прямого запиту вартості від системи опалення",
-            "zh-cn": "直接询问暖气系统的价值"
-          },
-  				"type": "string",
-  				"read": true,
-  				"write": true
-  			},
-  			"native": {}
-		}
-	]
+    },
+    {
+      "_id": "input.force_polling_interval",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": {
+          "en": "Force polling",
+          "de": "Forciere Abfrage",
+          "ru": "Загрязнение силы",
+          "pt": "Poluindo forças",
+          "nl": "Force peiling",
+          "fr": "Polling de force",
+          "it": "Inquinamento della forza",
+          "es": "Encuestas de fuerzas",
+          "pl": "Polling",
+          "uk": "Примусове опитування",
+          "zh-cn": "部队投票"
+        },
+        "desc": {
+          "en": "For direct query of a value from the heating system",
+          "de": "Zur direkten Abfrage eines Wertes aus dem Heizsystem",
+          "ru": "Для прямого запроса стоимости от системы отопления",
+          "pt": "Para consulta direta de um valor do sistema de aquecimento",
+          "nl": "Voor directe zoektocht naar een waarde van het verhitte systeem",
+          "fr": "Pour une requête directe d'une valeur du système de chauffage",
+          "it": "Per query diretta di un valore dal sistema di riscaldamento",
+          "es": "Para la consulta directa de un valor del sistema de calefacción",
+          "pl": "W przypadku bezpośredniego zapytania o wartość z systemu ogrzewania",
+          "uk": "Для прямого запиту вартості від системи опалення",
+          "zh-cn": "直接询问暖气系统的价值"
+        },
+        "type": "string",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    }
+  ]
 }

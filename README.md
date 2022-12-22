@@ -81,15 +81,13 @@ mit dem gewünschten *get* Wert beschrieben werden.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.4.0 (2022-12-22)
 * (misanorot) update files 
 * (misanorot) translate states 
 
 
 #### 1.3.6 (12.04.2022)
 * (misanorot) fixed ssh errors
-
 
 ### License
 

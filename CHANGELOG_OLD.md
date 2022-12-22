@@ -59,4 +59,3 @@
 
 #### 0.0.1
 * (misanorot) initial release
-
