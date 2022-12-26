@@ -1,3 +1,9 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-useless-escape */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-redeclare */
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-const */
 /**!
 * TableSorter 2.17.8 - Client-side table sorting with ease!
 * @requires jQuery v1.2.6+
