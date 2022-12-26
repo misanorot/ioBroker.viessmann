@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*global systemDictionary:true */
 'use strict';
 
