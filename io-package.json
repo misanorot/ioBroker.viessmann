@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "news": {
+      "1.4.1": {
+        "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
+        "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
+        "ru": "* обновление файлов\n* перевести государства\n\n\n#### 1.3.6 (12.04.2022)\n* исправлены ошибки ssh",
+        "pt": "* arquivos de atualização\n* traduzir estados\n\n\n### 1.3.6 (12.04.2022)\n* corrigido erros ssh",
+        "nl": "♪ update files ♪\nvertaling:\n\n\nQuality over Quantity (QoQ) Releases Vertaling:\n♪ fixed ssh foutors ♪",
+        "fr": "* mise à jour des fichiers\n* traduire les états\n\n\n### 1.3.6 (12.04.2022)\n* erreurs de ssh fixes",
+        "it": "* file di aggiornamento\n* tradurre stati\n\n\n#### 1.3.6 (12.04.2022)\n* errori di ssh fissi",
+        "es": "* archivos de actualización\n* estados de traducción\n\n\n#### 1.3.6 (12.04.2022)\n* errores ssh fijos",
+        "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
+        "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
+        "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
+      },
       "1.4.0": {
         "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
         "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
@@ -75,18 +88,6 @@
         "es": "problema de estado de notificación solucionado en JS-Controller 3.2.x",
         "pl": "naprawiono problem ze stanem powiadomień w JS-Controller 3.2.x",
         "zh-cn": "修复了JS-Controller 3.2.x中的通知状态问题"
-      },
-      "1.3.2": {
-        "en": "fixed little issues",
-        "de": "kleine Probleme behoben",
-        "ru": "исправлены мелкие проблемы",
-        "pt": "consertou pequenos problemas",
-        "nl": "kleine problemen opgelost",
-        "fr": "correction de petits problèmes",
-        "it": "risolti piccoli problemi",
-        "es": "pequeños problemas arreglados",
-        "pl": "naprawiono drobne problemy",
-        "zh-cn": "修复了小问题"
       }
     },
     "title": "viessmann",
