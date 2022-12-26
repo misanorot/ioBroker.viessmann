@@ -109,7 +109,7 @@ class Viessmann extends utils.Adapter {
 			});
 			obj.native.datapoints = {};
 			await this.setForeignObjectAsync('system.this.' + this.namespace, obj).catch((e) => this.log.warn(e));
-			await this.readxml();
+			this.readxml();
 		} else this.main();
 	}
 
@@ -118,7 +118,7 @@ class Viessmann extends utils.Adapter {
 	async readxml() {
 		this.log.debug('try to read xml files');
 		if (this.config.ip === '127.0.0.1') {
-			await this.vcontrold_read(this.config.path + '/vcontrold.xml');
+			this.vcontrold_read(this.config.path + '/vcontrold.xml');
 		} else {
 			//Create a SSH connection
 			const ssh_session = new Client();
@@ -321,8 +321,7 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######GET TYPES########################################################################################
-	async get_type(types) {
-
+	get_type(types) {
 		switch (types) {
 			case 'enum':
 				return 'string';
@@ -372,8 +371,7 @@ class Viessmann extends utils.Adapter {
 
 	//######SET STATES###########################################################################################
 	async addState(pfad, name, unit, beschreibung, type, write, callback) {
-
-		this.setObjectNotExists(pfad + name, {
+		await this.setObjectNotExistsAsync(pfad + name, {
 			'type': 'state',
 			'common': {
 				'name': name,
@@ -389,12 +387,11 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######CONFIG STATES########################################################################################
-	async setAllObjects(callback) {
-
-		this.getStatesOf((err, _states) => {
+	setAllObjects(callback) {
+		this.getStatesOf((err, states) => {
 			const configToDelete = [];
 			const configToAdd = [];
-			let id;
+			//let id;
 			const pfadget = 'get.';
 			const pfadset = 'set.';
 			let count = 0;
@@ -415,19 +412,19 @@ class Viessmann extends utils.Adapter {
 					configToAdd.push(this.config.datapoints.sets[i].name);
 				}
 			}
-			if (_states) {
-				for (let i = 0; i < _states.length; i++) {
-					const name = _states[i].common.name;
-					if (name === 'connection' || name === 'lastPoll' || name === 'timeout_connection' || name === 'Force polling interval') {
+			if (states) {
+				for (let i = 0; i < states.length; i++) {
+					const name = states[i].common.name;
+					if (typeof name == 'object' || name === 'connection' || name === 'lastPoll' || name === 'timeout_connection' || name === 'Force polling interval') {
 						continue;
 					}
-					const clean = _states[i]._id;
+					const clean = states[i]._id;
 					if (name.length < 1) {
-						this.log.warn('No states found for ' + JSON.stringify(_states[i]));
+						this.log.warn('No states found for ' + JSON.stringify(states[i]));
 						continue;
 					}
 					// eslint-disable-next-line no-unused-vars
-					id = name.replace(/[.\s]+/g, '_');
+					//id = name.replace(/[.\s]+/g, '_');
 					const pos = configToAdd.indexOf(name);
 					if (pos !== -1) {
 						configToAdd.splice(pos, 1);
@@ -467,7 +464,7 @@ class Viessmann extends utils.Adapter {
 
 
 	//######POLLING##############################################################################################
-	async stepPolling() {
+	stepPolling() {
 		clearTimeout(timerWait);
 		step = -1;
 		let actualMinWaitTime = 1000000;
@@ -519,7 +516,7 @@ class Viessmann extends utils.Adapter {
 
 
 	//######CONFIGURE POLLING COMMANDS###########################################################################
-	async commands() {
+	commands() {
 
 		let obj = new Object();
 		obj.name = 'Dummy';
@@ -546,7 +543,7 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######CUT ANSWER###########################################################################################
-	async split_unit(v) {
+	split_unit(v) {
 		// test if string starts with non digits, then just pass it
 		if (typeof v === 'string' && v !== '' && (/^\D.*$/.test(v)) && !(/^-?/.test(v))) {
 			return v;
@@ -564,12 +561,12 @@ class Viessmann extends utils.Adapter {
 	}
 
 
-	async isDate(val) {
+	isDate(val) {
 		const d = new Date(val);
 		return !isNaN(d.valueOf());
 	}
 
-	async roundNumber(num, scale) {
+	roundNumber(num, scale) {
 		const number = Math.round(num * Math.pow(10, scale)) / Math.pow(10, scale);
 		if (num - number > 0) {
 			return (number + Math.floor(2 * Math.round((num - number) * Math.pow(10, (scale + 1))) / 10) / Math.pow(10, scale));
@@ -584,8 +581,8 @@ class Viessmann extends utils.Adapter {
 	async main() {
 		// set connection status to false
 
-		this.setState('info.timeout_connection', false, true);
-		this.setState('info.connection', false, true, true);
+		this.setStateAsync('info.timeout_connection', false, true);
+		this.setStateAsync('info.connection', false, true, true);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 		toPoll = {};
@@ -725,7 +722,7 @@ class Viessmann extends utils.Adapter {
 
 	}
 	//#############HELPERS#######################################################################################
-	async force(id) {
+	force(id) {
 		try {
 			const force_step = id.slice(3);
 			toPoll[force_step].lastPoll = 0;

@@ -81,7 +81,7 @@ mit dem gewünschten *get* Wert beschrieben werden.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 1.4.1 (2022-12-26)
+### **WORK IN PROGRESS**
 * (misanorot) update files 
 * (misanorot) translate states 
 
