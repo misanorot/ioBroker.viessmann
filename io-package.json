@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "news": {
+      "1.4.2": {
+        "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
+        "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
+        "ru": "* обновление файлов\n* перевести государства\n\n\n#### 1.3.6 (12.04.2022)\n* исправлены ошибки ssh",
+        "pt": "* arquivos de atualização\n* traduzir estados\n\n\n### 1.3.6 (12.04.2022)\n* corrigido erros ssh",
+        "nl": "♪ update files ♪\nvertaling:\n\n\nQuality over Quantity (QoQ) Releases Vertaling:\n♪ fixed ssh foutors ♪",
+        "fr": "* mise à jour des fichiers\n* traduire les états\n\n\n### 1.3.6 (12.04.2022)\n* erreurs de ssh fixes",
+        "it": "* file di aggiornamento\n* tradurre stati\n\n\n#### 1.3.6 (12.04.2022)\n* errori di ssh fissi",
+        "es": "* archivos de actualización\n* estados de traducción\n\n\n#### 1.3.6 (12.04.2022)\n* errores ssh fijos",
+        "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
+        "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
+        "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
+      },
       "1.4.1": {
         "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
         "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
@@ -76,18 +89,6 @@
         "es": "problema de ack solucionado",
         "pl": "naprawiono problem z potwierdzeniem",
         "zh-cn": "固定确认问题"
-      },
-      "1.3.3": {
-        "en": "fixed notification state issue in JS-Controller 3.2.x",
-        "de": "Problem mit dem Benachrichtigungsstatus in JS-Controller 3.2.x behoben",
-        "ru": "исправлена проблема состояния уведомлений в JS-Controller 3.2.x",
-        "pt": "corrigiu o problema de estado de notificação no JS-Controller 3.2.x",
-        "nl": "probleem met meldingsstatus in JS-Controller 3.2.x opgelost",
-        "fr": "Correction d'un problème d'état de notification dans JS-Controller 3.2.x",
-        "it": "risolto il problema dello stato di notifica in JS-Controller 3.2.x",
-        "es": "problema de estado de notificación solucionado en JS-Controller 3.2.x",
-        "pl": "naprawiono problem ze stanem powiadomień w JS-Controller 3.2.x",
-        "zh-cn": "修复了JS-Controller 3.2.x中的通知状态问题"
       }
     },
     "title": "viessmann",
