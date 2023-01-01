@@ -93,4 +93,4 @@ mit dem gewünschten *get* Wert beschrieben werden.
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2022 misanorot <audi16v@gmx.de>
+Copyright (c) 2017-2023 misanorot <audi16v@gmx.de>
