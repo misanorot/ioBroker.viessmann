@@ -28,92 +28,34 @@
         "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
         "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
         "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
-      },
-      "1.4.0": {
-        "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
-        "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
-        "ru": "* обновление файлов\n* перевести государства\n\n\n#### 1.3.6 (12.04.2022)\n* исправлены ошибки ssh",
-        "pt": "* arquivos de atualização\n* traduzir estados\n\n\n### 1.3.6 (12.04.2022)\n* corrigido erros ssh",
-        "nl": "♪ update files ♪\nvertaling:\n\n\nQuality over Quantity (QoQ) Releases Vertaling:\n♪ fixed ssh foutors ♪",
-        "fr": "* mise à jour des fichiers\n* traduire les états\n\n\n### 1.3.6 (12.04.2022)\n* erreurs de ssh fixes",
-        "it": "* file di aggiornamento\n* tradurre stati\n\n\n#### 1.3.6 (12.04.2022)\n* errori di ssh fissi",
-        "es": "* archivos de actualización\n* estados de traducción\n\n\n#### 1.3.6 (12.04.2022)\n* errores ssh fijos",
-        "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
-        "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
-        "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
-      },
-      "1.3.7": {
-        "en": "admin",
-        "de": "Administrator",
-        "ru": "администратор",
-        "pt": "administrador",
-        "nl": "beheerder",
-        "fr": "administrateur",
-        "it": "amministratore",
-        "es": "administración",
-        "pl": "Administrator",
-        "zh-cn": "行政"
-      },
-      "1.3.6": {
-        "en": "fixed ssh errors",
-        "de": "ssh-Fehler behoben",
-        "ru": "исправлены ошибки ssh",
-        "pt": "erros ssh corrigidos",
-        "nl": "opgeloste ssh-fouten",
-        "fr": "erreurs ssh corrigées",
-        "it": "errori ssh corretti",
-        "es": "errores ssh fijos",
-        "pl": "naprawiono błędy ssh",
-        "zh-cn": "修复了 ssh 错误"
-      },
-      "1.3.5": {
-        "en": "added set units",
-        "de": "Set-Einheiten hinzugefügt",
-        "ru": "добавлен набор единиц",
-        "pt": "unidades de conjunto adicionadas",
-        "nl": "toegevoegde set-eenheden",
-        "fr": "unités d'ensemble ajoutées",
-        "it": "unità impostate aggiunte",
-        "es": "unidades de conjunto añadidas",
-        "pl": "dodane jednostki zestawu",
-        "zh-cn": "添加了设置单位"
-      },
-      "1.3.4": {
-        "en": "fixed ack issue",
-        "de": "ack Problem behoben",
-        "ru": "исправлена проблема с подтверждением",
-        "pt": "problema de reconhecimento corrigido",
-        "nl": "probleem opgelost",
-        "fr": "problème d'ack corrigé",
-        "it": "risolto problema ack",
-        "es": "problema de ack solucionado",
-        "pl": "naprawiono problem z potwierdzeniem",
-        "zh-cn": "固定确认问题"
       }
     },
     "title": "viessmann",
     "titleLang": {
       "en": "connect viessmann systems over vcontrold",
-      "de": "Verbinden Sie Viessmann-Systeme über vcontrold",
-      "ru": "подключение систем Viessmann через vcontrold",
+      "de": "viessmann systeme über vcontroled verbinden",
+      "ru": "подключить системы viessmann через vcontrold",
       "pt": "conectar sistemas viessmann sobre vcontrold",
-      "nl": "verbind viessmann-systemen via vcontrold",
-      "fr": "connecter les systèmes viessmann via vcontrold",
-      "it": "collegare i sistemi viessmann su vcontrold",
-      "es": "conectar sistemas viessmann a través de vcontrold",
-      "pl": "podłącz systemy Viessmann przez vcontrold",
-      "zh-cn": "通过 vcontrold 连接菲斯曼系统"
+      "nl": "verbind viessmannsystemen over voogdij",
+      "fr": "connecter les systèmes viessmann sur vcontrold",
+      "it": "collegare i sistemi viessmann sopra vcontrold",
+      "es": "conectar sistemas viessmann sobre vcontrold",
+      "pl": "łączy systemy viessmanna nad vkontrolowanym",
+      "uk": "підключення систем viessmann над керуванням",
+      "zh-cn": "维生素曼系统控制"
     },
     "desc": {
       "en": "Communication with Viessmann controllers over Vcontrold",
-      "de": "Kommunikation mit Viessmann Steuerungen über Vcontrold",
-      "ru": "Связь с контроллерами Viessmann над Vcontrold",
-      "pt": "Comunicação com controladores Viessmann sobre o Vcontrold",
-      "nl": "Communicatie met Viessmann-controllers via Vcontrold",
-      "fr": "Communication avec les contrôleurs Viessmann via Vcontrold",
-      "it": "Comunicazione con i controller Viessmann su Vcontrold",
-      "es": "Comunicación con los controladores Viessmann sobre Vcontrold",
-      "pl": "Komunikacja z kontrolerami Viessmann nad Vcontrold"
+      "de": "Kommunikation mit Viessmann Controllern über Vcontrold",
+      "ru": "Связь с контроллерами Viessmann через Vcontrold",
+      "pt": "Comunicação com controladores Viessmann sobre Vcontrold",
+      "nl": "Communicatie met Viessmann controllers boven V gecontroleerd",
+      "fr": "Communication avec les contrôleurs Viessmann sur Vcontrold",
+      "it": "Comunicazione con controller Viessmann su Vcontrold",
+      "es": "Comunicación con controladores Viessmann sobre Vcontrold",
+      "pl": "Komunikacja z kontrolerami Viessmanna nad kontrolą V Controlled",
+      "uk": "Зв'язок з контролерами Viessmann над Vcontrold",
+      "zh-cn": "与V控制的Vusmann管制器的通信"
     },
     "license": "MIT",
     "authors": [
@@ -136,7 +78,20 @@
     "readme": "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
     "loglevel": "info",
     "type": "climate-control",
-    "enabled": true
+    "enabled": true,
+    "adminUI": {
+      "config": "materialize"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.3.22"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.0.0"
+      }
+    ]
   },
   "native": {
     "datapoints": {},
