@@ -103,12 +103,13 @@ class Viessmann extends utils.Adapter {
 	async startAdapter() {
 		if (!this.config.datapoints.gets) this.readxml();
 		else if (this.config.new_read) {
-			const obj = await this.getForeignObjectAsync('system.this.' + this.namespace).catch((e) => {
-				this.log.warn(e);
+			const obj = await this.getForeignObjectAsync('system.this.' + this.namespace);
+			if (!obj) {
+				this.log.warn(`No instance found!`);
 				return;
-			});
+			}
 			obj.native.datapoints = {};
-			await this.setForeignObjectAsync('system.this.' + this.namespace, obj).catch((e) => this.log.warn(e));
+			await this.setForeignObjectAsync('system.this.' + this.namespace, obj);
 			this.readxml();
 		} else this.main();
 	}
