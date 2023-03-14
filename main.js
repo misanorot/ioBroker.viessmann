@@ -110,6 +110,7 @@ class Viessmann extends utils.Adapter {
 			}
 			obj.native.datapoints = {};
 			await this.setForeignObjectAsync('system.this.' + this.namespace, obj);
+			this.log.info(`Try to read new XML files!`);
 			this.readxml();
 		} else this.main();
 	}
