@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "news": {
+      "1.4.4": {
+        "en": "Fixed JS-Controller 5 issues",
+        "de": "Fixed JS-Controller 5 Ausgaben",
+        "ru": "Фиксированный JS-Controller 5 вопросов",
+        "pt": "Controlador JS fixo 5 questões",
+        "nl": "Gerepareerd JS-Controller Vijf kwesties",
+        "fr": "Fixed JS-Controller 5 questions",
+        "it": "JS-Controller fisso 5 numeri",
+        "es": "Fixed JS-Controller 5 cuestiones",
+        "pl": "JS-Controller 5 numerów",
+        "uk": "Фіксований JS-Controller 5 питань",
+        "zh-cn": "九. 固定的协会-企业管理员 问题5"
+      },
       "1.4.3": {
         "en": "fixed reload xml issues",
         "de": "fixed reload xml probleme",
