@@ -51,7 +51,7 @@ class Viessmann extends utils.Adapter {
 	 */
 	async onReady() {
 		// Initialize your adapter here
-		this.start();
+		this.startAdapter();
 
 	}
 
@@ -95,26 +95,25 @@ class Viessmann extends utils.Adapter {
 	//##############################################################################################
 	// is called when databases are connected and adapter received configuration.
 	// start here!
-	async start() {
+	async startAdapter() {
 		if (!this.config.datapoints.gets) this.readxml();
 		else if (this.config.new_read) {
 			this.log.info(`Start read new XML...`);
-			this.getForeignObject('system.adapter.' + this.namespace, (err, obj) => {
-				if (!obj || err) {
-					this.log.warn(`No instance found! ${JSON.stringify(obj)}`);
-					return;
-				}
-				obj.native.datapoints = {};
-				this.setForeignObject('system.adapter.' + this.namespace, obj);
-				this.log.info(`Try to read new XML files!`);
-				this.readxml();
-			});
+			const obj = await this.getForeignObjectAsync('system.adapter.' + this.namespace);
+			if (!obj) {
+				this.log.warn(`No instance found! ${JSON.stringify(obj)}`);
+				return;
+			}
+			obj.native.datapoints = {};
+			await this.setForeignObjectAsync('system.adapter.' + this.namespace, obj);
+			this.log.info(`Try to read new XML files!`);
+			this.readxml();
 		} else this.main();
 	}
 
 	//##########IMPORT XML FILE##################################################################################
 
-	readxml() {
+	async readxml() {
 		this.log.debug('try to read xml files');
 		if (this.config.ip === '127.0.0.1') {
 			this.vcontrold_read(this.config.path + '/vcontrold.xml');
@@ -170,7 +169,7 @@ class Viessmann extends utils.Adapter {
 		}
 	}
 
-	vcontrold_read(path) {
+	async vcontrold_read(path) {
 		fs.readFile(path, 'utf8', (err, data) => {
 			if (err) {
 				this.log.warn('cannot read vcontrold.xml ' + err);
@@ -226,7 +225,7 @@ class Viessmann extends utils.Adapter {
 		});
 	}
 
-	vito_read(units, types) {
+	async vito_read(units, types) {
 		const path_ssh = __dirname + '/vito.xml';
 		const path_host = this.config.path + '/vito.xml';
 		let path = '';
@@ -248,8 +247,8 @@ class Viessmann extends utils.Adapter {
 						try {
 							let temp = JSON.stringify(result);
 							temp = JSON.parse(temp);
-							const dp = this.getImport(temp, units, types);
-							this.extendForeignObject('system.adapter.' + this.namespace, { native: { datapoints: dp, new_read: false } });
+							const dp = await this.getImport(temp, units, types);
+							await this.extendForeignObjectAsync('system.adapter.' + this.namespace, { native: { datapoints: dp, new_read: false } });
 							this.log.info('read vito.xml successfull');
 							this.main();
 						}
@@ -265,7 +264,7 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######IMPORT STATES########################################################################################
-	getImport(json, units, types) {
+	async getImport(json, units, types) {
 		datapoints['gets'] = {};
 		datapoints['sets'] = {};
 		datapoints['system'] = {};
@@ -369,8 +368,8 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######SET STATES###########################################################################################
-	addState(pfad, name, unit, beschreibung, type, write, callback) {
-		this.setObjectNotExists(pfad + name, {
+	async addState(pfad, name, unit, beschreibung, type, write, callback) {
+		await this.setObjectNotExistsAsync(pfad + name, {
 			'type': 'state',
 			'common': {
 				'name': name,
@@ -577,11 +576,11 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######MAIN#################################################################################################
-	main() {
+	async main() {
 		// set connection status to false
 
-		this.setState('info.timeout_connection', false, true);
-		this.setState('info.connection', false, true);
+		this.setStateAsync('info.timeout_connection', false, true);
+		this.setStateAsync('info.connection', false, true);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 		toPoll = {};
