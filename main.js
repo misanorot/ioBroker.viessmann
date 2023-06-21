@@ -51,12 +51,7 @@ class Viessmann extends utils.Adapter {
 	 */
 	async onReady() {
 		// Initialize your adapter here
-		try {
-			this.startAdapter();
-		}
-		catch (err) {
-			this.log.error(`[onReady] Startup error: ${err}`);
-		}
+		this.startAdapter();
 
 	}
 
