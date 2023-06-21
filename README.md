@@ -81,7 +81,8 @@ mit dem gewünschten *get* Wert beschrieben werden.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS** Fixed JS-Controller 5 issues
+### **WORK IN PROGRESS** 
+* (misanorot) Fixed JS-Controller 5 issues
 
 ### 1.4.3 (2023-03-21)
 * (misanorot) fixed reload xml issues
