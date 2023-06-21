@@ -99,15 +99,16 @@ class Viessmann extends utils.Adapter {
 		if (!this.config.datapoints.gets) this.readxml();
 		else if (this.config.new_read) {
 			this.log.info(`Start read new XML...`);
-			const obj = await this.getForeignObjectAsync('system.adapter.' + this.namespace);
-			if (!obj) {
-				this.log.warn(`No instance found! ${JSON.stringify(obj)}`);
-				return;
-			}
-			obj.native.datapoints = {};
-			await this.setForeignObjectAsync('system.adapter.' + this.namespace, obj);
-			this.log.info(`Try to read new XML files!`);
-			this.readxml();
+			this.getForeignObject('system.adapter.' + this.namespace, (err, obj) => {
+				if (!obj || err) {
+					this.log.warn(`No instance found! ${JSON.stringify(obj)}`);
+					return;
+				}
+				obj.native.datapoints = {};
+				this.setForeignObject('system.adapter.' + this.namespace, obj);
+				this.log.info(`Try to read new XML files!`);
+				this.readxml();
+			});
 		} else this.main();
 	}
 
