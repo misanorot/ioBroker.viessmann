@@ -51,7 +51,7 @@ class Viessmann extends utils.Adapter {
 	 */
 	async onReady() {
 		// Initialize your adapter here
-		this.startAdapter();
+		this.start();
 
 	}
 
@@ -95,7 +95,7 @@ class Viessmann extends utils.Adapter {
 	//##############################################################################################
 	// is called when databases are connected and adapter received configuration.
 	// start here!
-	async startAdapter() {
+	async start() {
 		if (!this.config.datapoints.gets) this.readxml();
 		else if (this.config.new_read) {
 			this.log.info(`Start read new XML...`);
@@ -113,7 +113,7 @@ class Viessmann extends utils.Adapter {
 
 	//##########IMPORT XML FILE##################################################################################
 
-	async readxml() {
+	readxml() {
 		this.log.debug('try to read xml files');
 		if (this.config.ip === '127.0.0.1') {
 			this.vcontrold_read(this.config.path + '/vcontrold.xml');
@@ -169,7 +169,7 @@ class Viessmann extends utils.Adapter {
 		}
 	}
 
-	async vcontrold_read(path) {
+	vcontrold_read(path) {
 		fs.readFile(path, 'utf8', (err, data) => {
 			if (err) {
 				this.log.warn('cannot read vcontrold.xml ' + err);
@@ -225,7 +225,7 @@ class Viessmann extends utils.Adapter {
 		});
 	}
 
-	async vito_read(units, types) {
+	vito_read(units, types) {
 		const path_ssh = __dirname + '/vito.xml';
 		const path_host = this.config.path + '/vito.xml';
 		let path = '';
@@ -247,8 +247,8 @@ class Viessmann extends utils.Adapter {
 						try {
 							let temp = JSON.stringify(result);
 							temp = JSON.parse(temp);
-							const dp = await this.getImport(temp, units, types);
-							await this.extendForeignObjectAsync('system.adapter.' + this.namespace, { native: { datapoints: dp, new_read: false } });
+							const dp = this.getImport(temp, units, types);
+							this.extendForeignObject('system.adapter.' + this.namespace, { native: { datapoints: dp, new_read: false } });
 							this.log.info('read vito.xml successfull');
 							this.main();
 						}
@@ -264,7 +264,7 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######IMPORT STATES########################################################################################
-	async getImport(json, units, types) {
+	getImport(json, units, types) {
 		datapoints['gets'] = {};
 		datapoints['sets'] = {};
 		datapoints['system'] = {};
@@ -368,8 +368,8 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######SET STATES###########################################################################################
-	async addState(pfad, name, unit, beschreibung, type, write, callback) {
-		await this.setObjectNotExistsAsync(pfad + name, {
+	addState(pfad, name, unit, beschreibung, type, write, callback) {
+		this.setObjectNotExists(pfad + name, {
 			'type': 'state',
 			'common': {
 				'name': name,
@@ -576,11 +576,11 @@ class Viessmann extends utils.Adapter {
 	//###########################################################################################################
 
 	//######MAIN#################################################################################################
-	async main() {
+	main() {
 		// set connection status to false
 
-		this.setStateAsync('info.timeout_connection', false, true);
-		this.setStateAsync('info.connection', false, true, true);
+		this.setState('info.timeout_connection', false, true);
+		this.setState('info.connection', false, true, true);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 		toPoll = {};
