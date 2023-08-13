@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.4",
+    "version": "1.4.5",
     "news": {
+      "1.4.5": {
+        "en": "fixed issue #135",
+        "de": "feste ausgabe #135",
+        "ru": "фиксированный номер #135",
+        "pt": "problema fixo #135",
+        "nl": "vertaling:",
+        "fr": "question fixe #135",
+        "it": "numero fisso #135",
+        "es": "número fijo #135",
+        "pl": "numer 135",
+        "uk": "виправлено проблему #135",
+        "zh-cn": "第135号固定问题"
+      },
       "1.4.4": {
         "en": "Fixed JS-Controller 5 issues",
         "de": "Fixed JS-Controller 5 Ausgaben",
