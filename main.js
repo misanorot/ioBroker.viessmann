@@ -579,8 +579,8 @@ class Viessmann extends utils.Adapter {
 	async main() {
 		// set connection status to false
 
-		this.setStateAsync('info.timeout_connection', false, true);
-		this.setStateAsync('info.connection', false, true);
+		this.setState('info.timeout_connection', false, true);
+		this.setState('info.connection', false, true);
 		// The adapters config (in the instance object everything under the attribute "native") is accessible via
 		// this.config:
 		toPoll = {};
