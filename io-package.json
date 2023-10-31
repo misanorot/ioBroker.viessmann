@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.5",
+    "version": "1.4.6",
     "news": {
+      "1.4.6": {
+        "en": "fixed open connection after unload",
+        "de": "feste offene verbindung nach entladen",
+        "ru": "фиксированное открытое соединение после разгрузки",
+        "pt": "conexão aberta fixa após descarga",
+        "nl": "een open verbinding na ontlading",
+        "fr": "connexion fixe ouverte après décharge",
+        "it": "connessione aperta fissa dopo scarico",
+        "es": "conexión abierta fija después de la descarga",
+        "pl": "stałe połączenia otwarte po wyjściu",
+        "uk": "фіксованого відкритого з'єднання після перевантаження",
+        "zh-cn": "在卸货之后的固定开放联系"
+      },
       "1.4.5": {
         "en": "fixed issue #135",
         "de": "feste ausgabe #135",
