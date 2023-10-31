@@ -61,6 +61,9 @@ class Viessmann extends utils.Adapter {
 	 */
 	onUnload(callback) {
 		try {
+			this.setState('info.connection', false, true);
+			client.end();
+			client.destroy(); // kill client after server's response
 			// Here you must clear all timeouts or intervals that may still be active
 			clearTimeout(timerWait);
 			clearTimeout(timerErr);

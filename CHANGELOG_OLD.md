@@ -1,5 +1,14 @@
 # Older changes
 
+### 1.4.3 (2023-03-21)
+* (misanorot) fixed reload xml issues
+
+### 1.4.2 (2022-12-26)
+* (misanorot) update files 
+* (misanorot) translate states 
+
+#### 1.3.6 (12.04.2022)
+* (misanorot) fixed ssh errors
 #### 1.3.5 (08.02.2022)
 * (misanorot) fixed ack issues
 
