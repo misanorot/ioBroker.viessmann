@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.6",
+    "version": "1.4.7",
     "news": {
+      "1.4.7": {
+        "en": "fixed issue #164",
+        "de": "feste ausgabe #164",
+        "ru": "#164",
+        "pt": "problema fixo #164",
+        "nl": "vast probleem #164",
+        "fr": "numéro fixe #164",
+        "it": "numero fisso #164",
+        "es": "número fijo #164",
+        "pl": "stała emisja # 164",
+        "uk": "виправлено проблему #164",
+        "zh-cn": "164号固定版"
+      },
       "1.4.6": {
         "en": "fixed open connection after unload",
         "de": "feste offene verbindung nach entladen",

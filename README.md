@@ -32,7 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.4.7 (2024-01-13)
 * (misanorot) fixed issue #164
 
 ### 1.4.6 (2023-10-31)
