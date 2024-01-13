@@ -576,6 +576,18 @@ class Viessmann extends utils.Adapter {
 			return number;
 		}
 	}
+
+	connectSystem() {
+
+		const ip = this.config.ip;
+		const port = this.config.port || 3002;
+		const time_out = 120000;
+
+		client = null;
+		client = new net.Socket();
+		client.setTimeout(time_out);
+		client.connect(port, ip);
+	}
 	//###########################################################################################################
 
 	//######MAIN#################################################################################################
@@ -586,24 +598,21 @@ class Viessmann extends utils.Adapter {
 
 		toPoll = {};
 		setcommands = [];
-		client = null;
-		client = new net.Socket();
 
-		const ip = this.config.ip;
-		const port = this.config.port || 3002;
 		const answer = this.config.answer;
 		const time_reconnect = this.config.reconnect;
-		const time_out = 120000;
-		let err_count = 0;
 		let time_reconnect_type = Number(time_reconnect);
-
 		time_reconnect_type = typeof time_reconnect_type;
+
+		let err_count = 0;
+
 		clearTimeout(timerErr);
 		clearTimeout(timerReconnect);
 		this.setAllObjects(() => {
 		});
-		client.setTimeout(time_out);
-		client.connect(port, ip);
+
+		this.connectSystem();
+
 		client.on('close', () => {
 			this.setState('info.connection', false, true, (err) => {
 				if (err) this.log.error(err);
@@ -614,7 +623,6 @@ class Viessmann extends utils.Adapter {
 
 		client.on('ready', () => {
 			this.setState('info.connection', true, true, (err) => {
-
 				if (err) this.log.error(err);
 			});
 			this.log.info('Connect with Viessmann sytem!');
@@ -645,8 +653,7 @@ class Viessmann extends utils.Adapter {
 					timerErr = setTimeout(() => {
 						this.clearTimeout(timerErr);
 						timerErr = null;
-						client.setTimeout(time_out);
-						client.connect(port, ip);
+						this.connectSystem();
 						this.log.info(`Try to reconnect the connection...`);
 					}, 10000);
 				} else {
@@ -702,8 +709,7 @@ class Viessmann extends utils.Adapter {
 			}
 			if (time_reconnect != '' && time_reconnect_type == 'number') {
 				timerReconnect = setTimeout(() => {
-					client.setTimeout(time_out);
-					client.connect(port, ip);
+					this.connectSystem();
 					this.log.info(`Try to reconnect the connection...`);
 				}, time_reconnect * 60000);
 			} else {
@@ -724,8 +730,7 @@ class Viessmann extends utils.Adapter {
 			}
 			if (time_reconnect != '' && time_reconnect_type == 'number') {
 				timerReconnect = setTimeout(() => {
-					client.setTimeout(time_out);
-					client.connect(port, ip);
+					this.connectSystem();
 					this.log.info(`Try to reconnect the connection...`);
 				}, time_reconnect * 60000);
 			} else {
