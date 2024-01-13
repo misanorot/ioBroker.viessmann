@@ -648,7 +648,7 @@ class Viessmann extends utils.Adapter {
 					this.setState('info.connection', false, true);
 					this.log.warn('Vctrld send too many errors, restart connection!');
 					client.end();
-					client.destroy();
+					//client.destroy();
 					clearTimeout(timerWait);
 					timerWait = null;
 					timerErr = setTimeout(() => {
@@ -703,7 +703,7 @@ class Viessmann extends utils.Adapter {
 			this.setState('info.connection', false, true);
 			this.log.warn('Connection error--> ' + e);
 			client.end();
-			client.destroy(); // kill client after server's response
+			//client.destroy(); // kill client after server's response
 			if (timerReconnect) {
 				clearTimeout(timerReconnect);
 				timerReconnect = null;
@@ -722,7 +722,7 @@ class Viessmann extends utils.Adapter {
 			this.log.warn('Timeout connection error!');
 			this.setState('info.timeout_connection', true, true);
 			client.end();
-			client.destroy(); // kill client after server's response
+			//client.destroy(); // kill client after server's response
 			clearTimeout(timerWait);
 			timerWait = null;
 			if (timerTimeout) {
