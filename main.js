@@ -24,7 +24,7 @@ let setcommands = [];
 //helpers for timeout
 let timerWait = null;
 let timerErr = null;
-const timerTimeout = null;
+let timerTimeout = null;
 let timerReconnect = null;
 
 let client = null;
@@ -580,12 +580,10 @@ class Viessmann extends utils.Adapter {
 
 	//######MAIN#################################################################################################
 	async main() {
-		// set connection status to false
 
 		this.setState('info.timeout_connection', false, true);
 		this.setState('info.connection', false, true);
-		// The adapters config (in the instance object everything under the attribute "native") is accessible via
-		// this.config:
+
 		toPoll = {};
 		setcommands = [];
 		client = null;
@@ -605,14 +603,13 @@ class Viessmann extends utils.Adapter {
 		this.setAllObjects(() => {
 		});
 		client.setTimeout(time_out);
-		client.connect(port, ip, () => {
-		});
+		client.connect(port, ip);
 		client.on('close', () => {
 			this.setState('info.connection', false, true, (err) => {
 				if (err) this.log.error(err);
 			});
 			this.log.info('Connection with Viessmann system disconnected!');
-			client.destroy(); // kill client after server's response
+			client.destroy();
 		});
 
 		client.on('ready', () => {
@@ -642,9 +639,16 @@ class Viessmann extends utils.Adapter {
 					this.setState('info.connection', false, true);
 					this.log.warn('Vctrld send too many errors, restart connection!');
 					client.end();
-					client.destroy(); // kill client after server's response
+					client.destroy();
 					clearTimeout(timerWait);
-					timerErr = setTimeout(this.main, 10000);
+					timerWait = null;
+					timerErr = setTimeout(() => {
+						this.clearTimeout(timerErr);
+						timerErr = null;
+						client.setTimeout(time_out);
+						client.connect(port, ip);
+						this.log.info(`Try to reconnect the connection...`);
+					}, 10000);
 				} else {
 					this.stepPolling();
 				}
@@ -689,26 +693,41 @@ class Viessmann extends utils.Adapter {
 		});
 		client.on('error', (e) => {
 			this.setState('info.connection', false, true);
-			this.log.error('Connection error--> ' + e);
+			this.log.warn('Connection error--> ' + e);
 			client.end();
 			client.destroy(); // kill client after server's response
-			if (timerReconnect) { clearTimeout(timerReconnect); }
+			if (timerReconnect) {
+				clearTimeout(timerReconnect);
+				timerReconnect = null;
+			}
 			if (time_reconnect != '' && time_reconnect_type == 'number') {
-				timerReconnect = setTimeout(this.main, time_reconnect * 60000);
+				timerReconnect = setTimeout(() => {
+					client.setTimeout(time_out);
+					client.connect(port, ip);
+					this.log.info(`Try to reconnect the connection...`);
+				}, time_reconnect * 60000);
 			} else {
 				this.log.warn('Reconnect time is wrong');
 			}
 		});
 		client.on('timeout', () => {
 			this.setState('info.connection', false, true);
-			this.log.error('Timeout connection error!');
+			this.log.warn('Timeout connection error!');
 			this.setState('info.timeout_connection', true, true);
 			client.end();
 			client.destroy(); // kill client after server's response
 			clearTimeout(timerWait);
-			if (timerTimeout) { clearTimeout(timerTimeout); }
+			timerWait = null;
+			if (timerTimeout) {
+				clearTimeout(timerTimeout);
+				timerTimeout = null;
+			}
 			if (time_reconnect != '' && time_reconnect_type == 'number') {
-				timerReconnect = setTimeout(this.main, time_reconnect * 60000);
+				timerReconnect = setTimeout(() => {
+					client.setTimeout(time_out);
+					client.connect(port, ip);
+					this.log.info(`Try to reconnect the connection...`);
+				}, time_reconnect * 60000);
 			} else {
 				this.log.warn('Reconnect time is wrong');
 			}
