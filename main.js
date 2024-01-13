@@ -583,6 +583,7 @@ class Viessmann extends utils.Adapter {
 		const port = this.config.port || 3002;
 		const time_out = 120000;
 
+		if (client) client.destroy();
 		client = null;
 		client = new net.Socket();
 		client.setTimeout(time_out);
