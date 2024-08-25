@@ -24,31 +24,31 @@
   "dependencies": {
     "xml2js": "^0.6.2",
     "ssh2": "^1.15.0",
-    "@iobroker/adapter-core": "^3.0.6"
+    "@iobroker/adapter-core": "^3.1.6"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.7.0",
-    "@alcalzone/release-script-plugin-iobroker": "^3.7.0",
+    "@alcalzone/release-script": "^3.8.0",
+    "@alcalzone/release-script-plugin-iobroker": "^3.7.2",
     "@alcalzone/release-script-plugin-license": "^3.7.0",
     "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
     "@iobroker/adapter-dev": "^1.3.0",
-    "@iobroker/testing": "^4.1.1",
+    "@iobroker/testing": "^4.1.3",
     "@tsconfig/node16": "^16.1.3",
     "@types/chai": "^4.3.5",
     "@types/chai-as-promised": "^7.1.8",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.11.27",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "^20.13.0",
     "@types/proxyquire": "^1.3.31",
     "@types/sinon": "^17.0.3",
     "@types/sinon-chai": "^3.2.12",
     "chai": "^4.4.1",
-    "chai-as-promised": "^7.1.1",
+    "chai-as-promised": "^8.0.0",
     "eslint": "^8.57.0",
-    "mocha": "^10.4.0",
+    "mocha": "^10.5.2",
     "proxyquire": "^2.1.3",
-    "sinon": "^17.0.1",
+    "sinon": "^18.0.0",
     "sinon-chai": "^3.7.0",
-    "typescript": "~5.4.3"
+    "typescript": "~5.5.4"
   },
   "main": "main.js",
   "files": [
