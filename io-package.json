@@ -128,7 +128,6 @@
     "authors": [
       "misanorot <audi16v@gmx.de>"
     ],
-    "materialize": true,
     "tier": 3,
     "compact": false,
     "connectionType": "local",
