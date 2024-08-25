@@ -749,6 +749,7 @@ class Viessmann extends utils.Adapter {
 		try {
 			const force_step = id.slice(3);
 			toPoll[force_step].lastPoll = 0;
+			this.stepPolling();
 		} catch (e) {
 			this.log.warn(`Force polling interval: ${id} not incude in get states`);
 		}
