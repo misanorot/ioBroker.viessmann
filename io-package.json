@@ -95,7 +95,6 @@
         "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
       }
     },
-    "title": "viessmann",
     "titleLang": {
       "en": "connect viessmann systems over vcontrold",
       "de": "viessmann systeme über vcontroled verbinden",
@@ -122,11 +121,12 @@
       "uk": "Зв'язок з контролерами Viessmann над Vcontrold",
       "zh-cn": "与V控制的Vusmann管制器的通信"
     },
-    "license": "MIT",
+    "licenseInformation": "MIT",
     "authors": [
       "misanorot <audi16v@gmx.de>"
     ],
     "materialize": true,
+    "tier": 3,
     "compact": false,
     "connectionType": "local",
     "dataSource": "poll",
@@ -149,7 +149,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.3.22"
+        "js-controller": ">=5.0.19"
       }
     ],
     "globalDependencies": [

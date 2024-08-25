@@ -11,14 +11,15 @@
   "keywords": [
     "viessmann",
     "heating",
-    "vcontrol"
+    "vcontrol",
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:misanorot/ioBroker.viessmann.git"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
   },
   "dependencies": {
     "xml2js": "^0.6.2",
