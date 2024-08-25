@@ -121,7 +121,10 @@
       "uk": "Зв'язок з контролерами Viessmann над Vcontrold",
       "zh-cn": "与V控制的Vusmann管制器的通信"
     },
-    "licenseInformation": "MIT",
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "authors": [
       "misanorot <audi16v@gmx.de>"
     ],
