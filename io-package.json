@@ -158,6 +158,14 @@
       {
         "admin": ">=5.0.0"
       }
+    ],
+    "protectedNative": [
+      "password",
+      "user_name"
+    ],
+    "encryptedNative": [
+      "password",
+      "user_name"
     ]
   },
   "native": {
