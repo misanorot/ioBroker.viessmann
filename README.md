@@ -32,6 +32,11 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) updated iob checker issues
+* (misanorot) fixed issue #211
+
 ### 1.4.7 (2024-01-13)
 * (misanorot) fixed issue #164
 
