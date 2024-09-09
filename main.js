@@ -26,6 +26,7 @@ let timerWait = null;
 let timerErr = null;
 let timerTimeout = null;
 let timerReconnect = null;
+let wait = false;
 
 const client = new net.Socket();
 const parser = new xml2js.Parser();
@@ -466,6 +467,10 @@ class Viessmann extends utils.Adapter {
 
 	//######POLLING##############################################################################################
 	stepPolling() {
+		if (wait) {
+			this.log.warn(`Wait for feedback from Vcontrold...`);
+			return;
+		}
 		clearTimeout(timerWait);
 		step = -1;
 		let actualMinWaitTime = 1000000;
@@ -511,6 +516,7 @@ class Viessmann extends utils.Adapter {
 			this.log.debug('Next poll: ' + toPoll[step].command + '  (For Object: ' + step + ')');
 			toPoll[step].lastPoll = Date.now();
 			client.write(toPoll[step].command + '\n');
+			wait = true;
 		}
 	}
 	//###########################################################################################################
@@ -586,6 +592,7 @@ class Viessmann extends utils.Adapter {
 		this.log.info(`Connecting...`);
 		client.setTimeout(time_out);
 		client.connect(port, ip);
+		wait = false;
 	}
 	//###########################################################################################################
 
@@ -637,6 +644,7 @@ class Viessmann extends utils.Adapter {
 
 			if (ok.test(data)) {
 				this.log.debug('Send command okay!');
+				wait = false;
 				this.stepPolling();
 			} else if (fail.test(data) && step !== 'heartbeat') {
 				this.log.warn('Vctrld send ERROR: ' + data);
@@ -655,6 +663,7 @@ class Viessmann extends utils.Adapter {
 						this.connectSystem();
 					}, 10000);
 				} else {
+					wait = false;
 					this.stepPolling();
 				}
 			} else if (data == 'vctrld>') {
@@ -662,10 +671,12 @@ class Viessmann extends utils.Adapter {
 			} else if (step == -1) {
 				return;
 			} else if (step == 'heartbeat') {
+				wait = false;
 				this.stepPolling();
 			} else if (step == '') {
 				return;
 			} else {
+				wait = false;
 				this.log.debug(`Received: ${data}`);
 				err_count = 0;
 				if (vctrld.test(data)) {
