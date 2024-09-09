@@ -1,6 +1,6 @@
 {
   "name": "iobroker.viessmann",
-  "version": "1.4.8",
+  "version": "1.4.9",
   "description": "Connect a viessmann heating system over vcontrold",
   "author": {
     "name": "misanorot",

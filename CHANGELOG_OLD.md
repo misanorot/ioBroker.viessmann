@@ -68,3 +68,7 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.4.4 (2023-06-21) 
+* (misanorot) Fixed JS-Controller 5 issues
+
+**[older changelogs](CHANGELOG_OLD.md)**

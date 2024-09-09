@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.8",
+    "version": "1.4.9",
     "news": {
+      "1.4.9": {
+        "en": "fixed issue #211",
+        "de": "feste ausgabe #211",
+        "ru": "#211",
+        "pt": "problema fixo #211",
+        "nl": "vast nummer #211",
+        "fr": "émission fixe #211",
+        "it": "numero fisso #211",
+        "es": "número fijo #211",
+        "pl": "stała emisja # 211",
+        "uk": "виправлений номер #211",
+        "zh-cn": "211号固定版"
+      },
       "1.4.8": {
         "en": "updated iob checker issues\nfixed issue #211",
         "de": "aktualisierte iob checker probleme\nfeste ausgabe #211",
@@ -80,19 +93,6 @@
         "pl": "reload xml",
         "uk": "виправлені проблеми перевантаження xml",
         "zh-cn": "b. 固定重载的xml问题"
-      },
-      "1.4.2": {
-        "en": "* update files \n* translate states \n\n\n#### 1.3.6 (12.04.2022)\n* fixed ssh errors",
-        "de": "* dateien aktualisieren\n* übersetzen staaten\n\n\n1.3.6 (12.04.2022)\n* feste ssh fehler",
-        "ru": "* обновление файлов\n* перевести государства\n\n\n#### 1.3.6 (12.04.2022)\n* исправлены ошибки ssh",
-        "pt": "* arquivos de atualização\n* traduzir estados\n\n\n### 1.3.6 (12.04.2022)\n* corrigido erros ssh",
-        "nl": "♪ update files ♪\nvertaling:\n\n\nQuality over Quantity (QoQ) Releases Vertaling:\n♪ fixed ssh foutors ♪",
-        "fr": "* mise à jour des fichiers\n* traduire les états\n\n\n### 1.3.6 (12.04.2022)\n* erreurs de ssh fixes",
-        "it": "* file di aggiornamento\n* tradurre stati\n\n\n#### 1.3.6 (12.04.2022)\n* errori di ssh fissi",
-        "es": "* archivos de actualización\n* estados de traducción\n\n\n#### 1.3.6 (12.04.2022)\n* errores ssh fijos",
-        "pl": "* update file\n* przetłumaczone stany\n\n\n#####1,3,6 (12.04.2022)\n* fixed ssh error",
-        "uk": "* оновлення файлів\n* перевести стани\n\n\n#### 1.3.6 (12.04.2022)\n* виправлені помилки",
-        "zh-cn": "* 更新档案\n* 译 注\n\n\n第1.3.6号行动(12.04.2022)\n* 固定错误"
       }
     },
     "titleLang": {
