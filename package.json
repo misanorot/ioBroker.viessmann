@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "xml2js": "^0.6.2",
-    "ssh2": "^1.15.0",
+    "ssh2": "^1.16.0",
     "@iobroker/adapter-core": "^3.1.6"
   },
   "devDependencies": {
