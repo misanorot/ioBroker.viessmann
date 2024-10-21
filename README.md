@@ -32,8 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.5.0 (2024-10-21)
 * (misanorot) fixed issue #235 Responsive
 
 ### 1.4.9 (2024-09-09)
@@ -48,9 +47,6 @@
 
 ### 1.4.6 (2023-10-31)
 * (misanorot) fixed open connection after unload
-
-### 1.4.5 (2023-08-13)
-* (misanorot) fixed issue #135
 
 ### License
 

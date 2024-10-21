@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.4.9",
+    "version": "1.5.0",
     "news": {
+      "1.5.0": {
+        "en": "fixed issue #235 Responsive",
+        "de": "feste Ausgabe #235 Antwort",
+        "ru": "#235 Реакция",
+        "pt": "problema fixo #235 Responsivo",
+        "nl": "vaste uitgave #235 Responsief",
+        "fr": "émission fixe #235 Réceptif",
+        "it": "numero fisso #235 Risposta",
+        "es": "número fijo #235 Responsabilidad",
+        "pl": "stała emisja # 235 Odpowiedź",
+        "uk": "виправлено проблему #235 Відповідальність",
+        "zh-cn": "固定版号235 响应"
+      },
       "1.4.9": {
         "en": "fixed issue #211",
         "de": "feste ausgabe #211",
@@ -80,19 +93,6 @@
         "pl": "JS-Controller 5 numerów",
         "uk": "Фіксований JS-Controller 5 питань",
         "zh-cn": "九. 固定的协会-企业管理员 问题5"
-      },
-      "1.4.3": {
-        "en": "fixed reload xml issues",
-        "de": "fixed reload xml probleme",
-        "ru": "фиксированная перезагрузка xml",
-        "pt": "problemas de xml de recarga fixa",
-        "nl": "vertaling:",
-        "fr": "décharge fixe xml problèmes",
-        "it": "problemi xml di ricarica",
-        "es": "recarga fija cuestiones xml",
-        "pl": "reload xml",
-        "uk": "виправлені проблеми перевантаження xml",
-        "zh-cn": "b. 固定重载的xml问题"
       }
     },
     "titleLang": {
