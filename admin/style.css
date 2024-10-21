@@ -70,3 +70,8 @@ label > i[title] {
 .m .page {
     height: calc(100% - 160px);
 }
+
+.read_red {
+	border: 1px solid rgba(241, 63, 50, 0.619);
+	border-radius: 5px;
+}

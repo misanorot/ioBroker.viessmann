@@ -228,37 +228,37 @@ function write() {
         <p class=" left translate">donat</p>
       </div>
     </div>
-      <div class="row center-align">
+      <div class="row">
         <div class="col s12">
         <!-- Modal Trigger -->
           <a class="spaceTop3em waves-effect waves-light btn modal-trigger translate" href="#modalinfo">System informations</a>
         </div>
       </div>
-			<div class="row center-align">
+			<div class="row">
 				<div class="col s12">
 					<div><h5 class="translate">options</h5></div>
 				</div>
 			</div>
 				<div class="row">
-					<div class="col s6 offset-s5">
+					<div class="col s12">
 						<input type="checkbox" id="answer" class="value" /><label  for="answer" class="translate">answer</label>
 					</div>
-					<div class="col s6 offset-s5">
+					<div class="col s12">
 						<input type="checkbox" id="states_only" class="value" /><label  for="states_only" class="translate">states_only</label>
 					</div>
-					<div class="col s6 offset-s5">
-						<input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">errors</label>
-					</div>
-				</div>
-        <div class="row">
-          <div class="col s3 offset-s5">
-            <input id="reconnect" type="text" class="timepicker value">
-            <label for="reconnect" class="translate">reconnect</label>
-          </div>
         </div>
+          <div class="row">
+            <div class="col s6 m4 l2">
+              <input type="checkbox" id="errors" class="value" /><label  for="errors" class="translate">errors</label>
+            </div>
+            <div class="col s16 m4 l2">
+              <input id="reconnect" type="text" class="timepicker value">
+              <label for="reconnect" class="translate">reconnect</label>
+            </div>
+          </div>
       <div class="row">
-        <div class="col s6 offset-s5">
-          <input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="translate">new_read</label>
+        <div class="col s12">
+            <input type="checkbox" id="new_read" class="value" /><label  for="new_read" class="read_red translate">new_read</label>
         </div>
       </div>
 	</div>
@@ -309,27 +309,27 @@ function write() {
 				<div class="row">
 					<form class="col s12">
 						<div class="row">
-							<div class="input-field col s3 offset-s3">
+							<div class="input-field col s12 m4 l2">
 								<input placeholder="192.168.2.11" id="ip" type="text" class="value">
 								<label for="ip" class="translate active">ip desc</label>
 							</div>
-							<div class="input-field col s3">
+							<div class="input-field col s12 m4 l2">
 								<input placeholder="3002" id="port" type="text" class="value">
 								<label for="port" class="translate active">port desc</label>
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field col s3 offset-s3">
+							<div class="input-field col s12 m4 l2">
 								<input placeholder="Placeholder" id="user_name" type="text" class="value validate">
 								<label for="user_name" class="translate active">user_name</label>
 							</div>
-							<div class="input-field col s3">
+							<div class="input-field col s12 m4 l2">
 								<input id="password" type="password" class="value validate">
 								<label for="password" class="translate active">password</label>
 							</div>
 						</div>
-						<div class="row">
-							<div class="input-field col s6 offset-s3">
+						<div class="row center-align">
+							<div class="input-field col s12 m4 l2">
 								<input placeholder="/etc/vcontrold/vito.xml" id="path" type="text" class="value">
 								<label for="path" class="translate active">path</label>
 							</div>

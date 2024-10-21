@@ -32,6 +32,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) fixed issue #235 Responsive
+
 ### 1.4.9 (2024-09-09)
 * (misanorot) fixed issue #211
 
