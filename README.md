@@ -32,6 +32,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed issue #245 ESlint
+
 ### 1.5.0 (2024-10-21)
 * (misanorot) fixed issue #235 Responsive
 
