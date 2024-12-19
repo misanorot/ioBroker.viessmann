@@ -30,9 +30,10 @@
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
-    ### **WORK IN PROGRESS**
+    
 -->
-### 1.5.1 (2024-12-18)
+
+### **WORK IN PROGRESS**
 * (misanorot) fixed issue #245 ESlint
 
 ### 1.5.0 (2024-10-21)

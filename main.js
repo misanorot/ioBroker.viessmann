@@ -30,6 +30,9 @@ let wait = false;
 const client = new net.Socket();
 const parser = new xml2js.Parser();
 
+//development herlpers
+const log_catch_err = false;
+
 class Viessmann extends utils.Adapter {
     /**
      * @param [options]
@@ -288,14 +291,18 @@ class Viessmann extends utils.Adapter {
                     try {
                         obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit;
                     } catch (e) {
-                        this.log.error(e);
-                        obj_get.unit = '';
+                        if (log_catch_err) {
+                            this.log.error(e);
+                            obj_get.unit = '';
+                        }
                     }
                     try {
                         obj_get.type = this.get_type(types[json.vito.commands[0].command[i].unit[0]].type);
                     } catch (e) {
-                        this.log.error(e);
-                        obj_get.type = 'mixed';
+                        if (log_catch_err) {
+                            this.log.error(e);
+                            obj_get.type = 'mixed';
+                        }
                     }
                     obj_get.description = desc;
                     obj_get.polling = poll;
@@ -311,8 +318,10 @@ class Viessmann extends utils.Adapter {
                     try {
                         obj_set.type = this.get_type(types[json.vito.commands[0].command[i].unit[0]].type);
                     } catch (e) {
-                        this.log.error(e);
-                        obj_set.type = 'mixed';
+                        if (log_catch_err) {
+                            this.log.error(e);
+                            obj_set.type = 'mixed';
+                        }
                     }
                     obj_set.command = get_command;
                     datapoints.sets[get_command.substring(3, get_command.length)] = obj_set;
@@ -740,13 +749,15 @@ class Viessmann extends utils.Adapter {
                         });
                     }
                 } catch (e) {
-                    this.log.error(e);
-                    this.setState(`get.${toPoll[step].name}`, data, true, err => {
-                        if (err) {
-                            this.log.error(err);
-                        }
-                        this.stepPolling();
-                    });
+                    if (log_catch_err) {
+                        this.log.error(e);
+                        this.setState(`get.${toPoll[step].name}`, data, true, err => {
+                            if (err) {
+                                this.log.error(err);
+                            }
+                            this.stepPolling();
+                        });
+                    }
                 }
                 err_count = 0;
             }
