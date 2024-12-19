@@ -293,16 +293,18 @@ class Viessmann extends utils.Adapter {
                     } catch (e) {
                         if (log_catch_err) {
                             this.log.error(e);
-                            obj_get.unit = '';
                         }
+                        this.log.error(e);
+                        obj_get.unit = '';
                     }
                     try {
                         obj_get.type = this.get_type(types[json.vito.commands[0].command[i].unit[0]].type);
                     } catch (e) {
                         if (log_catch_err) {
                             this.log.error(e);
-                            obj_get.type = 'mixed';
                         }
+                        this.log.error(e);
+                        obj_get.type = 'mixed';
                     }
                     obj_get.description = desc;
                     obj_get.polling = poll;
@@ -320,8 +322,9 @@ class Viessmann extends utils.Adapter {
                     } catch (e) {
                         if (log_catch_err) {
                             this.log.error(e);
-                            obj_set.type = 'mixed';
                         }
+                        this.log.error(e);
+                        obj_set.type = 'mixed';
                     }
                     obj_set.command = get_command;
                     datapoints.sets[get_command.substring(3, get_command.length)] = obj_set;
@@ -751,13 +754,13 @@ class Viessmann extends utils.Adapter {
                 } catch (e) {
                     if (log_catch_err) {
                         this.log.error(e);
-                        this.setState(`get.${toPoll[step].name}`, data, true, err => {
-                            if (err) {
-                                this.log.error(err);
-                            }
-                            this.stepPolling();
-                        });
                     }
+                    this.setState(`get.${toPoll[step].name}`, data, true, err => {
+                        if (err) {
+                            this.log.error(err);
+                        }
+                        this.stepPolling();
+                    });
                 }
                 err_count = 0;
             }
