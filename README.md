@@ -32,8 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     
 -->
-
-### **WORK IN PROGRESS**
+### 1.5.2 (2024-12-19)
 * (misanorot) fixed issue #245 ESlint
 
 ### 1.5.0 (2024-10-21)
