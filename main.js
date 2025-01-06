@@ -529,6 +529,7 @@ class Viessmann extends utils.Adapter {
             const cmd = setcommands.shift();
             this.log.debug(`Set command: ${cmd}`);
             client.write(`${cmd}\n`);
+            wait = true;
             return;
         }
 
