@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.4.7 (2024-01-13)
+* (misanorot) fixed issue #164
+
 ## 1.4.6 (2023-10-31)
 * (misanorot) fixed open connection after unload
 

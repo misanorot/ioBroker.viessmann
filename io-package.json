@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "news": {
+      "1.5.4": {
+        "en": "protect password",
+        "de": "schützen passwort",
+        "ru": "защитить пароль",
+        "pt": "proteger a senha",
+        "nl": "wachtwoord beschermen",
+        "fr": "protéger le mot de passe",
+        "it": "proteggere la password",
+        "es": "proteger contraseña",
+        "pl": "ochrona hasła",
+        "uk": "захист пароля",
+        "zh-cn": "保护密码"
+      },
       "1.5.3": {
         "en": "fixed issue #245 ESlint",
         "de": "feste Ausgabe #245 ESlint",
@@ -134,14 +147,14 @@
       }
     ]
   },
-"protectedNative": [
-  "password",
-  "user_name"
-],
-"encryptedNative": [
-  "password",
-  "user_name"
-],
+  "protectedNative": [
+    "password",
+    "user_name"
+  ],
+  "encryptedNative": [
+    "password",
+    "user_name"
+  ],
   "native": {
     "datapoints": {},
     "ip": "127.0.0.1",
