@@ -32,6 +32,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) protect password
+
 ### 1.5.3 (2024-12-19)
 * (misanorot) fixed issue #245 ESlint
 

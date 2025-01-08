@@ -16,32 +16,6 @@
         "uk": "виправлено проблему #245 ESlint",
         "zh-cn": "245 ESlint号固定版"
       },
-      "1.5.2": {
-        "en": "fixed issue #245 ESlint",
-        "de": "feste Ausgabe #245 ESlint",
-        "ru": "#245 ESlint",
-        "pt": "problema fixo #245 ESlint",
-        "nl": "vast nummer #245 ESlint",
-        "fr": "émission fixe #245 ESlint",
-        "it": "numero fisso #245 ESlint",
-        "es": "edición fija #245 ESlint",
-        "pl": "stałe wydanie # 245 ESlint",
-        "uk": "виправлено проблему #245 ESlint",
-        "zh-cn": "245 ESlint号固定版"
-      },
-      "1.5.1": {
-        "en": "fixed issue #245 ESlint",
-        "de": "feste Ausgabe #245 ESlint",
-        "ru": "#245 ESlint",
-        "pt": "problema fixo #245 ESlint",
-        "nl": "vast nummer #245 ESlint",
-        "fr": "émission fixe #245 ESlint",
-        "it": "numero fisso #245 ESlint",
-        "es": "edición fija #245 ESlint",
-        "pl": "stałe wydanie # 245 ESlint",
-        "uk": "виправлено проблему #245 ESlint",
-        "zh-cn": "245 ESlint号固定版"
-      },
       "1.5.0": {
         "en": "fixed issue #235 Responsive",
         "de": "feste Ausgabe #235 Antwort",
@@ -158,16 +132,16 @@
       {
         "admin": ">=5.0.0"
       }
-    ],
-    "protectedNative": [
-      "password",
-      "user_name"
-    ],
-    "encryptedNative": [
-      "password",
-      "user_name"
     ]
   },
+"protectedNative": [
+  "password",
+  "user_name"
+],
+"encryptedNative": [
+  "password",
+  "user_name"
+],
   "native": {
     "datapoints": {},
     "ip": "127.0.0.1",
