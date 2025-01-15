@@ -22,8 +22,6 @@ let setcommands = [];
 
 //helpers for timeout
 let timerWait = null;
-let timerErr = null;
-let timerTimeout = null;
 let timerReconnect = null;
 let wait = false;
 
@@ -67,8 +65,6 @@ class Viessmann extends utils.Adapter {
             client.destroy(); // kill client after server's response
             // Here you must clear all timeouts or intervals that may still be active
             clearTimeout(timerWait);
-            clearTimeout(timerErr);
-            clearTimeout(timerTimeout);
             clearTimeout(timerReconnect);
             this.log.info('cleaned everything up...');
             callback();
@@ -657,7 +653,6 @@ class Viessmann extends utils.Adapter {
 
         let err_count = 0;
 
-        clearTimeout(timerErr);
         clearTimeout(timerReconnect);
         this.setAllObjects();
 
