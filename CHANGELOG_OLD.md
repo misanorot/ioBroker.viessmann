@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.4.9 (2024-09-09)
+* (misanorot) fixed issue #211
+
 ## 1.4.8 (2024-09-01)
 * (misanorot) updated iob checker issues
 * (misanorot) fixed issue #211

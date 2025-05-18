@@ -32,7 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.7.0 (2025-05-18)
 * (ghecker1) optimize reconnect
 
 ### 1.6.0 (2025-05-03)
@@ -46,9 +46,6 @@
 
 ### 1.5.0 (2024-10-21)
 * (misanorot) fixed issue #235 Responsive
-
-### 1.4.9 (2024-09-09)
-* (misanorot) fixed issue #211
 
 ### License
 

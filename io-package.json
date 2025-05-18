@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "news": {
+      "1.7.0": {
+        "en": "optimize reconnect",
+        "de": "optimieren sie reconnect",
+        "ru": "оптимизировать соединение",
+        "pt": "otimizar a conexão",
+        "nl": "het optimaliseren van het opnieuw verbinden",
+        "fr": "optimiser la connexion",
+        "it": "ottimizzare la connessione",
+        "es": "optimización de la desconexión",
+        "pl": "optymalizacja ponownego połączenia",
+        "uk": "оптимізація підключення",
+        "zh-cn": "优化重联"
+      },
       "1.6.0": {
         "en": "node 20 require",
         "de": "knoten 20 erfordern",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane problemy z sprawdzaniem iob\nstała emisja # 211",
         "uk": "оновлені питання перевірки iob\nвиправлений номер #211",
         "zh-cn": "更新iob检查器问题\n211号固定版"
-      },
-      "1.4.7": {
-        "en": "fixed issue #164",
-        "de": "feste ausgabe #164",
-        "ru": "#164",
-        "pt": "problema fixo #164",
-        "nl": "vast probleem #164",
-        "fr": "numéro fixe #164",
-        "it": "numero fisso #164",
-        "es": "número fijo #164",
-        "pl": "stała emisja # 164",
-        "uk": "виправлено проблему #164",
-        "zh-cn": "164号固定版"
       }
     },
     "titleLang": {
