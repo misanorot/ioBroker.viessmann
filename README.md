@@ -32,7 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 1.7.0 (2025-05-18)
+### **WORK IN PROGRESS**
 * (ghecker1) optimize reconnect
 
 ### 1.6.0 (2025-05-03)
