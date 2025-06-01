@@ -640,19 +640,17 @@ class Viessmann extends utils.Adapter {
         wait = false;
     }
 
-    getReconnectTime()
-    {
+    getReconnectTime() {
         const reconnectDefault = 5;
         let reconnect = parseFloat(this.config.reconnect);
         if (isNaN(reconnect) || reconnect < 0.1) {
-             this.log.warn('Reconnect time configuration is not a number or <0.1. Using default setting.');
-             reconnect = reconnectDefault;
+            this.log.warn('Reconnect time configuration is not a number or <0.1. Using default setting.');
+            reconnect = reconnectDefault;
         }
         return reconnect * 60000;
     }
 
-    reconnectSystem(reconnect = null)
-    {
+    reconnectSystem(reconnect = null) {
         if (this.ready == false) {
             return;
         }
