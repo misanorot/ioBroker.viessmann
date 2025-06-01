@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.7.0",
+    "version": "1.7.1",
     "news": {
+      "1.7.1": {
+        "en": "optimize reconnect",
+        "de": "optimieren sie reconnect",
+        "ru": "оптимизировать соединение",
+        "pt": "otimizar a conexão",
+        "nl": "het optimaliseren van het opnieuw verbinden",
+        "fr": "optimiser la connexion",
+        "it": "ottimizzare la connessione",
+        "es": "optimización de la desconexión",
+        "pl": "optymalizacja ponownego połączenia",
+        "uk": "оптимізація підключення",
+        "zh-cn": "优化重联"
+      },
       "1.7.0": {
         "en": "optimize reconnect",
         "de": "optimieren sie reconnect",
@@ -80,19 +93,6 @@
         "pl": "stała emisja # 211",
         "uk": "виправлений номер #211",
         "zh-cn": "211号固定版"
-      },
-      "1.4.8": {
-        "en": "updated iob checker issues\nfixed issue #211",
-        "de": "aktualisierte iob checker probleme\nfeste ausgabe #211",
-        "ru": "обновленные вопросы проверки iob\n#211",
-        "pt": "problemas de verificação iob atualizados\nproblema fixo #211",
-        "nl": "bijgewerkte iob-checkerproblemen\nvast nummer #211",
-        "fr": "problèmes de vérification iob mis à jour\némission fixe #211",
-        "it": "aggiornato problemi di controllo iob\nnumero fisso #211",
-        "es": "actualizados problemas de comprobación de iob\nnúmero fijo #211",
-        "pl": "zaktualizowane problemy z sprawdzaniem iob\nstała emisja # 211",
-        "uk": "оновлені питання перевірки iob\nвиправлений номер #211",
-        "zh-cn": "更新iob检查器问题\n211号固定版"
       }
     },
     "titleLang": {
