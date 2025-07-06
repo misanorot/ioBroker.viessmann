@@ -16,19 +16,6 @@
         "uk": "оптимізація підключення",
         "zh-cn": "优化重联"
       },
-      "1.7.0": {
-        "en": "optimize reconnect",
-        "de": "optimieren sie reconnect",
-        "ru": "оптимизировать соединение",
-        "pt": "otimizar a conexão",
-        "nl": "het optimaliseren van het opnieuw verbinden",
-        "fr": "optimiser la connexion",
-        "it": "ottimizzare la connessione",
-        "es": "optimización de la desconexión",
-        "pl": "optymalizacja ponownego połączenia",
-        "uk": "оптимізація підключення",
-        "zh-cn": "优化重联"
-      },
       "1.6.0": {
         "en": "node 20 require",
         "de": "knoten 20 erfordern",
