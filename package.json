@@ -22,7 +22,7 @@
     "node": ">= 20"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.2.3",
+    "@iobroker/adapter-core": "^3.3.2",
     "ssh2": "^1.16.0",
     "xml2js": "^0.6.2"
   },
