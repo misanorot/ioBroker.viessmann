@@ -32,6 +32,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) update packages
+
 ### 1.7.1 (2025-06-01)
 * (ghecker1) optimize reconnect
 
