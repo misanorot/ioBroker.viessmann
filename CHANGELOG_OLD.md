@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.5.0 (2024-10-21)
+* (misanorot) fixed issue #235 Responsive
+
 ## 1.4.9 (2024-09-09)
 * (misanorot) fixed issue #211
 

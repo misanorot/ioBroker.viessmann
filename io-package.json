@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "news": {
+      "1.7.2": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "1.7.1": {
         "en": "optimize reconnect",
         "de": "optimieren sie reconnect",
