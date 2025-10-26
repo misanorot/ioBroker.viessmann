@@ -32,6 +32,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) update npm progress
+
 ### 1.7.2 (2025-10-12)
 * (misanorot) update packages
 
