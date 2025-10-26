@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.7.2",
+    "version": "1.7.3",
     "news": {
+      "1.7.3": {
+        "en": "update npm progress",
+        "de": "aktualisierung npm fortschritt",
+        "ru": "обновление npm",
+        "pt": "atualizar o progresso do npm",
+        "nl": "npm-voortgang bijwerken",
+        "fr": "mise à jour des progrès de npm",
+        "it": "aggiornamento npm",
+        "es": "actualización npm progreso",
+        "pl": "aktualizacja postępu npm",
+        "uk": "оновлення npm прогрес",
+        "zh-cn": "更新 npm 进度"
+      },
       "1.7.2": {
         "en": "update packages",
         "de": "update-pakete",
@@ -80,19 +93,6 @@
         "pl": "stała emisja # 235 Odpowiedź",
         "uk": "виправлено проблему #235 Відповідальність",
         "zh-cn": "固定版号235 响应"
-      },
-      "1.4.9": {
-        "en": "fixed issue #211",
-        "de": "feste ausgabe #211",
-        "ru": "#211",
-        "pt": "problema fixo #211",
-        "nl": "vast nummer #211",
-        "fr": "émission fixe #211",
-        "it": "numero fisso #211",
-        "es": "número fijo #211",
-        "pl": "stała emisja # 211",
-        "uk": "виправлений номер #211",
-        "zh-cn": "211号固定版"
       }
     },
     "titleLang": {

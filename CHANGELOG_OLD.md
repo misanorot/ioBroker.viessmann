@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.5.3 (2024-12-19)
+* (misanorot) fixed issue #245 ESlint
+
 ## 1.5.0 (2024-10-21)
 * (misanorot) fixed issue #235 Responsive
 
