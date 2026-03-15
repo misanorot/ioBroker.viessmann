@@ -55,4 +55,4 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2017-2025 misanorot <audi16v@gmx.de>
+Copyright (c) 2017-2026 misanorot <audi16v@gmx.de>
