@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.5.4 (2025-01-08)
+* (misanorot) protect password
+
 ## 1.5.3 (2024-12-19)
 * (misanorot) fixed issue #245 ESlint
 

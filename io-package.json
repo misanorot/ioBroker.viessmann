@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "viessmann",
-    "version": "1.7.3",
+    "version": "1.7.4",
     "news": {
+      "1.7.4": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "1.7.3": {
         "en": "update npm progress",
         "de": "aktualisierung npm fortschritt",
@@ -80,19 +93,6 @@
         "pl": "stałe wydanie # 245 ESlint",
         "uk": "виправлено проблему #245 ESlint",
         "zh-cn": "245 ESlint号固定版"
-      },
-      "1.5.0": {
-        "en": "fixed issue #235 Responsive",
-        "de": "feste Ausgabe #235 Antwort",
-        "ru": "#235 Реакция",
-        "pt": "problema fixo #235 Responsivo",
-        "nl": "vaste uitgave #235 Responsief",
-        "fr": "émission fixe #235 Réceptif",
-        "it": "numero fisso #235 Risposta",
-        "es": "número fijo #235 Responsabilidad",
-        "pl": "stała emisja # 235 Odpowiedź",
-        "uk": "виправлено проблему #235 Відповідальність",
-        "zh-cn": "固定版号235 响应"
       }
     },
     "titleLang": {
