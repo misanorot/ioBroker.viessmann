@@ -52,3 +52,5 @@
 The MIT License (MIT)
 
 Copyright (c) 2017-2026 misanorot <audi16v@gmx.de>
+
+[Older changelogs can be found there](CHANGELOG_OLD.md)
