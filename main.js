@@ -12,8 +12,6 @@ const xml2js = require('xml2js');
 const fs = require('fs');
 
 const { Client } = require('ssh2');
-//Hilfsobjekt zum abfragen der Werte
-const datapoints = {};
 let toPoll = {};
 //Zähler für Hilfsobjekt
 let step = -1;
@@ -33,7 +31,7 @@ const log_catch_err = false;
 
 class Viessmann extends utils.Adapter {
     /**
-     * @param [options]
+     * @param [options] options for the adapter
      */
     constructor(options) {
         super({
@@ -58,7 +56,7 @@ class Viessmann extends utils.Adapter {
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      *
-     * @param callback
+     * @param callback callback to execute when done
      */
     onUnload(callback) {
         try {
@@ -80,8 +78,8 @@ class Viessmann extends utils.Adapter {
     /**
      * Is called if a subscribed state changes
      *
-     * @param id
-     * @param state
+     * @param id id of the state
+     * @param state state object
      */
     onStateChange(id, state) {
         if (state) {
@@ -207,7 +205,9 @@ class Viessmann extends utils.Adapter {
                                 for (const i in root.units[0].unit) {
                                     const unit_raw = root.units[0].unit[i];
                                     const abbrev = unit_raw.abbrev && unit_raw.abbrev[0];
-                                    if (!abbrev) continue;
+                                    if (!abbrev) {
+                                        continue;
+                                    }
 
                                     if (unit_raw.entity) {
                                         units[abbrev] = { unit: unit_raw.entity[0] };
@@ -284,7 +284,7 @@ class Viessmann extends utils.Adapter {
         const dp = {
             gets: [],
             sets: [],
-            system: {}
+            system: {},
         };
 
         const vitoRoot = json.vito || json.Vito || json['v-control'] || json['V-Control'];
@@ -295,7 +295,12 @@ class Viessmann extends utils.Adapter {
         }
 
         try {
-            if (vitoRoot.devices && vitoRoot.devices[0] && vitoRoot.devices[0].device && vitoRoot.devices[0].device[0]) {
+            if (
+                vitoRoot.devices &&
+                vitoRoot.devices[0] &&
+                vitoRoot.devices[0].device &&
+                vitoRoot.devices[0].device[0]
+            ) {
                 const device = vitoRoot.devices[0].device[0];
                 dp.system['ID'] = device.$ ? device.$.ID : '';
                 dp.system['name'] = device.$ ? device.$.name : '';
@@ -305,19 +310,29 @@ class Viessmann extends utils.Adapter {
             this.log.warn(`Error reading device info: ${e}`);
         }
 
-        if (vitoRoot.commands && vitoRoot.commands[0] && vitoRoot.commands[0].command && Array.isArray(vitoRoot.commands[0].command)) {
+        if (
+            vitoRoot.commands &&
+            vitoRoot.commands[0] &&
+            vitoRoot.commands[0].command &&
+            Array.isArray(vitoRoot.commands[0].command)
+        ) {
             for (const i in vitoRoot.commands[0].command) {
                 const cmd_raw = vitoRoot.commands[0].command[i];
-                if (!cmd_raw.$ || !cmd_raw.$.name) continue;
+                if (!cmd_raw.$ || !cmd_raw.$.name) {
+                    continue;
+                }
 
                 const get_command = cmd_raw.$.name;
-                const desc = (cmd_raw.$ && cmd_raw.$.description) || (cmd_raw.description && cmd_raw.description[0]) || '';
+                const desc =
+                    (cmd_raw.$ && cmd_raw.$.description) || (cmd_raw.description && cmd_raw.description[0]) || '';
 
                 if (get_command.substring(0, 3) === 'get' && get_command.length > 3) {
                     let oldPolling = -1;
                     if (oldDatapoints && oldDatapoints.gets) {
                         if (Array.isArray(oldDatapoints.gets)) {
-                            const oldItem = oldDatapoints.gets.find(g => g.command === get_command || g.name === get_command.substring(3));
+                            const oldItem = oldDatapoints.gets.find(
+                                g => g.command === get_command || g.name === get_command.substring(3),
+                            );
                             if (oldItem && oldItem.polling !== undefined) {
                                 oldPolling = oldItem.polling;
                             }
@@ -335,7 +350,7 @@ class Viessmann extends utils.Adapter {
                         polling: oldPolling,
                         command: get_command,
                         unit: '',
-                        type: 'mixed'
+                        type: 'mixed',
                     };
 
                     try {
@@ -366,7 +381,7 @@ class Viessmann extends utils.Adapter {
                         description: desc,
                         polling: 'nicht möglich',
                         command: get_command,
-                        type: 'mixed'
+                        type: 'mixed',
                     };
 
                     try {
@@ -474,10 +489,7 @@ class Viessmann extends utils.Adapter {
             if (this.config) {
                 if (this.config.states_only) {
                     for (const i in this.config.gets) {
-                        if (
-                            this.config.gets[i].polling !== -1 &&
-                            this.config.gets[i].polling != '-1'
-                        ) {
+                        if (this.config.gets[i].polling !== -1 && this.config.gets[i].polling != '-1') {
                             configToAdd.push(this.config.gets[i].name);
                         }
                     }
@@ -871,7 +883,7 @@ class Viessmann extends utils.Adapter {
 if (require.main !== module) {
     // Export the constructor in compact mode
     /**
-     * @param [options]
+     * @param [options] options for the adapter
      */
     module.exports = options => new Viessmann(options);
 } else {

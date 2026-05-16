@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.6.0 (2025-05-03)
+* (misanorot) node 20 require
+
 ## 1.5.4 (2025-01-08)
 * (misanorot) protect password
 
