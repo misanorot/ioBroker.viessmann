@@ -112,9 +112,12 @@ class Viessmann extends utils.Adapter {
                     this.config.sets = obj.native.sets;
                 }
                 if (this.config.datapoints.system) {
-                    obj.native.system_ID = this.config.datapoints.system["-ID"] || this.config.datapoints.system.ID || "";
-                    obj.native.system_name = this.config.datapoints.system["-name"] || this.config.datapoints.system.name || "";
-                    obj.native.system_protocol = this.config.datapoints.system["-protocol"] || this.config.datapoints.system.protocol || "";
+                    obj.native.system_ID =
+                        this.config.datapoints.system['-ID'] || this.config.datapoints.system.ID || '';
+                    obj.native.system_name =
+                        this.config.datapoints.system['-name'] || this.config.datapoints.system.name || '';
+                    obj.native.system_protocol =
+                        this.config.datapoints.system['-protocol'] || this.config.datapoints.system.protocol || '';
                 }
                 delete obj.native.datapoints;
                 await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, obj);
