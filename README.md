@@ -32,7 +32,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 2.0.1 (2026-05-16)
+### **WORK IN PROGRESS**
 * (misanorot) change to JSON UI
 - (copilot) Adapter requires node.js >= 22 now
 
