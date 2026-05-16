@@ -99,7 +99,30 @@ class Viessmann extends utils.Adapter {
     // is called when databases are connected and adapter received configuration.
     // start here!
     async startAdapter() {
-        if (!this.config.gets) {
+        if (this.config.datapoints && Object.keys(this.config.datapoints).length > 0) {
+            this.log.info('Old configuration format found. Migrating to new format...');
+            const obj = await this.getForeignObjectAsync(`system.adapter.${this.namespace}`);
+            if (obj && obj.native) {
+                if (this.config.datapoints.gets) {
+                    obj.native.gets = Object.values(this.config.datapoints.gets);
+                    this.config.gets = obj.native.gets;
+                }
+                if (this.config.datapoints.sets) {
+                    obj.native.sets = Object.values(this.config.datapoints.sets);
+                    this.config.sets = obj.native.sets;
+                }
+                if (this.config.datapoints.system) {
+                    obj.native.system_ID = this.config.datapoints.system["-ID"] || this.config.datapoints.system.ID || "";
+                    obj.native.system_name = this.config.datapoints.system["-name"] || this.config.datapoints.system.name || "";
+                    obj.native.system_protocol = this.config.datapoints.system["-protocol"] || this.config.datapoints.system.protocol || "";
+                }
+                delete obj.native.datapoints;
+                await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, obj);
+                this.log.info('Migration completed successfully.');
+            }
+        }
+
+        if (!this.config.gets || this.config.gets.length === 0) {
             this.readxml();
         } else if (this.config.new_read) {
             this.log.info(`Start read new XML...`);
@@ -108,7 +131,11 @@ class Viessmann extends utils.Adapter {
                 this.log.warn(`No instance found! ${JSON.stringify(obj)}`);
                 return;
             }
-            obj.native.datapoints = {};
+            if (obj.native.datapoints) {
+                delete obj.native.datapoints;
+            }
+            obj.native.gets = [];
+            obj.native.sets = [];
             await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, obj);
             this.log.info(`Try to read new XML files!`);
             this.readxml();
