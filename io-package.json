@@ -147,7 +147,7 @@
     "type": "climate-control",
     "enabled": true,
     "adminUI": {
-      "config": "materialize"
+      "config": "json"
     },
     "dependencies": [
       {
@@ -169,7 +169,11 @@
     "user_name"
   ],
   "native": {
-    "datapoints": {},
+    "gets": [],
+    "sets": [],
+    "system_ID": "",
+    "system_name": "",
+    "system_protocol": "",
     "ip": "127.0.0.1",
     "port": "3002",
     "user_name": "",

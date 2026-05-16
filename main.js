@@ -101,7 +101,7 @@ class Viessmann extends utils.Adapter {
     // is called when databases are connected and adapter received configuration.
     // start here!
     async startAdapter() {
-        if (!this.config.datapoints.gets) {
+        if (!this.config.gets) {
             this.readxml();
         } else if (this.config.new_read) {
             this.log.info(`Start read new XML...`);
@@ -141,30 +141,30 @@ class Viessmann extends utils.Adapter {
                         this.log.warn(`cannot create a SFTP session ${err}`);
                         this.setState('info.connection', false, true);
                         ssh_session.end();
-                    } else {
-                        const moveVcontroldFrom = `${this.config.path}/vcontrold.xml`;
-                        const moveVcontroldTo = `${__dirname}/vcontrold.xml`;
-                        const moveVitoFrom = `${this.config.path}/vito.xml`;
-                        const moveVitoTo = `${__dirname}/vito.xml`;
-                        this.log.debug(`Try to copy Vito from: ${moveVitoFrom} to: ${__dirname}`);
-                        sftp.fastGet(moveVitoFrom, moveVitoTo, {}, err => {
-                            if (err) {
-                                this.log.warn(`cannot read vito.xml from Server: ${err}`);
-                                this.setState('info.connection', false, true);
-                                ssh_session.end();
-                            }
-                            this.log.debug('Copy vito.xml from server to host successfully');
-                            sftp.fastGet(moveVcontroldFrom, moveVcontroldTo, {}, err => {
-                                if (err) {
-                                    this.log.warn(`cannot read vcontrold.xml from Server: ${err}`);
-                                    this.vcontrold_read(moveVcontroldTo);
-                                    ssh_session.end();
-                                }
-                                this.log.debug('Copy vcontrold.xml from server to host successfully');
-                                this.vcontrold_read(moveVcontroldTo);
-                            });
-                        });
+                        return;
                     }
+                    const moveVcontroldFrom = `${this.config.path}/vcontrold.xml`;
+                    const moveVcontroldTo = `${__dirname}/vcontrold.xml`;
+                    const moveVitoFrom = `${this.config.path}/vito.xml`;
+                    const moveVitoTo = `${__dirname}/vito.xml`;
+                    this.log.debug(`Try to copy Vito from: ${moveVitoFrom} to: ${__dirname}`);
+                    sftp.fastGet(moveVitoFrom, moveVitoTo, {}, err => {
+                        if (err) {
+                            this.log.warn(`cannot read vito.xml from Server: ${err}`);
+                            this.setState('info.connection', false, true);
+                        } else {
+                            this.log.debug('Copy vito.xml from server to host successfully');
+                        }
+                        sftp.fastGet(moveVcontroldFrom, moveVcontroldTo, {}, err => {
+                            if (err) {
+                                this.log.warn(`cannot read vcontrold.xml from Server: ${err}`);
+                            } else {
+                                this.log.debug('Copy vcontrold.xml from server to host successfully');
+                            }
+                            this.vcontrold_read(moveVcontroldTo);
+                            ssh_session.end();
+                        });
+                    });
                 });
             });
             ssh_session.on('close', () => {
@@ -193,34 +193,36 @@ class Viessmann extends utils.Adapter {
                             temp = JSON.parse(temp);
                         } catch (e) {
                             this.log.warn(`check vcontrold.xml structure:  ${e}`);
-                            this.setState('info.connection', false, true);
                             this.vito_read();
                             return;
                         }
+
                         const units = {};
                         const types = {};
-                        for (const i in temp['V-Control'].units[0].unit) {
-                            try {
-                                for (const e in temp['V-Control'].units[0].unit[i].entity) {
-                                    this.log.debug(`Numbers of entitys ${e}`);
-                                    const obj = new Object();
-                                    obj.unit = temp['V-Control'].units[0].unit[i].entity[0];
-                                    units[temp['V-Control'].units[0].unit[i].abbrev[0]] = obj;
+
+                        try {
+                            // Support both V-Control and v-control
+                            const root = temp['V-Control'] || temp['v-control'];
+                            if (root && root.units && root.units[0] && root.units[0].unit) {
+                                for (const i in root.units[0].unit) {
+                                    const unit_raw = root.units[0].unit[i];
+                                    const abbrev = unit_raw.abbrev && unit_raw.abbrev[0];
+                                    if (!abbrev) continue;
+
+                                    if (unit_raw.entity) {
+                                        units[abbrev] = { unit: unit_raw.entity[0] };
+                                    }
+                                    if (unit_raw.type) {
+                                        types[abbrev] = { type: unit_raw.type[0] };
+                                    }
                                 }
-                            } catch (e) {
-                                this.log.warn(`check vcontrold.xml structure cannot read units:  ${e}`);
+                            } else {
+                                this.log.warn('No units found in vcontrold.xml');
                             }
-                            try {
-                                for (const e in temp['V-Control'].units[0].unit[i].type) {
-                                    this.log.debug(`Numbers of types ${e}`);
-                                    const obj = new Object();
-                                    obj.type = temp['V-Control'].units[0].unit[i].type[0];
-                                    types[temp['V-Control'].units[0].unit[i].abbrev[0]] = obj;
-                                }
-                            } catch (e) {
-                                this.log.warn(`check vcontrold.xml structure cannot read types:  ${e}`);
-                            }
+                        } catch (e) {
+                            this.log.warn(`Error parsing units from vcontrold.xml: ${e}`);
                         }
+
                         this.log.debug(`Types in vcontrold.xml: ${JSON.stringify(types)}`);
                         this.log.debug(`Units in vcontrold.xml: ${JSON.stringify(units)}`);
                         this.log.info('read vcontrold.xml successfull');
@@ -253,10 +255,17 @@ class Viessmann extends utils.Adapter {
                         try {
                             let temp = JSON.stringify(result);
                             temp = JSON.parse(temp);
-                            const dp = await this.getImport(temp, units, types);
-                            await this.extendForeignObjectAsync(`system.adapter.${this.namespace}`, {
-                                native: { datapoints: dp, new_read: false },
-                            });
+                            const dp = await this.getImport(temp, units, types, this.config);
+                            const obj = await this.getForeignObjectAsync(`system.adapter.${this.namespace}`);
+                            if (obj) {
+                                obj.native.gets = dp.gets;
+                                obj.native.sets = dp.sets;
+                                obj.native.system_ID = dp.system.ID;
+                                obj.native.system_name = dp.system.name;
+                                obj.native.system_protocol = dp.system.protocol;
+                                obj.native.new_read = false;
+                                await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, obj);
+                            }
                             this.log.info('read vito.xml successfull');
                             this.main();
                         } catch (e) {
@@ -271,68 +280,114 @@ class Viessmann extends utils.Adapter {
     //###########################################################################################################
 
     //######IMPORT STATES########################################################################################
-    async getImport(json, units, types) {
-        datapoints['gets'] = {};
-        datapoints['sets'] = {};
-        datapoints['system'] = {};
-        if (typeof json.vito.commands[0].command === 'object') {
-            datapoints.system['-ID'] = json.vito.devices[0].device[0].$.ID;
-            datapoints.system['-name'] = json.vito.devices[0].device[0].$.name;
-            datapoints.system['-protocol'] = json.vito.devices[0].device[0].$.protocol;
+    async getImport(json, units, types, oldDatapoints = null) {
+        const dp = {
+            gets: [],
+            sets: [],
+            system: {}
+        };
 
-            for (const i in json.vito.commands[0].command) {
-                const poll = -1;
-                const get_command = json.vito.commands[0].command[i].$.name;
-                const desc = json.vito.commands[0].command[i].description[0];
+        const vitoRoot = json.vito || json.Vito || json['v-control'] || json['V-Control'];
+
+        if (!vitoRoot) {
+            this.log.warn('No vito element found in XML');
+            return dp;
+        }
+
+        try {
+            if (vitoRoot.devices && vitoRoot.devices[0] && vitoRoot.devices[0].device && vitoRoot.devices[0].device[0]) {
+                const device = vitoRoot.devices[0].device[0];
+                dp.system['ID'] = device.$ ? device.$.ID : '';
+                dp.system['name'] = device.$ ? device.$.name : '';
+                dp.system['protocol'] = device.$ ? device.$.protocol : '';
+            }
+        } catch (e) {
+            this.log.warn(`Error reading device info: ${e}`);
+        }
+
+        if (vitoRoot.commands && vitoRoot.commands[0] && vitoRoot.commands[0].command && Array.isArray(vitoRoot.commands[0].command)) {
+            for (const i in vitoRoot.commands[0].command) {
+                const cmd_raw = vitoRoot.commands[0].command[i];
+                if (!cmd_raw.$ || !cmd_raw.$.name) continue;
+
+                const get_command = cmd_raw.$.name;
+                const desc = (cmd_raw.$ && cmd_raw.$.description) || (cmd_raw.description && cmd_raw.description[0]) || '';
+
                 if (get_command.substring(0, 3) === 'get' && get_command.length > 3) {
-                    const obj_get = new Object();
-                    obj_get.name = get_command.substring(3, get_command.length);
-                    try {
-                        obj_get.unit = units[json.vito.commands[0].command[i].unit[0]].unit;
-                    } catch (e) {
-                        if (log_catch_err) {
-                            this.log.error(e);
+                    let oldPolling = -1;
+                    if (oldDatapoints && oldDatapoints.gets) {
+                        if (Array.isArray(oldDatapoints.gets)) {
+                            const oldItem = oldDatapoints.gets.find(g => g.command === get_command || g.name === get_command.substring(3));
+                            if (oldItem && oldItem.polling !== undefined) {
+                                oldPolling = oldItem.polling;
+                            }
+                        } else {
+                            const oldItem = oldDatapoints.gets[get_command.substring(3)];
+                            if (oldItem && oldItem.polling !== undefined) {
+                                oldPolling = oldItem.polling;
+                            }
                         }
-                        this.log.error(e);
-                        obj_get.unit = '';
                     }
+
+                    const obj_get = {
+                        name: get_command.substring(3),
+                        description: desc,
+                        polling: oldPolling,
+                        command: get_command,
+                        unit: '',
+                        type: 'mixed'
+                    };
+
                     try {
-                        obj_get.type = this.get_type(types[json.vito.commands[0].command[i].unit[0]].type);
-                    } catch (e) {
-                        if (log_catch_err) {
-                            this.log.error(e);
+                        const unit_key = cmd_raw.unit && cmd_raw.unit[0];
+                        if (unit_key && units && units[unit_key]) {
+                            obj_get.unit = units[unit_key].unit;
                         }
-                        this.log.error(e);
-                        obj_get.type = 'mixed';
+                    } catch (e) {
+                        this.log.debug(`Could not read unit for ${get_command}: ${e}`);
                     }
-                    obj_get.description = desc;
-                    obj_get.polling = poll;
-                    obj_get.command = get_command;
-                    datapoints.gets[get_command.substring(3, get_command.length)] = obj_get;
+
+                    try {
+                        const unit_key = cmd_raw.unit && cmd_raw.unit[0];
+                        if (unit_key && types && types[unit_key]) {
+                            obj_get.type = this.get_type(types[unit_key].type);
+                        }
+                    } catch (e) {
+                        this.log.debug(`Could not read type for ${get_command}: ${e}`);
+                    }
+
+                    dp.gets.push(obj_get);
                     continue;
                 }
+
                 if (get_command.substring(0, 3) === 'set' && get_command.length > 3) {
-                    const obj_set = new Object();
-                    obj_set.name = get_command.substring(3, get_command.length);
-                    obj_set.description = desc;
-                    obj_set.polling = 'nicht möglich';
+                    const obj_set = {
+                        name: get_command.substring(3),
+                        description: desc,
+                        polling: 'nicht möglich',
+                        command: get_command,
+                        type: 'mixed'
+                    };
+
                     try {
-                        obj_set.type = this.get_type(types[json.vito.commands[0].command[i].unit[0]].type);
-                    } catch (e) {
-                        if (log_catch_err) {
-                            this.log.error(e);
+                        const unit_key = cmd_raw.unit && cmd_raw.unit[0];
+                        if (unit_key && types && types[unit_key]) {
+                            obj_set.type = this.get_type(types[unit_key].type);
                         }
-                        this.log.error(e);
-                        obj_set.type = 'mixed';
+                    } catch (e) {
+                        this.log.debug(`Could not read type for ${get_command}: ${e}`);
                     }
-                    obj_set.command = get_command;
-                    datapoints.sets[get_command.substring(3, get_command.length)] = obj_set;
+
+                    dp.sets.push(obj_set);
                     continue;
                 }
             }
-            this.log.debug(`Objects are: ${JSON.stringify(datapoints)}`);
-            return datapoints;
+        } else {
+            this.log.warn('No commands found in vito.xml');
         }
+
+        this.log.debug(`Objects are: ${JSON.stringify(dp)}`);
+        return dp;
     }
     //###########################################################################################################
 
@@ -416,23 +471,23 @@ class Viessmann extends utils.Adapter {
             const pfadset = 'set.';
             let count = 0;
 
-            if (this.config.datapoints) {
+            if (this.config) {
                 if (this.config.states_only) {
-                    for (const i in this.config.datapoints.gets) {
+                    for (const i in this.config.gets) {
                         if (
-                            this.config.datapoints.gets[i].polling !== -1 &&
-                            this.config.datapoints.gets[i].polling != '-1'
+                            this.config.gets[i].polling !== -1 &&
+                            this.config.gets[i].polling != '-1'
                         ) {
-                            configToAdd.push(this.config.datapoints.gets[i].name);
+                            configToAdd.push(this.config.gets[i].name);
                         }
                     }
                 } else {
-                    for (const i in this.config.datapoints.gets) {
-                        configToAdd.push(this.config.datapoints.gets[i].name);
+                    for (const i in this.config.gets) {
+                        configToAdd.push(this.config.gets[i].name);
                     }
                 }
-                for (const i in this.config.datapoints.sets) {
-                    configToAdd.push(this.config.datapoints.sets[i].name);
+                for (const i in this.config.sets) {
+                    configToAdd.push(this.config.sets[i].name);
                 }
             }
             if (states) {
@@ -463,15 +518,15 @@ class Viessmann extends utils.Adapter {
                 }
             }
             if (configToAdd.length) {
-                for (const i in this.config.datapoints.gets) {
-                    if (configToAdd.indexOf(this.config.datapoints.gets[i].name) !== -1) {
+                for (const i in this.config.gets) {
+                    if (configToAdd.indexOf(this.config.gets[i].name) !== -1) {
                         count++;
                         this.addState(
                             pfadget,
-                            this.config.datapoints.gets[i].name,
-                            this.config.datapoints.gets[i].unit,
-                            this.config.datapoints.gets[i].description,
-                            this.config.datapoints.gets[i].type,
+                            this.config.gets[i].name,
+                            this.config.gets[i].unit,
+                            this.config.gets[i].description,
+                            this.config.gets[i].type,
                             false,
                             () => {
                                 if (!--count && callback) {
@@ -481,15 +536,15 @@ class Viessmann extends utils.Adapter {
                         );
                     }
                 }
-                for (const i in this.config.datapoints.sets) {
-                    if (configToAdd.indexOf(this.config.datapoints.sets[i].name) !== -1) {
+                for (const i in this.config.sets) {
+                    if (configToAdd.indexOf(this.config.sets[i].name) !== -1) {
                         count++;
                         this.addState(
                             pfadset,
-                            this.config.datapoints.sets[i].name,
+                            this.config.sets[i].name,
                             '',
-                            this.config.datapoints.sets[i].description,
-                            this.config.datapoints.sets[i].type,
+                            this.config.sets[i].description,
+                            this.config.sets[i].type,
                             true,
                             () => {
                                 if (!--count && callback) {
@@ -577,19 +632,21 @@ class Viessmann extends utils.Adapter {
         obj.command = 'heartbeat';
         obj.description = 'keep the adapter to stay alive';
         obj.polling = 60;
-        obj.lastpoll = 0;
+        obj.lastPoll = 0;
         toPoll['heartbeat'] = obj;
 
-        for (const i in this.config.datapoints.gets) {
-            if (this.config.datapoints.gets[i].polling > -1) {
-                this.log.debug(`Commands for polling: ${this.config.datapoints.gets[i].command}`);
-                obj = new Object();
-                obj.name = this.config.datapoints.gets[i].name;
-                obj.command = this.config.datapoints.gets[i].command;
-                obj.description = this.config.datapoints.gets[i].description;
-                obj.polling = this.config.datapoints.gets[i].polling;
-                obj.lastpoll = 0;
-                toPoll[i] = obj;
+        if (this.config && this.config.gets) {
+            for (const i in this.config.gets) {
+                if (this.config.gets[i].polling > -1) {
+                    this.log.debug(`Commands for polling: ${this.config.gets[i].command}`);
+                    obj = new Object();
+                    obj.name = this.config.gets[i].name;
+                    obj.command = this.config.gets[i].command;
+                    obj.description = this.config.gets[i].description;
+                    obj.polling = this.config.gets[i].polling;
+                    obj.lastpoll = 0;
+                    toPoll[i] = obj;
+                }
             }
         }
     }

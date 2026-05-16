@@ -1,0 +1,357 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "tab_g": {
+            "label": {
+                "en": "General",
+                "de": "Allgemein",
+                "ru": "Общие",
+                "pt": "Geral",
+                "nl": "Algemeen",
+                "fr": "Général",
+                "it": "Generale",
+                "es": "General",
+                "pl": "Ogólne",
+                "zh-cn": "常规"
+            },
+            "type": "panel",
+            "items": {
+                "donate": {
+                    "type": "staticHtml",
+                    "html": "<form action=\"https://www.paypal.com/donate\" method=\"post\" target=\"_top\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"BXTYTYW3D5MRU\" /><input type=\"image\" src=\"https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" /><img alt=\"\" border=\"0\" src=\"https://www.paypal.com/de_DE/i/scr/pixel.gif\" width=\"1\" height=\"1\" /></form>",
+                    "sm": 12,
+                    "md": 2
+                },
+                "donat_text": {
+                    "type": "staticText",
+                    "text": "donat",
+                    "sm": 12,
+                    "md": 10
+                },
+                "system_info_label": {
+                    "type": "header",
+                    "text": "information",
+                    "newLine": true,
+                    "sm": 12
+                },
+                "system_ID": {
+                    "type": "text",
+                    "label": "plant_id",
+                    "disabled": true,
+                    "readOnly": true,
+                    "noClearButton": true,
+                    "sm": 4
+                },
+                "system_name": {
+                    "type": "text",
+                    "label": "typ",
+                    "disabled": true,
+                    "readOnly": true,
+                    "noClearButton": true,
+                    "sm": 4
+                },
+                "system_protocol": {
+                    "type": "text",
+                    "label": "protocol",
+                    "disabled": true,
+                    "readOnly": true,
+                    "noClearButton": true,
+                    "sm": 4
+                },
+                "options_label": {
+                    "type": "header",
+                    "text": "options",
+                    "newLine": true,
+                    "sm": 12
+                },
+                "answer": {
+                    "type": "checkbox",
+                    "label": "answer",
+                    "sm": 12,
+                    "md": 4
+                },
+                "states_only": {
+                    "type": "checkbox",
+                    "label": "states_only",
+                    "sm": 12,
+                    "md": 4
+                },
+                "errors": {
+                    "type": "checkbox",
+                    "label": "errors",
+                    "sm": 12,
+                    "md": 4
+                },
+                "reconnect": {
+                    "type": "number",
+                    "label": "reconnect",
+                    "sm": 12,
+                    "md": 4
+                },
+                "new_read": {
+                    "type": "checkbox",
+                    "label": "new_read",
+                    "sm": 12,
+                    "md": 4,
+                    "help": "new_read"
+                }
+            }
+        },
+        "tab_get": {
+            "label": {
+                "en": "Gets",
+                "de": "Abfragen",
+                "ru": "Запросы",
+                "pt": "Consultas",
+                "nl": "Vragen",
+                "fr": "Requêtes",
+                "it": "Richieste",
+                "es": "Consultas",
+                "pl": "Zapytania",
+                "zh-cn": "获取"
+            },
+            "type": "panel",
+            "items": {
+                "getvito_label": {
+                    "type": "header",
+                    "text": "getvito",
+                    "sm": 12
+                },
+                "gets": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "noAdd": true,
+                    "noDelete": true,
+                    "removable": false,
+                    "deletable": false,
+                    "items": [
+                        {
+                            "attr": "name",
+                            "type": "text",
+                            "sort": true,
+                            "readOnly": true,
+                            "disabled": true,
+                            "noClearButton": true,
+                            "title": "name",
+                            "width": "20%"
+                        },
+                        {
+                            "attr": "description",
+                            "type": "text",
+                            "sort": true,
+                            "readOnly": true,
+                            "disabled": true,
+                            "noClearButton": true,
+                            "title": "desc",
+                            "width": "40%"
+                        },
+                        {
+                            "attr": "unit",
+                            "type": "text",
+                            "sort": true,
+                            "readOnly": true,
+                            "disabled": true,
+                            "noClearButton": true,
+                            "title": "unit",
+                            "width": "10%"
+                        },
+                        {
+                            "attr": "polling",
+                            "sort": true,
+                            "title": "polling",
+                            "width": "30%",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "value": -1,
+                                    "label": "------"
+                                },
+                                {
+                                    "value": 2,
+                                    "label": "opt2"
+                                },
+                                {
+                                    "value": 10,
+                                    "label": "opt10"
+                                },
+                                {
+                                    "value": 30,
+                                    "label": "opt30"
+                                },
+                                {
+                                    "value": 60,
+                                    "label": "opt60"
+                                },
+                                {
+                                    "value": 120,
+                                    "label": "opt120"
+                                },
+                                {
+                                    "value": 300,
+                                    "label": "opt300"
+                                },
+                                {
+                                    "value": 600,
+                                    "label": "opt600"
+                                },
+                                {
+                                    "value": 900,
+                                    "label": "opt900"
+                                },
+                                {
+                                    "value": 1800,
+                                    "label": "opt1800"
+                                },
+                                {
+                                    "value": 2700,
+                                    "label": "opt2700"
+                                },
+                                {
+                                    "value": 3600,
+                                    "label": "opt3600"
+                                },
+                                {
+                                    "value": 7200,
+                                    "label": "opt7200"
+                                },
+                                {
+                                    "value": 21600,
+                                    "label": "opt21600"
+                                },
+                                {
+                                    "value": 43200,
+                                    "label": "opt43200"
+                                },
+                                {
+                                    "value": 86400,
+                                    "label": "opt86400"
+                                }
+                            ]
+                        },
+                        {
+                            "attr": "command",
+                            "type": "text",
+                            "hidden": true
+                        },
+                        {
+                            "attr": "type",
+                            "type": "text",
+                            "hidden": true
+                        }
+                    ]
+                }
+            }
+        },
+        "tab_set": {
+            "label": {
+                "en": "Sets",
+                "de": "Setzen",
+                "ru": "Установки",
+                "pt": "Definições",
+                "nl": "Instellingen",
+                "fr": "Réglages",
+                "it": "Impostazioni",
+                "es": "Ajustes",
+                "pl": "Ustawienia",
+                "zh-cn": "设置"
+            },
+            "type": "panel",
+            "items": {
+                "setvito_label": {
+                    "type": "header",
+                    "text": "setvito",
+                    "sm": 12
+                },
+                "sets": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "noAdd": true,
+                    "noDelete": true,
+                    "removable": false,
+                    "deletable": false,
+                    "items": [
+                        {
+                            "attr": "name",
+                            "type": "text",
+                            "sort": true,
+                            "readOnly": true,
+                            "disabled": true,
+                            "noClearButton": true,
+                            "title": "name",
+                            "width": "30%"
+                        },
+                        {
+                            "attr": "description",
+                            "type": "text",
+                            "sort": true,
+                            "readOnly": true,
+                            "disabled": true,
+                            "noClearButton": true,
+                            "title": "desc",
+                            "width": "70%"
+                        },
+                        {
+                            "attr": "command",
+                            "type": "text",
+                            "hidden": true
+                        },
+                        {
+                            "attr": "type",
+                            "type": "text",
+                            "hidden": true
+                        },
+                        {
+                            "attr": "polling",
+                            "type": "text",
+                            "hidden": true
+                        }
+                    ]
+                }
+            }
+        },
+        "tab_ssh": {
+            "label": "SSH",
+            "type": "panel",
+            "items": {
+                "SSH_settings_label": {
+                    "type": "header",
+                    "text": "SSH_settings",
+                    "sm": 12
+                },
+                "ip": {
+                    "type": "text",
+                    "label": "ip desc",
+                    "sm": 12,
+                    "md": 6
+                },
+                "port": {
+                    "type": "number",
+                    "label": "port desc",
+                    "sm": 12,
+                    "md": 6
+                },
+                "user_name": {
+                    "type": "text",
+                    "label": "user_name",
+                    "sm": 12,
+                    "md": 6
+                },
+                "password": {
+                    "type": "password",
+                    "label": "password",
+                    "sm": 12,
+                    "md": 6
+                },
+                "path": {
+                    "type": "text",
+                    "label": "path",
+                    "sm": 12,
+                    "md": 12
+                }
+            }
+        }
+    }
+}
