@@ -17,84 +17,124 @@
             },
             "type": "panel",
             "items": {
-                "donate": {
-                    "type": "staticHtml",
-                    "html": "<form action=\"https://www.paypal.com/donate\" method=\"post\" target=\"_top\"><input type=\"hidden\" name=\"hosted_button_id\" value=\"BXTYTYW3D5MRU\" /><input type=\"image\" src=\"https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif\" border=\"0\" name=\"submit\" title=\"PayPal - The safer, easier way to pay online!\" alt=\"Donate with PayPal button\" /><img alt=\"\" border=\"0\" src=\"https://www.paypal.com/de_DE/i/scr/pixel.gif\" width=\"1\" height=\"1\" /></form>",
-                    "sm": 12,
-                    "md": 2
+                "_paypal": {
+                    "type": "staticImage",
+                    "xs": 1,
+                    "sm": 1,
+                    "md": 1,
+                    "lg": 1,
+                    "xl": 1,
+                    "src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif",
+                    "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
+                    "newLine": true
                 },
                 "donat_text": {
                     "type": "staticText",
                     "text": "donat",
                     "sm": 12,
-                    "md": 10
+                    "md": 10,
+                    "xs": 12,
+                    "lg": 10,
+                    "xl": 10
                 },
                 "system_info_label": {
                     "type": "header",
                     "text": "information",
                     "newLine": true,
-                    "sm": 12
+                    "sm": 12,
+                    "size": 5,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "system_ID": {
                     "type": "text",
                     "label": "plant_id",
-                    "disabled": true,
+                    "disabled": "true",
                     "readOnly": true,
                     "noClearButton": true,
-                    "sm": 4
+                    "sm": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "system_name": {
                     "type": "text",
                     "label": "typ",
-                    "disabled": true,
+                    "disabled": "true",
                     "readOnly": true,
                     "noClearButton": true,
-                    "sm": 4
+                    "sm": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "system_protocol": {
                     "type": "text",
                     "label": "protocol",
-                    "disabled": true,
+                    "disabled": "true",
                     "readOnly": true,
                     "noClearButton": true,
-                    "sm": 4
+                    "sm": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "options_label": {
                     "type": "header",
                     "text": "options",
                     "newLine": true,
-                    "sm": 12
+                    "sm": 12,
+                    "size": 5,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "answer": {
                     "type": "checkbox",
                     "label": "answer",
                     "sm": 12,
-                    "md": 4
+                    "md": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "states_only": {
                     "type": "checkbox",
                     "label": "states_only",
                     "sm": 12,
-                    "md": 4
+                    "md": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "errors": {
                     "type": "checkbox",
                     "label": "errors",
                     "sm": 12,
-                    "md": 4
+                    "md": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "reconnect": {
                     "type": "number",
                     "label": "reconnect",
                     "sm": 12,
-                    "md": 4
+                    "md": 4,
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 },
                 "new_read": {
                     "type": "checkbox",
                     "label": "new_read",
                     "sm": 12,
                     "md": 4,
-                    "help": "new_read"
+                    "help": "new_read",
+                    "xs": 12,
+                    "lg": 4,
+                    "xl": 4
                 }
             }
         },
@@ -116,23 +156,23 @@
                 "getvito_label": {
                     "type": "header",
                     "text": "getvito",
-                    "sm": 12
+                    "sm": 12,
+                    "size": 5,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "gets": {
                     "type": "table",
                     "sm": 12,
                     "newLine": true,
-                    "noAdd": true,
-                    "noDelete": true,
-                    "removable": false,
-                    "deletable": false,
                     "items": [
                         {
                             "attr": "name",
                             "type": "text",
                             "sort": true,
                             "readOnly": true,
-                            "disabled": true,
+                            "disabled": "true",
                             "noClearButton": true,
                             "title": "name",
                             "width": "20%"
@@ -142,7 +182,7 @@
                             "type": "text",
                             "sort": true,
                             "readOnly": true,
-                            "disabled": true,
+                            "disabled": "true",
                             "noClearButton": true,
                             "title": "desc",
                             "width": "40%"
@@ -152,7 +192,7 @@
                             "type": "text",
                             "sort": true,
                             "readOnly": true,
-                            "disabled": true,
+                            "disabled": "true",
                             "noClearButton": true,
                             "title": "unit",
                             "width": "10%"
@@ -233,14 +273,17 @@
                         {
                             "attr": "command",
                             "type": "text",
-                            "hidden": true
+                            "hidden": "true"
                         },
                         {
                             "attr": "type",
                             "type": "text",
-                            "hidden": true
+                            "hidden": "true"
                         }
-                    ]
+                    ],
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 }
             }
         },
@@ -262,23 +305,23 @@
                 "setvito_label": {
                     "type": "header",
                     "text": "setvito",
-                    "sm": 12
+                    "sm": 12,
+                    "size": 5,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "sets": {
                     "type": "table",
                     "sm": 12,
                     "newLine": true,
-                    "noAdd": true,
-                    "noDelete": true,
-                    "removable": false,
-                    "deletable": false,
                     "items": [
                         {
                             "attr": "name",
                             "type": "text",
                             "sort": true,
                             "readOnly": true,
-                            "disabled": true,
+                            "disabled": "true",
                             "noClearButton": true,
                             "title": "name",
                             "width": "30%"
@@ -288,7 +331,7 @@
                             "type": "text",
                             "sort": true,
                             "readOnly": true,
-                            "disabled": true,
+                            "disabled": "true",
                             "noClearButton": true,
                             "title": "desc",
                             "width": "70%"
@@ -296,19 +339,22 @@
                         {
                             "attr": "command",
                             "type": "text",
-                            "hidden": true
+                            "hidden": "true"
                         },
                         {
                             "attr": "type",
                             "type": "text",
-                            "hidden": true
+                            "hidden": "true"
                         },
                         {
                             "attr": "polling",
                             "type": "text",
-                            "hidden": true
+                            "hidden": "true"
                         }
-                    ]
+                    ],
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 }
             }
         },
@@ -319,37 +365,56 @@
                 "SSH_settings_label": {
                     "type": "header",
                     "text": "SSH_settings",
-                    "sm": 12
+                    "sm": 12,
+                    "size": 5,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "ip": {
                     "type": "text",
                     "label": "ip desc",
                     "sm": 12,
-                    "md": 6
+                    "md": 6,
+                    "xs": 12,
+                    "lg": 6,
+                    "xl": 6
                 },
                 "port": {
                     "type": "number",
                     "label": "port desc",
                     "sm": 12,
-                    "md": 6
+                    "md": 6,
+                    "xs": 12,
+                    "lg": 6,
+                    "xl": 6
                 },
                 "user_name": {
                     "type": "text",
                     "label": "user_name",
                     "sm": 12,
-                    "md": 6
+                    "md": 6,
+                    "xs": 12,
+                    "lg": 6,
+                    "xl": 6
                 },
                 "password": {
                     "type": "password",
                     "label": "password",
                     "sm": 12,
-                    "md": 6
+                    "md": 6,
+                    "xs": 12,
+                    "lg": 6,
+                    "xl": 6
                 },
                 "path": {
                     "type": "text",
                     "label": "path",
                     "sm": 12,
-                    "md": 12
+                    "md": 12,
+                    "xs": 12,
+                    "lg": 12,
+                    "xl": 12
                 }
             }
         }

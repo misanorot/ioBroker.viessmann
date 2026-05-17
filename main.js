@@ -6,10 +6,10 @@
 
 const utils = require('@iobroker/adapter-core');
 
-const net = require('net');
+const net = require('node:net');
 
 const xml2js = require('xml2js');
-const fs = require('fs');
+const fs = require('node:fs');
 
 const { Client } = require('ssh2');
 let toPoll = {};

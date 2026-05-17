@@ -12,26 +12,29 @@
 
 [![paypal](https://www.paypalobjects.com/en_US/DK/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZYHW84XXF5REJ&source=url)
 
-## Viessmann über vcontrold
+## Viessmann via vcontrold (German)
 
-**[Deutsche Beschreibung](docs/de/viessmann.md)**
+**[German description](docs/de/viessmann.md)**
 
 ## Viessmann via vcontrold
 
 **[English description](docs/en/viessmann_en.md)**
 
 ******************************************************************************************
-*die benutzten Bilder stammen von www.viessmann.com.*
+*The images used are from www.viessmann.com.*
 
 ## ToDo
-	- Anderung der Vito.xml ohne Verlust der Einstellungen
-	- Implementierung Unit on/off
+	- Changing Vito.xml without losing settings
+	- Implement unit on/off
 
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed checker issues
+
 ### 2.0.2 (2026-05-16)
 * (misanorot) change to JSON UI
 - (copilot) Adapter requires node.js >= 22 now
