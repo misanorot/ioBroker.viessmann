@@ -3,19 +3,6 @@
     "name": "viessmann",
     "version": "2.0.3",
     "news": {
-      "2.0.3": {
-        "en": "fixed checker issues",
-        "de": "fix check-probleme",
-        "ru": "фиксированные проблемы с проверкой",
-        "pt": "problemas com o verificador fixo",
-        "nl": "vaste controleproblemen",
-        "fr": "problèmes de vérification corrigés",
-        "it": "problemi di scacchi fissi",
-        "es": "cuestiones de comprobación fija",
-        "pl": "stałe problemy z kontrolerem",
-        "uk": "виправлені питання перевірки",
-        "zh-cn": "固定检查器问题"
-      },
       "2.0.2": {
         "en": "change to JSON UI\nAdapter requires node.js >= 22 now",
         "de": "änderungen an JSON UI\nAdapter benötigt node.js >= 22 jetzt",
