@@ -54,6 +54,7 @@
                     "readOnly": true,
                     "noClearButton": true,
                     "sm": 4,
+                    "md": 4,
                     "xs": 12,
                     "lg": 4,
                     "xl": 4
@@ -65,6 +66,7 @@
                     "readOnly": true,
                     "noClearButton": true,
                     "sm": 4,
+                    "md": 4,
                     "xs": 12,
                     "lg": 4,
                     "xl": 4
@@ -76,6 +78,7 @@
                     "readOnly": true,
                     "noClearButton": true,
                     "sm": 4,
+                    "md": 4,
                     "xs": 12,
                     "lg": 4,
                     "xl": 4
@@ -165,6 +168,7 @@
                 "gets": {
                     "type": "table",
                     "sm": 12,
+                    "md": 12,
                     "newLine": true,
                     "items": [
                         {
@@ -314,6 +318,7 @@
                 "sets": {
                     "type": "table",
                     "sm": 12,
+                    "md": 12,
                     "newLine": true,
                     "items": [
                         {
