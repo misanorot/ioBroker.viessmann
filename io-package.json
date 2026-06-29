@@ -127,7 +127,7 @@
         },
         "authors": ["misanorot <audi16v@gmx.de>"],
         "tier": 3,
-        "compact": false,
+        "compact": true,
         "connectionType": "local",
         "dataSource": "poll",
         "platform": "Javascript/Node.js",

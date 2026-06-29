@@ -19,9 +19,9 @@ let step = -1;
 let setcommands = [];
 
 //helpers for timeout
-let timerWait = null;
-let timerReconnect = null;
-let wait = false;
+let pollingTimer = null;
+let reconnectTimer = null;
+let isWaiting = false;
 
 const client = new net.Socket();
 const parser = new xml2js.Parser();
@@ -65,8 +65,8 @@ class Viessmann extends utils.Adapter {
             client.end();
             client.destroy(); // kill client after server's response
             // Here you must clear all timeouts or intervals that may still be active
-            clearTimeout(timerWait);
-            clearTimeout(timerReconnect);
+            this.clearTimeout(pollingTimer);
+            this.clearTimeout(reconnectTimer);
             this.log.info('cleaned everything up...');
             callback();
         } catch (e) {
@@ -612,11 +612,11 @@ class Viessmann extends utils.Adapter {
 
     //######POLLING##############################################################################################
     stepPolling() {
-        if (wait) {
+        if (isWaiting) {
             this.log.warn(`Wait for feedback from Vcontrold...`);
             return;
         }
-        clearTimeout(timerWait);
+        this.clearTimeout(pollingTimer);
         step = -1;
         let actualMinWaitTime = 1000000;
         const time = Date.now();
@@ -625,7 +625,7 @@ class Viessmann extends utils.Adapter {
             const cmd = setcommands.shift();
             this.log.debug(`Set command: ${cmd}`);
             client.write(`${cmd}\n`);
-            wait = true;
+            isWaiting = true;
             return;
         }
 
@@ -655,14 +655,14 @@ class Viessmann extends utils.Adapter {
         }
         if (step === -1) {
             this.log.debug(`Wait for next run: ${actualMinWaitTime} in ms`);
-            timerWait = setTimeout(() => {
+            pollingTimer = this.setTimeout(() => {
                 this.stepPolling();
             }, actualMinWaitTime);
         } else {
             this.log.debug(`Next poll: ${toPoll[step].command}  (For Object: ${step})`);
             toPoll[step].lastPoll = Date.now();
             client.write(`${toPoll[step].command}\n`);
-            wait = true;
+            isWaiting = true;
         }
     }
     //###########################################################################################################
@@ -736,7 +736,7 @@ class Viessmann extends utils.Adapter {
         this.log.info(`Connecting...`);
         client.setTimeout(time_out);
         client.connect(port, ip);
-        wait = false;
+        isWaiting = false;
     }
 
     getReconnectTime() {
@@ -754,13 +754,13 @@ class Viessmann extends utils.Adapter {
             return;
         }
         client.destroy();
-        clearTimeout(timerWait);
-        clearTimeout(timerReconnect);
+        this.clearTimeout(pollingTimer);
+        this.clearTimeout(reconnectTimer);
         if (reconnect == null) {
             reconnect = this.getReconnectTime();
         }
         this.log.info(`Reconnecting in ${reconnect} ms.`);
-        timerReconnect = setTimeout(() => {
+        reconnectTimer = this.setTimeout(() => {
             this.connectSystem();
         }, reconnect);
     }
@@ -779,7 +779,7 @@ class Viessmann extends utils.Adapter {
 
         let err_count = 0;
 
-        clearTimeout(timerReconnect);
+        this.clearTimeout(reconnectTimer);
         this.setAllObjects();
 
         this.connectSystem();
@@ -814,7 +814,7 @@ class Viessmann extends utils.Adapter {
 
             if (ok.test(data)) {
                 this.log.debug('Send command okay!');
-                wait = false;
+                isWaiting = false;
                 this.stepPolling();
             } else if (fail.test(data) && step !== 'heartbeat') {
                 this.log.warn(`Vctrld send ERROR: ${data}`);
@@ -824,7 +824,7 @@ class Viessmann extends utils.Adapter {
                     this.log.warn('Vctrld send too many errors, restart connection!');
                     this.reconnectSystem(10000);
                 } else {
-                    wait = false;
+                    isWaiting = false;
                     this.stepPolling();
                 }
             } else if (data == 'vctrld>') {
@@ -832,12 +832,12 @@ class Viessmann extends utils.Adapter {
             } else if (step == -1) {
                 return;
             } else if (step == 'heartbeat') {
-                wait = false;
+                isWaiting = false;
                 this.stepPolling();
             } else if (step == '') {
                 return;
             } else {
-                wait = false;
+                isWaiting = false;
                 this.log.debug(`Received: ${data}`);
                 err_count = 0;
                 if (vctrld.test(data)) {
