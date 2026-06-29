@@ -68,6 +68,9 @@
 
 #### 0.0.1
 * (misanorot) initial release
+## 1.7.2 (2025-10-12)
+* (misanorot) update packages
+
 ## 1.7.1 (2025-06-01)
 * (ghecker1) optimize reconnect
 

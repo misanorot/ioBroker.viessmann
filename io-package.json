@@ -1,339 +1,339 @@
 {
-    "common": {
-        "name": "viessmann",
-        "version": "2.0.4",
-        "news": {
-            "2.0.4": {
-                "en": "fixed checker issues",
-                "de": "fix check-probleme",
-                "ru": "фиксированные проблемы с проверкой",
-                "pt": "problemas com o verificador fixo",
-                "nl": "vaste controleproblemen",
-                "fr": "problèmes de vérification corrigés",
-                "it": "problemi di scacchi fissi",
-                "es": "cuestiones de comprobación fija",
-                "pl": "stałe problemy z kontrolerem",
-                "uk": "виправлені питання перевірки",
-                "zh-cn": "固定检查器问题"
-            },
-            "2.0.2": {
-                "en": "change to JSON UI\nAdapter requires node.js >= 22 now",
-                "de": "änderungen an JSON UI\nAdapter benötigt node.js >= 22 jetzt",
-                "ru": "изменить JSON UI\nАдаптер требует node.js >= 22 сейчас",
-                "pt": "mudar para JSON UI\nAdaptador requer nod.js >= 22 agora",
-                "nl": "over naar JSON UI\nVoor de adapter zijn node.js < 22 nu nodig",
-                "fr": "changement à JSON UI\nAdaptateur nécessite node.js >= 22 maintenant",
-                "it": "cambiamento a JSON UI\nAdattatore richiede node.js >= 22 ora",
-                "es": "cambiar a JSON UI\nAdaptador requiere node.js ю= 22 ahora",
-                "pl": "zmiana na JSON UI\nAdapter wymaga node.js > = 22",
-                "uk": "змінити в JSON UI\nАдаптер вимагає node.js >= 22 тепер",
-                "zh-cn": "更改为 JSON UI\n适配器需要节点.js 现在22"
-            },
-            "2.0.1": {
-                "en": "change to JSON UI\nAdapter requires node.js >= 22 now",
-                "de": "änderungen an JSON UI\nAdapter benötigt node.js >= 22 jetzt",
-                "ru": "изменить JSON UI\nАдаптер требует node.js >= 22 сейчас",
-                "pt": "mudar para JSON UI\nAdaptador requer nod.js >= 22 agora",
-                "nl": "over naar JSON UI\nVoor de adapter zijn node.js < 22 nu nodig",
-                "fr": "changement à JSON UI\nAdaptateur nécessite node.js >= 22 maintenant",
-                "it": "cambiamento a JSON UI\nAdattatore richiede node.js >= 22 ora",
-                "es": "cambiar a JSON UI\nAdaptador requiere node.js ю= 22 ahora",
-                "pl": "zmiana na JSON UI\nAdapter wymaga node.js > = 22",
-                "uk": "змінити в JSON UI\nАдаптер вимагає node.js >= 22 тепер",
-                "zh-cn": "更改为 JSON UI\n适配器需要节点.js 现在22"
-            },
-            "1.7.4": {
-                "en": "update packages",
-                "de": "update-pakete",
-                "ru": "обновление пакетов",
-                "pt": "atualizar pacotes",
-                "nl": "pakketten bijwerken",
-                "fr": "mettre à jour les paquets",
-                "it": "pacchetti di aggiornamento",
-                "es": "actualizar paquetes",
-                "pl": "aktualizacja pakietów",
-                "uk": "оновлення пакетів",
-                "zh-cn": "更新软件包"
-            },
-            "1.7.3": {
-                "en": "update npm progress",
-                "de": "aktualisierung npm fortschritt",
-                "ru": "обновление npm",
-                "pt": "atualizar o progresso do npm",
-                "nl": "npm-voortgang bijwerken",
-                "fr": "mise à jour des progrès de npm",
-                "it": "aggiornamento npm",
-                "es": "actualización npm progreso",
-                "pl": "aktualizacja postępu npm",
-                "uk": "оновлення npm прогрес",
-                "zh-cn": "更新 npm 进度"
-            },
-            "1.7.2": {
-                "en": "update packages",
-                "de": "update-pakete",
-                "ru": "обновление пакетов",
-                "pt": "atualizar pacotes",
-                "nl": "pakketten bijwerken",
-                "fr": "mettre à jour les paquets",
-                "it": "pacchetti di aggiornamento",
-                "es": "actualizar paquetes",
-                "pl": "aktualizacja pakietów",
-                "uk": "оновлення пакетів",
-                "zh-cn": "更新软件包"
-            },
-            "1.7.1": {
-                "en": "optimize reconnect",
-                "de": "optimieren sie reconnect",
-                "ru": "оптимизировать соединение",
-                "pt": "otimizar a conexão",
-                "nl": "het optimaliseren van het opnieuw verbinden",
-                "fr": "optimiser la connexion",
-                "it": "ottimizzare la connessione",
-                "es": "optimización de la desconexión",
-                "pl": "optymalizacja ponownego połączenia",
-                "uk": "оптимізація підключення",
-                "zh-cn": "优化重联"
-            }
-        },
-        "titleLang": {
-            "en": "connect viessmann systems over vcontrold",
-            "de": "viessmann systeme über vcontroled verbinden",
-            "ru": "подключить системы viessmann через vcontrold",
-            "pt": "conectar sistemas viessmann sobre vcontrold",
-            "nl": "verbind viessmannsystemen over voogdij",
-            "fr": "connecter les systèmes viessmann sur vcontrold",
-            "it": "collegare i sistemi viessmann sopra vcontrold",
-            "es": "conectar sistemas viessmann sobre vcontrold",
-            "pl": "łączy systemy viessmanna nad vkontrolowanym",
-            "uk": "підключення систем viessmann над керуванням",
-            "zh-cn": "维生素曼系统控制"
+  "common": {
+    "name": "viessmann",
+    "version": "2.0.5",
+    "news": {
+      "2.0.5": {
+        "en": "fixed checker issues",
+        "de": "fixed checker probleme",
+        "ru": "фиксированные проблемы с проверкой",
+        "pt": "problemas com o verificador fixo",
+        "nl": "vaste controleproblemen",
+        "fr": "problèmes de vérification corrigés",
+        "it": "problemi di scacchi fissi",
+        "es": "cuestiones de comprobación fija",
+        "pl": "stałe problemy z kontrolerem",
+        "uk": "виправлені питання перевірки",
+        "zh-cn": "固定检查器问题"
+      },
+      "2.0.4": {
+        "en": "fixed checker issues",
+        "de": "fix check-probleme",
+        "ru": "фиксированные проблемы с проверкой",
+        "pt": "problemas com o verificador fixo",
+        "nl": "vaste controleproblemen",
+        "fr": "problèmes de vérification corrigés",
+        "it": "problemi di scacchi fissi",
+        "es": "cuestiones de comprobación fija",
+        "pl": "stałe problemy z kontrolerem",
+        "uk": "виправлені питання перевірки",
+        "zh-cn": "固定检查器问题"
+      },
+      "2.0.2": {
+        "en": "change to JSON UI\nAdapter requires node.js >= 22 now",
+        "de": "änderungen an JSON UI\nAdapter benötigt node.js >= 22 jetzt",
+        "ru": "изменить JSON UI\nАдаптер требует node.js >= 22 сейчас",
+        "pt": "mudar para JSON UI\nAdaptador requer nod.js >= 22 agora",
+        "nl": "over naar JSON UI\nVoor de adapter zijn node.js < 22 nu nodig",
+        "fr": "changement à JSON UI\nAdaptateur nécessite node.js >= 22 maintenant",
+        "it": "cambiamento a JSON UI\nAdattatore richiede node.js >= 22 ora",
+        "es": "cambiar a JSON UI\nAdaptador requiere node.js ю= 22 ahora",
+        "pl": "zmiana na JSON UI\nAdapter wymaga node.js > = 22",
+        "uk": "змінити в JSON UI\nАдаптер вимагає node.js >= 22 тепер",
+        "zh-cn": "更改为 JSON UI\n适配器需要节点.js 现在22"
+      },
+      "2.0.1": {
+        "en": "change to JSON UI\nAdapter requires node.js >= 22 now",
+        "de": "änderungen an JSON UI\nAdapter benötigt node.js >= 22 jetzt",
+        "ru": "изменить JSON UI\nАдаптер требует node.js >= 22 сейчас",
+        "pt": "mudar para JSON UI\nAdaptador requer nod.js >= 22 agora",
+        "nl": "over naar JSON UI\nVoor de adapter zijn node.js < 22 nu nodig",
+        "fr": "changement à JSON UI\nAdaptateur nécessite node.js >= 22 maintenant",
+        "it": "cambiamento a JSON UI\nAdattatore richiede node.js >= 22 ora",
+        "es": "cambiar a JSON UI\nAdaptador requiere node.js ю= 22 ahora",
+        "pl": "zmiana na JSON UI\nAdapter wymaga node.js > = 22",
+        "uk": "змінити в JSON UI\nАдаптер вимагає node.js >= 22 тепер",
+        "zh-cn": "更改为 JSON UI\n适配器需要节点.js 现在22"
+      },
+      "1.7.4": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
+      "1.7.3": {
+        "en": "update npm progress",
+        "de": "aktualisierung npm fortschritt",
+        "ru": "обновление npm",
+        "pt": "atualizar o progresso do npm",
+        "nl": "npm-voortgang bijwerken",
+        "fr": "mise à jour des progrès de npm",
+        "it": "aggiornamento npm",
+        "es": "actualización npm progreso",
+        "pl": "aktualizacja postępu npm",
+        "uk": "оновлення npm прогрес",
+        "zh-cn": "更新 npm 进度"
+      },
+      "1.7.2": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      }
+    },
+    "titleLang": {
+      "en": "connect viessmann systems over vcontrold",
+      "de": "viessmann systeme über vcontroled verbinden",
+      "ru": "подключить системы viessmann через vcontrold",
+      "pt": "conectar sistemas viessmann sobre vcontrold",
+      "nl": "verbind viessmannsystemen over voogdij",
+      "fr": "connecter les systèmes viessmann sur vcontrold",
+      "it": "collegare i sistemi viessmann sopra vcontrold",
+      "es": "conectar sistemas viessmann sobre vcontrold",
+      "pl": "łączy systemy viessmanna nad vkontrolowanym",
+      "uk": "підключення систем viessmann над керуванням",
+      "zh-cn": "维生素曼系统控制"
+    },
+    "desc": {
+      "en": "Communication with Viessmann controllers over Vcontrold",
+      "de": "Kommunikation mit Viessmann Controllern über Vcontrold",
+      "ru": "Связь с контроллерами Viessmann через Vcontrold",
+      "pt": "Comunicação com controladores Viessmann sobre Vcontrold",
+      "nl": "Communicatie met Viessmann controllers boven V gecontroleerd",
+      "fr": "Communication avec les contrôleurs Viessmann sur Vcontrold",
+      "it": "Comunicazione con controller Viessmann su Vcontrold",
+      "es": "Comunicación con controladores Viessmann sobre Vcontrold",
+      "pl": "Komunikacja z kontrolerami Viessmanna nad kontrolą V Controlled",
+      "uk": "Зв'язок з контролерами Viessmann над Vcontrold",
+      "zh-cn": "与V控制的Vusmann管制器的通信"
+    },
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "authors": [
+      "misanorot <audi16v@gmx.de>"
+    ],
+    "tier": 3,
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "viessmann.png",
+    "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
+    "keywords": [
+      "viessmann",
+      "heizung",
+      "vito",
+      "vitotronic"
+    ],
+    "readme": "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
+    "loglevel": "info",
+    "type": "climate-control",
+    "enabled": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.20"
+      }
+    ]
+  },
+  "protectedNative": [
+    "password",
+    "user_name"
+  ],
+  "encryptedNative": [
+    "password",
+    "user_name"
+  ],
+  "native": {
+    "gets": [],
+    "sets": [],
+    "system_ID": "",
+    "system_name": "",
+    "system_protocol": "",
+    "ip": "127.0.0.1",
+    "port": "3002",
+    "user_name": "",
+    "password": "",
+    "reconnect": 5,
+    "path": "/etc/vcontrold",
+    "new_read": false,
+    "answer": true,
+    "states_only": false,
+    "errors": false
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": {
+          "en": "Connection",
+          "de": "Verbindung",
+          "ru": "Контакт",
+          "pt": "Conexão",
+          "nl": "Verbinding",
+          "fr": "Connexion",
+          "it": "Connessione",
+          "es": "Conexión",
+          "pl": "Connection",
+          "uk": "Підключення",
+          "zh-cn": "A. 驱逐"
         },
         "desc": {
-            "en": "Communication with Viessmann controllers over Vcontrold",
-            "de": "Kommunikation mit Viessmann Controllern über Vcontrold",
-            "ru": "Связь с контроллерами Viessmann через Vcontrold",
-            "pt": "Comunicação com controladores Viessmann sobre Vcontrold",
-            "nl": "Communicatie met Viessmann controllers boven V gecontroleerd",
-            "fr": "Communication avec les contrôleurs Viessmann sur Vcontrold",
-            "it": "Comunicazione con controller Viessmann su Vcontrold",
-            "es": "Comunicación con controladores Viessmann sobre Vcontrold",
-            "pl": "Komunikacja z kontrolerami Viessmanna nad kontrolą V Controlled",
-            "uk": "Зв'язок з контролерами Viessmann над Vcontrold",
-            "zh-cn": "与V控制的Vusmann管制器的通信"
+          "en": "Connection to Viessmann system",
+          "de": "Verbindung zum Viessmann System",
+          "ru": "Подключение к системе Viessmann",
+          "pt": "Conexão ao sistema Viessmann",
+          "nl": "Verbinding met het Viessmann systeem",
+          "fr": "Connexion au système Viessmann",
+          "it": "Collegamento al sistema Viessmann",
+          "es": "Conexión al sistema Viessmann",
+          "pl": "Połączenie do systemu Viessmanna",
+          "uk": "Підключення до системи Viessmann",
+          "zh-cn": "对维斯曼系统的攻击"
         },
-        "licenseInformation": {
-            "license": "MIT",
-            "type": "free"
-        },
-        "authors": [
-            "misanorot <audi16v@gmx.de>"
-        ],
-        "tier": 3,
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "icon": "viessmann.png",
-        "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
-        "keywords": [
-            "viessmann",
-            "heizung",
-            "vito",
-            "vitotronic"
-        ],
-        "readme": "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
-        "loglevel": "info",
-        "type": "climate-control",
-        "enabled": true,
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.11"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.6.20"
-            }
-        ]
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
     },
-    "protectedNative": [
-        "password",
-        "user_name"
-    ],
-    "encryptedNative": [
-        "password",
-        "user_name"
-    ],
-    "native": {
-        "gets": [],
-        "sets": [],
-        "system_ID": "",
-        "system_name": "",
-        "system_protocol": "",
-        "ip": "127.0.0.1",
-        "port": "3002",
-        "user_name": "",
-        "password": "",
-        "reconnect": 5,
-        "path": "/etc/vcontrold",
-        "new_read": false,
-        "answer": true,
-        "states_only": false,
-        "errors": false
+    {
+      "_id": "info.timeout_connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.alarm",
+        "name": {
+          "en": "Timeout connection",
+          "de": "Zeitüberschreitung Verbindung",
+          "ru": "Timeout подключение",
+          "pt": "Conexão de tempo limite",
+          "nl": "Vertaling:",
+          "fr": "Timeout connection",
+          "it": "Connessione timeout",
+          "es": "Conexión de tiempo",
+          "pl": "Połączenie czasowe",
+          "uk": "Підключення часу",
+          "zh-cn": "时间安排"
+        },
+        "desc": {
+          "en": "Timeout connection to Viessmann system",
+          "de": "Zeitüberschreitung Verbindung zum Viessmann-System",
+          "ru": "Подключение к системе Viessmann",
+          "pt": "Conexão de tempo para o sistema Viessmann",
+          "nl": "Quality over Quantity (QoQ) Releases Vertaling:",
+          "fr": "Raccordement temporel au système Viessmann",
+          "it": "Connessione timeout al sistema Viessmann",
+          "es": "Conexión de tiempo al sistema Viessmann",
+          "pl": "System czasowy Viessmanna",
+          "uk": "Часове підключення до системи Viessmann",
+          "zh-cn": "B. 对维斯曼系统的时限"
+        },
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": {
-                    "en": "Connection",
-                    "de": "Verbindung",
-                    "ru": "Контакт",
-                    "pt": "Conexão",
-                    "nl": "Verbinding",
-                    "fr": "Connexion",
-                    "it": "Connessione",
-                    "es": "Conexión",
-                    "pl": "Connection",
-                    "uk": "Підключення",
-                    "zh-cn": "A. 驱逐"
-                },
-                "desc": {
-                    "en": "Connection to Viessmann system",
-                    "de": "Verbindung zum Viessmann System",
-                    "ru": "Подключение к системе Viessmann",
-                    "pt": "Conexão ao sistema Viessmann",
-                    "nl": "Verbinding met het Viessmann systeem",
-                    "fr": "Connexion au système Viessmann",
-                    "it": "Collegamento al sistema Viessmann",
-                    "es": "Conexión al sistema Viessmann",
-                    "pl": "Połączenie do systemu Viessmanna",
-                    "uk": "Підключення до системи Viessmann",
-                    "zh-cn": "对维斯曼系统的攻击"
-                },
-                "type": "boolean",
-                "read": true,
-                "write": false
-            },
-            "native": {}
+    {
+      "_id": "info.lastPoll",
+      "type": "state",
+      "common": {
+        "role": "value.time",
+        "name": {
+          "en": "Last poll",
+          "de": "Letzte Abfrage",
+          "ru": "Последний опрос",
+          "pt": "Última pesquisa",
+          "nl": "Laatste peiling",
+          "fr": "Dernier sondage",
+          "it": "Ultimo sondaggio",
+          "es": "Última encuesta",
+          "pl": "Wyniki głosowania",
+          "uk": "Останнє опитування",
+          "zh-cn": "上次投票"
         },
-        {
-            "_id": "info.timeout_connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.alarm",
-                "name": {
-                    "en": "Timeout connection",
-                    "de": "Zeitüberschreitung Verbindung",
-                    "ru": "Timeout подключение",
-                    "pt": "Conexão de tempo limite",
-                    "nl": "Vertaling:",
-                    "fr": "Timeout connection",
-                    "it": "Connessione timeout",
-                    "es": "Conexión de tiempo",
-                    "pl": "Połączenie czasowe",
-                    "uk": "Підключення часу",
-                    "zh-cn": "时间安排"
-                },
-                "desc": {
-                    "en": "Timeout connection to Viessmann system",
-                    "de": "Zeitüberschreitung Verbindung zum Viessmann-System",
-                    "ru": "Подключение к системе Viessmann",
-                    "pt": "Conexão de tempo para o sistema Viessmann",
-                    "nl": "Quality over Quantity (QoQ) Releases Vertaling:",
-                    "fr": "Raccordement temporel au système Viessmann",
-                    "it": "Connessione timeout al sistema Viessmann",
-                    "es": "Conexión de tiempo al sistema Viessmann",
-                    "pl": "System czasowy Viessmanna",
-                    "uk": "Часове підключення до системи Viessmann",
-                    "zh-cn": "B. 对维斯曼系统的时限"
-                },
-                "type": "boolean",
-                "read": true,
-                "write": false
-            },
-            "native": {}
+        "desc": {
+          "en": "Timestamp last poll",
+          "de": "Zeitstempel letzte Abfrage",
+          "ru": "Timestamp последний опрос",
+          "pt": "Última pesquisa",
+          "nl": "Timestamp laatste poll",
+          "fr": "Dernier sondage Timestamp",
+          "it": "Ultimo sondaggio",
+          "es": "Timestamp última encuesta",
+          "pl": "Timestamp",
+          "uk": "Останнє опитування",
+          "zh-cn": "上次投票时间"
         },
-        {
-            "_id": "info.lastPoll",
-            "type": "state",
-            "common": {
-                "role": "value.time",
-                "name": {
-                    "en": "Last poll",
-                    "de": "Letzte Abfrage",
-                    "ru": "Последний опрос",
-                    "pt": "Última pesquisa",
-                    "nl": "Laatste peiling",
-                    "fr": "Dernier sondage",
-                    "it": "Ultimo sondaggio",
-                    "es": "Última encuesta",
-                    "pl": "Wyniki głosowania",
-                    "uk": "Останнє опитування",
-                    "zh-cn": "上次投票"
-                },
-                "desc": {
-                    "en": "Timestamp last poll",
-                    "de": "Zeitstempel letzte Abfrage",
-                    "ru": "Timestamp последний опрос",
-                    "pt": "Última pesquisa",
-                    "nl": "Timestamp laatste poll",
-                    "fr": "Dernier sondage Timestamp",
-                    "it": "Ultimo sondaggio",
-                    "es": "Timestamp última encuesta",
-                    "pl": "Timestamp",
-                    "uk": "Останнє опитування",
-                    "zh-cn": "上次投票时间"
-                },
-                "type": "number",
-                "read": true,
-                "write": false
-            },
-            "native": {}
+        "type": "number",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "input.force_polling_interval",
+      "type": "state",
+      "common": {
+        "role": "text",
+        "name": {
+          "en": "Force polling",
+          "de": "Forciere Abfrage",
+          "ru": "Загрязнение силы",
+          "pt": "Poluindo forças",
+          "nl": "Force peiling",
+          "fr": "Polling de force",
+          "it": "Inquinamento della forza",
+          "es": "Encuestas de fuerzas",
+          "pl": "Polling",
+          "uk": "Примусове опитування",
+          "zh-cn": "部队投票"
         },
-        {
-            "_id": "input.force_polling_interval",
-            "type": "state",
-            "common": {
-                "role": "text",
-                "name": {
-                    "en": "Force polling",
-                    "de": "Forciere Abfrage",
-                    "ru": "Загрязнение силы",
-                    "pt": "Poluindo forças",
-                    "nl": "Force peiling",
-                    "fr": "Polling de force",
-                    "it": "Inquinamento della forza",
-                    "es": "Encuestas de fuerzas",
-                    "pl": "Polling",
-                    "uk": "Примусове опитування",
-                    "zh-cn": "部队投票"
-                },
-                "desc": {
-                    "en": "For direct query of a value from the heating system",
-                    "de": "Zur direkten Abfrage eines Wertes aus dem Heizsystem",
-                    "ru": "Для прямого запроса стоимости от системы отопления",
-                    "pt": "Para consulta direta de um valor do sistema de aquecimento",
-                    "nl": "Voor directe zoektocht naar een waarde van het verhitte systeem",
-                    "fr": "Pour une requête directe d'une valeur du système de chauffage",
-                    "it": "Per query diretta di un valore dal sistema di riscaldamento",
-                    "es": "Para la consulta directa de un valor del sistema de calefacción",
-                    "pl": "W przypadku bezpośredniego zapytania o wartość z systemu ogrzewania",
-                    "uk": "Для прямого запиту вартості від системи опалення",
-                    "zh-cn": "直接询问暖气系统的价值"
-                },
-                "type": "string",
-                "read": true,
-                "write": true
-            },
-            "native": {}
-        }
-    ]
+        "desc": {
+          "en": "For direct query of a value from the heating system",
+          "de": "Zur direkten Abfrage eines Wertes aus dem Heizsystem",
+          "ru": "Для прямого запроса стоимости от системы отопления",
+          "pt": "Para consulta direta de um valor do sistema de aquecimento",
+          "nl": "Voor directe zoektocht naar een waarde van het verhitte systeem",
+          "fr": "Pour une requête directe d'une valeur du système de chauffage",
+          "it": "Per query diretta di un valore dal sistema di riscaldamento",
+          "es": "Para la consulta directa de un valor del sistema de calefacción",
+          "pl": "W przypadku bezpośredniego zapytania o wartość z systemu ogrzewania",
+          "uk": "Для прямого запиту вартості від системи опалення",
+          "zh-cn": "直接询问暖气系统的价值"
+        },
+        "type": "string",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    }
+  ]
 }

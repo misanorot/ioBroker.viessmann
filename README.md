@@ -34,7 +34,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 2.0.5 (2026-06-29)
 * (misanorot) fixed checker issues
 
 ### 2.0.4 (2026-05-17)
@@ -49,9 +49,6 @@
 
 ### 1.7.3 (2025-10-26)
 * (misanorot) update npm progress
-
-### 1.7.2 (2025-10-12)
-* (misanorot) update packages
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
