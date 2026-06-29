@@ -34,6 +34,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed checker issues
+
 ### 2.0.4 (2026-05-17)
 * (misanorot) fixed checker issues
 
