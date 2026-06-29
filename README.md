@@ -27,11 +27,7 @@
 	- Changing Vito.xml without losing settings
 	- Implement unit on/off
 
-## License
 
-The MIT License (MIT)
-
-Copyright (c) 2017-2026 misanorot <audi16v@gmx.de>
 
 ## Changelog
 <!--
@@ -55,3 +51,9 @@ Copyright (c) 2017-2026 misanorot <audi16v@gmx.de>
 * (misanorot) update packages
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2017-2026 misanorot <audi16v@gmx.de>

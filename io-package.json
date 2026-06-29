@@ -125,7 +125,9 @@
             "license": "MIT",
             "type": "free"
         },
-        "authors": ["misanorot <audi16v@gmx.de>"],
+        "authors": [
+            "misanorot <audi16v@gmx.de>"
+        ],
         "tier": 3,
         "compact": true,
         "connectionType": "local",
@@ -134,7 +136,12 @@
         "mode": "daemon",
         "icon": "viessmann.png",
         "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.viessmann/master/admin/viessmann.png",
-        "keywords": ["viessmann", "heizung", "vito", "vitotronic"],
+        "keywords": [
+            "viessmann",
+            "heizung",
+            "vito",
+            "vitotronic"
+        ],
         "readme": "https://github.com/misanorot/ioBroker.viessmann/blob/master/README.md",
         "loglevel": "info",
         "type": "climate-control",
@@ -153,8 +160,14 @@
             }
         ]
     },
-    "protectedNative": ["password", "user_name"],
-    "encryptedNative": ["password", "user_name"],
+    "protectedNative": [
+        "password",
+        "user_name"
+    ],
+    "encryptedNative": [
+        "password",
+        "user_name"
+    ],
     "native": {
         "gets": [],
         "sets": [],
